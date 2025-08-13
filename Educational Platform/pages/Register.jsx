@@ -1,20 +1,20 @@
 import FloatingBubble from "../src/components/floatingBubble";
-import "../styles/login.css";
+import "../styles/register.css";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-export default function Login() {
+export default function Register() {
   const navigate = useNavigate();
   const [isPasswordHidden, setPasswordHidden] = useState(true);
   const handleClick = () => {
-    navigate("/Register");
+    navigate("/Login");
   };
   return (
     <>
       <div className="container1 d-flex">
         <div className="form-section col-xxl-3 col-xl-4 col-lg-5 col-md-5 col-sm-6 d-flex flex-column my-auto ">
-          <h2 className="mx-auto">تسجيل الدخول</h2>
-          <p className="mx-auto mb-4">أدخل بياناتك للوصول إلى حسابك</p>
+          <h2 className="mx-auto">إنشاء حساب جديد</h2>
+          <p className="mx-auto mb-4">انضم إلى منصتنا التعليمية</p>
 
           <label htmlFor="type" className="text-end px-3 pb-2 type mx-auto">
             أنا
@@ -35,7 +35,48 @@ export default function Login() {
             </span>
           </div>
 
-          <div className="email mx-auto my-2">
+          <div className="name mx-auto my-1">
+            <label htmlFor="name" className="nameLabel text-end w-100 mb-1">
+              الاسم بالكامل
+            </label>
+            <div className="relative">
+              <button
+                className="text-gray-400 absolute left-3 inset-y-0 active:text-gray-600"
+                onClick={() => setPasswordHidden(!isPasswordHidden)}
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="36"
+                  height="36"
+                  viewBox="0 0 22 22"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  class="lucide lucide-user absolute left-0 top-3 h-4 w-4 text-gray-400"
+                  data-lov-id="src/components/auth/RegisterForm.tsx:69:12"
+                  data-lov-name="User"
+                  data-component-path="src/components/auth/RegisterForm.tsx"
+                  data-component-line="69"
+                  data-component-file="RegisterForm.tsx"
+                  data-component-name="User"
+                  data-component-content="%7B%22className%22%3A%22absolute%20left-3%20top-3%20h-4%20w-4%20text-gray-400%22%7D"
+                >
+                  <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"></path>
+                  <circle cx="12" cy="7" r="4"></circle>
+                </svg>
+              </button>
+              <input
+                type={"text"}
+                placeholder=" أدخل اسمك بالكامل "
+                className="col-12 form-control text-end w-full pr-12 pl-3 py-2 text-gray-500 bg-transparent outline-none border focus:border-indigo-600 rounded-lg"
+                id="name"
+              />
+            </div>
+          </div>
+
+          <div className="email mx-auto my-1">
             <label htmlFor="email" className="emailLabel text-end w-100 mb-1">
               البريد الإلكتروني
             </label>
@@ -61,6 +102,56 @@ export default function Login() {
                 id="email"
               />
             </div>
+          </div>
+
+          <div className="phone mx-auto my-1">
+            <label htmlFor="phone" className="phoneLabel text-end w-100 mb-1">
+              رقم الهاتف
+            </label>
+            <div className="relative">
+              <button className="text-gray-400 absolute left-3 inset-y-0 active:text-gray-600">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 22 22"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  class="lucide lucide-phone absolute left-0 top-3 h-4 w-4 text-gray-400"
+                  data-lov-id="src/components/auth/RegisterForm.tsx:97:12"
+                  data-lov-name="Phone"
+                  data-component-path="src/components/auth/RegisterForm.tsx"
+                  data-component-line="97"
+                  data-component-file="RegisterForm.tsx"
+                  data-component-name="Phone"
+                  data-component-content="%7B%22className%22%3A%22absolute%20left-3%20top-3%20h-4%20w-4%20text-gray-400%22%7D"
+                >
+                  <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
+                </svg>
+              </button>
+              <input
+                type={"number"}
+                placeholder=" أدخل رقم هاتفك "
+                className="col-12 form-control text-end w-full pr-12 pl-3 py-2 text-gray-500 bg-transparent outline-none border focus:border-indigo-600 rounded-lg"
+                id="phone"
+              />
+            </div>
+          </div>
+
+          <label htmlFor="type" className="text-end px-1 pb-2 type mx-auto">
+            السنةالدراسية
+          </label>
+          <button className="text-start form-select form-select1 mx-auto px-3 py-2 rounded-3">
+            <span>السنة الدراسية</span>
+          </button>
+
+          <div className="collapseMenu1 collapseMenu d-flex flex-column mx-auto input">
+            <span>الأول الثانوي</span>
+            <span>الثاني الثانوي</span>
+            <span>الثالث الثانوي</span>
           </div>
 
           <div className="password mx-auto my-2">
@@ -114,8 +205,8 @@ export default function Login() {
               </button>
               <input
                 type={isPasswordHidden ? "password" : "text"}
-                placeholder=" أدخل كلمة السر "
-                className="col-12 form-control text-end w-full pr-12 pl-3 py-2 text-gray-500 bg-transparent outline-none border focus:border-indigo-600 shadow-sm rounded-lg"
+                placeholder=" أنشئ كلمة سر قوية "
+                className="col-12 form-control text-end w-full pr-12 pl-3 py-2 text-gray-500 bg-transparent outline-none border focus:border-indigo-600 rounded-lg"
                 id="password"
               />
             </div>
@@ -127,10 +218,10 @@ export default function Login() {
 
           <p className="mx-auto my-4">
             {" "}
-            ليس لديك حساب ؟{" "}
+            لديك حساب بالفعل؟{" "}
             <span onClick={handleClick} className="navigation ">
               {" "}
-              إنشاء حساب{" "}
+              تسجيل دخول{" "}
             </span>
           </p>
         </div>
@@ -145,8 +236,8 @@ export default function Login() {
               alt="avatar"
               className="img"
             />
-            <p className="welcome">مرحباً بعودتك</p>
-            <button onClick={handleClick}>سجل معانا</button>
+            <p className="welcome">انضم إلينا</p>
+            <p>ابدأ رحلتك التعليمية معنا اليوم</p>
           </div>
         </div>
       </div>

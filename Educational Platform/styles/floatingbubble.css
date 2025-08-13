@@ -1,0 +1,19 @@
+.bubble{
+    width: 65px;
+    height: 65px;
+    border-radius: 50%;
+    background-color:#eeeeee2c;
+    animation: float 3.5s ease infinite;
+}
+@keyframes float {
+    0%{
+        transform: translateY(0px);
+    }
+    50%{
+        transform: translateY(-10px);
+    }
+    100%{
+        transform: translateY(0px);
+    }
+}
+

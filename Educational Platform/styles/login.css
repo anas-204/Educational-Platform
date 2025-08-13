@@ -1,0 +1,123 @@
+.container1{
+    height:100vh;
+}
+.form-section{
+    position: relative;
+}
+.form-select,.type,.collapseMenu,.email,.password,.submit{
+    width: 80% !important;
+}
+.form-select{
+    background-color: hsl(var(--background));
+}
+.collapseMenu{
+    border: 1px solid #EEE;
+    margin-top: 10px;
+    border-radius: 5px;
+    transition: all 0.3s ease;
+    transform: translateY(-30px);
+    opacity: 0;
+    position: absolute;
+    left: calc(20% /2);
+    z-index: -1;
+}
+.collapseMenu span{
+    text-indent: 10px;
+    padding: 3px 0px;
+    border-radius: 5px;
+    margin: 3px;
+}
+.collapseMenu span:hover{
+    background-color: hsl(var(--accent));
+}
+
+.form-select:focus + .collapseMenu {
+    animation: slideAndFade 0.5s ease-out forwards;
+    z-index: 1;
+    background-color: hsl(var(--background));
+}
+
+@keyframes slideAndFade {
+    0% {
+        opacity: 0%;
+        transform: translateY(0);
+    }
+    50% {
+        opacity: 0%; 
+        transform: translateY(75px); 
+    }
+    100% {
+        opacity: 100%;
+        transform: translateY(200px);
+    }
+}
+h2{
+    font-weight: 700;
+    margin-bottom: 10px;
+}
+label{
+    color: hsl(var(--muted-foreground));
+    font-size: 15px;
+}
+p{
+    color: hsl(var(--muted-foreground));
+}
+.submit{
+    background:var(--primary-gradient) ;
+    color: hsl(var(--background));
+    border-radius: 5px;
+    margin-top: 15px;
+}
+input{
+    font-size: 10px;
+    padding-block: 10px !important;
+    border-radius: 10px !important;
+}
+input:focus{
+    outline: 2px solid hsl(270, 100%, 50%); 
+    box-shadow: 0 0 0 2px hsl(270, 100%, 50%); 
+}
+.email,.password{
+    margin-block:10px !important;
+}
+.navigation{
+    color:hsl(var(--primary-light));
+    cursor: pointer;
+}
+.avatar-section{
+    background: var(--hero-gradient);
+}
+.img{
+    width: 300px;
+    height: 400px;
+    object-fit: cover;
+    border-radius: 25px;
+}
+.welcome{
+    font-size: 40px;
+    color: hsl(var(--background));
+    font-weight: 700;
+    margin-block: 15px;
+}
+.welcome + button{
+    background-color:#eeeeee2c;
+    color: hsl(var(--background));
+    padding: 15px;
+    border-radius: 10px;
+    transition: 0.5s ease all;
+}
+.welcome + button:hover{
+    background-color: #eeeeee7d;
+}
+@media screen and (max-width:620px) {
+    .avatar-section{
+        display: none;
+    }
+    .form-section{
+        width: 100%;
+    }
+}
+
+
+
+
