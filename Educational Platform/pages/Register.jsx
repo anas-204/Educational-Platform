@@ -2,17 +2,47 @@ import FloatingBubble from "../src/components/floatingBubble";
 import "../styles/register.css";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 export default function Register() {
   const navigate = useNavigate();
   const [isPasswordHidden, setPasswordHidden] = useState(true);
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    password: "",
+    phonenumber: "",
+    cureentyear: "",
+    studentOrteacher: "student",
+  });
+  const handleChange = (e) => {
+    setFormData({
+      ...formData,
+      [e.target.id]: e.target.value,
+    });
+  };
+
   const handleClick = () => {
     navigate("/Login");
+  };
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await axios.post("YOUR_API_ENDPOINT_HERE", formData);
+      console.log(response.data);
+      navigate("/Login");
+    } catch (error) {
+      console.error("Registration error:", error);
+    }
   };
   return (
     <>
       <div className="container1 d-flex">
-        <div className="form-section col-xxl-3 col-xl-4 col-lg-5 col-md-5 col-sm-6 d-flex flex-column my-auto ">
+        <form
+          className="form-section col-xxl-3 col-xl-4 col-lg-5 col-md-5 col-sm-6 d-flex flex-column my-auto "
+          onSubmit={handleSubmit}
+          onChange={handleChange}
+        >
           <h2 className="mx-auto">إنشاء حساب جديد</h2>
           <p className="mx-auto mb-4">انضم إلى منصتنا التعليمية</p>
 
@@ -51,10 +81,10 @@ export default function Register() {
                   viewBox="0 0 22 22"
                   fill="none"
                   stroke="currentColor"
-                  stroke-width="2"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  class="lucide lucide-user absolute left-0 top-3 h-4 w-4 text-gray-400"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  className="lucide lucide-user absolute left-0 top-3 h-4 w-4 text-gray-400"
                   data-lov-id="src/components/auth/RegisterForm.tsx:69:12"
                   data-lov-name="User"
                   data-component-path="src/components/auth/RegisterForm.tsx"
@@ -117,10 +147,10 @@ export default function Register() {
                   viewBox="0 0 22 22"
                   fill="none"
                   stroke="currentColor"
-                  stroke-width="2"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  class="lucide lucide-phone absolute left-0 top-3 h-4 w-4 text-gray-400"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  className="lucide lucide-phone absolute left-0 top-3 h-4 w-4 text-gray-400"
                   data-lov-id="src/components/auth/RegisterForm.tsx:97:12"
                   data-lov-name="Phone"
                   data-component-path="src/components/auth/RegisterForm.tsx"
@@ -224,7 +254,7 @@ export default function Register() {
               تسجيل دخول{" "}
             </span>
           </p>
-        </div>
+        </form>
 
         <div className="avatar-section col-xxl-9 col-xl-8 col-lg-7 col-md-7 col-sm-6  position-relative">
           <FloatingBubble class="right-25 top-25" />

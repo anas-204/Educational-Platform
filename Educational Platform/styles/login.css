@@ -4,10 +4,10 @@
 .form-section{
     position: relative;
 }
-.form-select,.type,.collapseMenu,.email,.password,.submit{
+.form-select1,.type,.collapseMenu,.email,.password,.submit,.select{
     width: 80% !important;
 }
-.form-select{
+.form-select1{
     background-color: hsl(var(--background));
 }
 .collapseMenu{

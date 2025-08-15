@@ -9,6 +9,7 @@ export default function Login() {
   const handleClick = () => {
     navigate("/Register");
   };
+
   return (
     <>
       <div className="container1 d-flex">
