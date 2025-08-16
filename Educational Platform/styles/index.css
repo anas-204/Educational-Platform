@@ -1,11 +1,8 @@
-@import url("https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap");
-
-body {
-  height: 100vh;
+body{
+  height:100vh;
 }
-* {
-  font-family: cairo;
-  box-sizing: border-box;
+*{
+  font-family:cairo;
 }
 :root {
   --background: 0 0% 100%;
@@ -27,21 +24,9 @@ body {
   --border: 220 13% 91%;
   --input: 220 13% 91%;
 
-  --primary-gradient: linear-gradient(
-    135deg,
-    hsl(262 83% 58%),
-    hsl(262 83% 45%)
-  );
-  --secondary-gradient: linear-gradient(
-    135deg,
-    hsl(195 100% 50%),
-    hsl(195 100% 40%)
-  );
-  --success-gradient: linear-gradient(
-    135deg,
-    hsl(142 76% 36%),
-    hsl(142 76% 30%)
-  );
+  --primary-gradient: linear-gradient(135deg, hsl(262 83% 58%), hsl(262 83% 45%));
+  --secondary-gradient: linear-gradient(135deg, hsl(195 100% 50%), hsl(195 100% 40%));
+  --success-gradient: linear-gradient(135deg, hsl(142 76% 36%), hsl(142 76% 30%));
   --hero-gradient: linear-gradient(135deg, hsl(262 83% 58%), hsl(195 100% 50%));
   --card-gradient: linear-gradient(145deg, hsl(0 0% 100%), hsl(220 14% 98%));
 
@@ -72,31 +57,11 @@ body {
     --border: 215 25% 20%;
     --input: 215 25% 20%;
 
-    --primary-gradient: linear-gradient(
-      135deg,
-      hsl(262 90% 75%),
-      hsl(262 80% 65%)
-    );
-    --secondary-gradient: linear-gradient(
-      135deg,
-      hsl(195 100% 70%),
-      hsl(195 90% 60%)
-    );
-    --success-gradient: linear-gradient(
-      135deg,
-      hsl(142 80% 60%),
-      hsl(142 75% 50%)
-    );
-    --hero-gradient: linear-gradient(
-      135deg,
-      hsl(262 90% 75%),
-      hsl(195 100% 70%)
-    );
-    --card-gradient: linear-gradient(
-      145deg,
-      hsl(215 25% 12%),
-      hsl(215 25% 18%)
-    );
+    --primary-gradient: linear-gradient(135deg, hsl(262 90% 75%), hsl(262 80% 65%));
+    --secondary-gradient: linear-gradient(135deg, hsl(195 100% 70%), hsl(195 90% 60%));
+    --success-gradient: linear-gradient(135deg, hsl(142 80% 60%), hsl(142 75% 50%));
+    --hero-gradient: linear-gradient(135deg, hsl(262 90% 75%), hsl(195 100% 70%));
+    --card-gradient: linear-gradient(145deg, hsl(215 25% 12%), hsl(215 25% 18%));
 
     --shadow-soft: 0 4px 6px -1px hsl(262 90% 75% / 0.2);
     --shadow-medium: 0 10px 15px -3px hsl(262 90% 75% / 0.2);
