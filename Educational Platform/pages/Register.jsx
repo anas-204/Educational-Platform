@@ -1,4 +1,4 @@
-import FloatingBubble from "../src/components/floatingBubble";
+import FloatingBackground from "../src/components/comon/FloatingBackground";
 import "../styles/register.css";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -257,9 +257,7 @@ export default function Register() {
         </form>
 
         <div className="avatar-section col-xxl-9 col-xl-8 col-lg-7 col-md-7 col-sm-6  position-relative">
-          <FloatingBubble class="right-25 top-25" />
-          <FloatingBubble class="left-50 bottom-25" />
-          <FloatingBubble class="top-25 left-25" />
+          <FloatingBackground />
           <div className="avatar m-auto h-100 d-flex justify-content-center align-items-center flex-column">
             <img
               src={"../src/assets/teacher-avatar.png"}
