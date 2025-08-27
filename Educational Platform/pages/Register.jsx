@@ -3,6 +3,9 @@ import "../styles/register.css";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import InputLabel from "@mui/material/InputLabel";
+import MenuItem from "@mui/material/MenuItem";
+import Select from "@mui/material/Select";
 
 export default function Register() {
   const navigate = useNavigate();
@@ -12,9 +15,9 @@ export default function Register() {
     email: "",
     password: "",
     phonenumber: "",
-    cureentyear: "",
-    studentOrteacher: "student",
+    currentyear: "",
   });
+
   const handleChange = (e) => {
     setFormData({
       ...formData,
@@ -22,57 +25,50 @@ export default function Register() {
     });
   };
 
+  const handleStudentYear = (event) => {
+    setFormData({
+      ...formData,
+      currentyear: event.target.value,
+    });
+  };
+
   const handleClick = () => {
     navigate("/Login");
   };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post("YOUR_API_ENDPOINT_HERE", formData);
+      const response = await axios.post(
+        "http://localhost:3000/auth/Register",
+        formData
+      );
       console.log(response.data);
       navigate("/Login");
     } catch (error) {
       console.error("Registration error:", error);
     }
   };
+
   return (
     <>
       <div className="container1 d-flex">
         <form
           className="form-section col-xxl-3 col-xl-4 col-lg-5 col-md-5 col-sm-6 d-flex flex-column my-auto "
           onSubmit={handleSubmit}
-          onChange={handleChange}
         >
           <h2 className="mx-auto">إنشاء حساب جديد</h2>
           <p className="mx-auto mb-4">انضم إلى منصتنا التعليمية</p>
 
-          <label htmlFor="type" className="text-end px-3 pb-2 type mx-auto">
-            أنا
-          </label>
-
-          <button className="text-start form-select mx-auto px-3 py-2 rounded-3">
-            <span>
-              طالب <i className="bi bi-person"></i>
-            </span>
-          </button>
-
-          <div className="collapseMenu d-flex flex-column mx-auto input">
-            <span>
-              طالب <i className="bi bi-person"></i>
-            </span>
-            <span>
-              معلم <i className="bi bi-person"></i>
-            </span>
-          </div>
-
+          {/* Name Field */}
           <div className="name mx-auto my-1">
             <label htmlFor="name" className="nameLabel text-end w-100 mb-1">
               الاسم بالكامل
             </label>
             <div className="relative">
               <button
+                type="button"
                 className="text-gray-400 absolute left-3 inset-y-0 active:text-gray-600"
-                onClick={() => setPasswordHidden(!isPasswordHidden)}
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -85,13 +81,6 @@ export default function Register() {
                   strokeLinecap="round"
                   strokeLinejoin="round"
                   className="lucide lucide-user absolute left-0 top-3 h-4 w-4 text-gray-400"
-                  data-lov-id="src/components/auth/RegisterForm.tsx:69:12"
-                  data-lov-name="User"
-                  data-component-path="src/components/auth/RegisterForm.tsx"
-                  data-component-line="69"
-                  data-component-file="RegisterForm.tsx"
-                  data-component-name="User"
-                  data-component-content="%7B%22className%22%3A%22absolute%20left-3%20top-3%20h-4%20w-4%20text-gray-400%22%7D"
                 >
                   <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"></path>
                   <circle cx="12" cy="7" r="4"></circle>
@@ -102,10 +91,14 @@ export default function Register() {
                 placeholder=" أدخل اسمك بالكامل "
                 className="col-12 form-control text-end w-full pr-12 pl-3 py-2 text-gray-500 bg-transparent outline-none border focus:border-indigo-600 rounded-lg"
                 id="name"
+                value={formData.name}
+                onChange={handleChange}
+                required
               />
             </div>
           </div>
 
+          {/* Email Field */}
           <div className="email mx-auto my-1">
             <label htmlFor="email" className="emailLabel text-end w-100 mb-1">
               البريد الإلكتروني
@@ -128,18 +121,28 @@ export default function Register() {
               <input
                 type="email"
                 placeholder="أدخل البريد الإلكتروني "
-                className="col-12 form-control text-end"
+                className="col-12 form-control text-end w-full pr-12 pl-3 py-2 text-gray-500 bg-transparent outline-none border focus:border-indigo-600 rounded-lg"
                 id="email"
+                value={formData.email}
+                onChange={handleChange}
+                required
               />
             </div>
           </div>
 
-          <div className="phone mx-auto my-1">
-            <label htmlFor="phone" className="phoneLabel text-end w-100 mb-1">
+          {/* Phone Field */}
+          <div className="phone mx-auto my-2">
+            <label
+              htmlFor="phonenumber"
+              className="phoneLabel text-end w-100 mb-1"
+            >
               رقم الهاتف
             </label>
             <div className="relative">
-              <button className="text-gray-400 absolute left-3 inset-y-0 active:text-gray-600">
+              <button
+                type="button"
+                className="text-gray-400 absolute left-3 inset-y-0 active:text-gray-600"
+              >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   width="24"
@@ -151,39 +154,101 @@ export default function Register() {
                   strokeLinecap="round"
                   strokeLinejoin="round"
                   className="lucide lucide-phone absolute left-0 top-3 h-4 w-4 text-gray-400"
-                  data-lov-id="src/components/auth/RegisterForm.tsx:97:12"
-                  data-lov-name="Phone"
-                  data-component-path="src/components/auth/RegisterForm.tsx"
-                  data-component-line="97"
-                  data-component-file="RegisterForm.tsx"
-                  data-component-name="Phone"
-                  data-component-content="%7B%22className%22%3A%22absolute%20left-3%20top-3%20h-4%20w-4%20text-gray-400%22%7D"
                 >
                   <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
                 </svg>
               </button>
               <input
-                type={"number"}
+                type={"tel"}
                 placeholder=" أدخل رقم هاتفك "
                 className="col-12 form-control text-end w-full pr-12 pl-3 py-2 text-gray-500 bg-transparent outline-none border focus:border-indigo-600 rounded-lg"
-                id="phone"
+                id="phonenumber"
+                value={formData.phonenumber}
+                onChange={handleChange}
+                required
               />
             </div>
           </div>
 
-          <label htmlFor="type" className="text-end px-1 pb-2 type mx-auto">
-            السنةالدراسية
-          </label>
-          <button className="text-start form-select form-select1 mx-auto px-3 py-2 rounded-3">
-            <span>السنة الدراسية</span>
-          </button>
+          {/* Student Year Selection */}
+          <InputLabel
+            id="demo-simple-select-filled-label"
+            sx={{
+              width: "80%",
+              margin: "3px auto",
+              textAlign: "right",
+              paddingRight: "0px",
+              fontFamily: "Cairo",
+            }}
+          >
+            الصف الدراسي
+          </InputLabel>
+          <Select
+            labelId="demo-simple-select-filled-label"
+            id="currentyear"
+            value={formData.currentyear}
+            onChange={handleStudentYear}
+            sx={{
+              width: "80%",
+              margin: "0 auto",
+              border: "1px solid #e5e3e3ff",
+              borderRadius: "10px !important",
+              fontFamily: "Cairo",
+              height: "42px",
+              "& .MuiSelect-select": {
+                paddingRight: "35px",
+              },
+              "& .MuiOutlinedInput-notchedOutline": {
+                border: "none",
+              },
+              "&:focus": {
+                outline: "2px solid hsl(270, 100%, 50%)",
+                boxShadow: "0 0 0 2px hsl(270, 100%, 50%)",
+              },
+            }}
+            MenuProps={{
+              sx: {
+                borderRadius: "25px",
+                fontFamily: "Cairo",
+              },
+            }}
+            required
+          >
+            <MenuItem
+              value={"الأول الثانوي"}
+              className="menuItem"
+              sx={{
+                borderRadius: "5px",
+                fontFamily: "Cairo",
+                borderBottom: "1px solid #eeeeee8f",
+              }}
+            >
+              الأول الثانوي
+            </MenuItem>
+            <MenuItem
+              value={"الثاني الثانوي"}
+              className="menuItem"
+              sx={{
+                borderRadius: "5px",
+                fontFamily: "Cairo",
+                borderBottom: "1px solid #eeeeee8f",
+              }}
+            >
+              الثاني الثانوي
+            </MenuItem>
+            <MenuItem
+              value={"الثالث الثانوي"}
+              className="menuItem"
+              sx={{
+                borderRadius: "5px",
+                fontFamily: "Cairo",
+              }}
+            >
+              الثالث الثانوي
+            </MenuItem>
+          </Select>
 
-          <div className="collapseMenu1 collapseMenu d-flex flex-column mx-auto input">
-            <span>الأول الثانوي</span>
-            <span>الثاني الثانوي</span>
-            <span>الثالث الثانوي</span>
-          </div>
-
+          {/* Password Field */}
           <div className="password mx-auto my-2">
             <label
               htmlFor="password"
@@ -193,6 +258,7 @@ export default function Register() {
             </label>
             <div className="relative">
               <button
+                type="button"
                 className="text-gray-400 absolute left-3 inset-y-0 active:text-gray-600"
                 onClick={() => setPasswordHidden(!isPasswordHidden)}
               >
@@ -238,18 +304,25 @@ export default function Register() {
                 placeholder=" أنشئ كلمة سر قوية "
                 className="col-12 form-control text-end w-full pr-12 pl-3 py-2 text-gray-500 bg-transparent outline-none border focus:border-indigo-600 rounded-lg"
                 id="password"
+                value={formData.password}
+                onChange={handleChange}
+                required
               />
             </div>
           </div>
 
           <button className="submit mx-auto border-0 p-2" type="submit">
-            دخول
+            إنشاء حساب
           </button>
 
           <p className="mx-auto my-4">
             {" "}
             لديك حساب بالفعل؟{" "}
-            <span onClick={handleClick} className="navigation ">
+            <span
+              onClick={handleClick}
+              className="navigation "
+              style={{ cursor: "pointer" }}
+            >
               {" "}
               تسجيل دخول{" "}
             </span>

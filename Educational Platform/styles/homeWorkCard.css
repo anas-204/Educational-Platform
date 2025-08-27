@@ -1,0 +1,48 @@
+.homeWorkCard{
+    border: 1px solid #EEE;
+    border-radius: 10px;
+    box-shadow: var(--shadow-soft);
+    transition: all 0.4ss ease;
+    border-radius: 15px !important;
+}
+.homeWorkCard:hover{
+    box-shadow: var(--shadow-medium);
+}
+.homeWorkCard .header .status p{
+    font-size: 12px;
+    background-color: hsl(var(--status));
+    padding: 5px 8px;
+    border-radius: 7px;
+    color: hsl(var(--success));
+}
+.homeWorkCard h6{
+    font-size: 25px;
+}
+.dates p{
+    margin-bottom: 2px;
+    font-size: 14px;
+    color: black;
+}
+.dates i{
+    color: #a9a9a9;
+}
+.dates{
+    margin-bottom: 15px;
+    flex-wrap: wrap;
+}
+.isSubmitted i{
+    color: hsl(var(--success));
+    font-size: 18px;
+}
+.body p:nth-child(1){
+    color: black !important;
+}
+.getDet{
+    width: fit-content !important;
+    border: 1px solid #c2c1c13d !important;
+    transition: all 0.4s ease;
+}
+.getDet:hover{
+    background-color: hsl(var(--accent)) !important;
+    color: hsl(var(--primary)) !important;
+}

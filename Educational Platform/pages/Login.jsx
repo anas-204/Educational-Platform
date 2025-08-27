@@ -1,40 +1,155 @@
-import FloatingBackground from "../src/components/comon/FloatingBackground"
+import FloatingBackground from "../src/components/comon/FloatingBackground";
 import "../styles/login.css";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
+import InputLabel from "@mui/material/InputLabel";
+import MenuItem from "@mui/material/MenuItem";
+import Select from "@mui/material/Select";
 
 export default function Login() {
   const navigate = useNavigate();
   const [isPasswordHidden, setPasswordHidden] = useState(true);
+  const [userType, setUserType] = useState("student");
+  const [errorMessage, setErrorMessage] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
+
   const handleClick = () => {
     navigate("/Register");
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setErrorMessage("");
+    setIsLoading(true);
+
+    try {
+      const response = await axios.post("/api/auth/login", {
+        email: formData.email,
+        password: formData.password,
+        role: userType,
+      });
+
+      console.log(response.data);
+
+      localStorage.setItem("authToken", response.data.token);
+      localStorage.setItem("userType", userType);
+      localStorage.setItem("userData", JSON.stringify(response.data.user));
+
+      if (userType === "student") {
+        navigate("/StudentDashBoard");
+      } else {
+        navigate("/TeacherDashBoard");
+      }
+    } catch (error) {
+      console.error("Login error:", error);
+      if (error.code === "ERR_NETWORK") {
+        setErrorMessage("تعذر الاتصال بالخادم. يرجى التأكد من تشغيل الخادم.");
+      } else if (error.response && error.response.status === 401) {
+        setErrorMessage("البريد الإلكتروني أو كلمة المرور غير صحيحة");
+      } else if (
+        error.response &&
+        error.response.data &&
+        error.response.data.message
+      ) {
+        setErrorMessage(error.response.data.message);
+      } else {
+        setErrorMessage("حدث خطأ أثناء تسجيل الدخول. يرجى المحاولة مرة أخرى.");
+      }
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const [formData, setFormData] = useState({
+    email: "",
+    password: "",
+  });
+
+  const handleUserTypeChange = (event) => {
+    setUserType(event.target.value);
+  };
+
+  const handleInputChange = (e) => {
+    setFormData({
+      ...formData,
+      [e.target.id]: e.target.value,
+    });
   };
 
   return (
     <>
       <div className="container1 d-flex">
-        <div className="form-section col-xxl-3 col-xl-4 col-lg-5 col-md-5 col-sm-6 d-flex flex-column my-auto ">
+        <form
+          className="form-section col-xxl-3 col-xl-4 col-lg-5 col-md-5 col-sm-6 d-flex flex-column my-auto "
+          onSubmit={handleSubmit}
+        >
           <h2 className="mx-auto">تسجيل الدخول</h2>
           <p className="mx-auto mb-4">أدخل بياناتك للوصول إلى حسابك</p>
 
-          <label htmlFor="type" className="text-end px-3 pb-2 type mx-auto">
+          <InputLabel
+            id="demo-simple-select-filled-label"
+            sx={{
+              width: "80%",
+              margin: "0 auto",
+              textAlign: "right",
+              paddingRight: "10px",
+              fontFamily: "Cairo",
+            }}
+          >
             أنا
-          </label>
-
-          <button className="text-start form-select mx-auto px-3 py-2 rounded-3">
-            <span>
-              طالب <i className="bi bi-person"></i>
-            </span>
-          </button>
-
-          <div className="collapseMenu d-flex flex-column mx-auto input">
-            <span>
-              طالب <i className="bi bi-person"></i>
-            </span>
-            <span>
-              معلم <i className="bi bi-person"></i>
-            </span>
-          </div>
+          </InputLabel>
+          <Select
+            labelId="demo-simple-select-filled-label"
+            id="demo-simple-select-filled"
+            value={userType}
+            onChange={handleUserTypeChange}
+            sx={{
+              width: "80%",
+              margin: "0 auto",
+              border: "1px solid #e5e3e3ff",
+              borderRadius: "10px !important",
+              fontFamily: "Cairo",
+              height: "42px",
+              "& .MuiSelect-select": {
+                paddingRight: "35px",
+              },
+              "& .MuiOutlinedInput-notchedOutline": {
+                border: "none",
+              },
+              "&:focus": {
+                outline: "2px solid hsl(270, 100%, 50%)",
+                boxShadow: "0 0 0 2px hsl(270, 100%, 50%)",
+              },
+            }}
+            MenuProps={{
+              sx: {
+                borderRadius: "15px",
+                fontFamily: "Cairo",
+              },
+            }}
+          >
+            <MenuItem
+              value={"student"}
+              className="menuItem"
+              sx={{
+                borderRadius: "5px",
+                fontFamily: "Cairo",
+              }}
+            >
+              طالب <i className="bi bi-mortarboard-fill mx-2"></i>
+            </MenuItem>
+            <MenuItem
+              value={"teacher"}
+              className="menuItem"
+              sx={{
+                borderRadius: "5px",
+                fontFamily: "Cairo",
+              }}
+            >
+              معلم <i className="bi bi-person mx-2"></i>
+            </MenuItem>
+          </Select>
 
           <div className="email mx-auto my-2">
             <label htmlFor="email" className="emailLabel text-end w-100 mb-1">
@@ -60,6 +175,7 @@ export default function Login() {
                 placeholder="أدخل البريد الإلكتروني "
                 className="col-12 form-control text-end"
                 id="email"
+                onChange={handleInputChange}
               />
             </div>
           </div>
@@ -118,12 +234,37 @@ export default function Login() {
                 placeholder=" أدخل كلمة السر "
                 className="col-12 form-control text-end w-full pr-12 pl-3 py-2 text-gray-500 bg-transparent outline-none border focus:border-indigo-600 shadow-sm rounded-lg"
                 id="password"
+                onChange={handleInputChange}
               />
             </div>
           </div>
 
-          <button className="submit mx-auto border-0 p-2" type="submit" onClick={()=>navigate("/StudentDashBoard")}>
-            دخول
+          {errorMessage && (
+            <div
+              className="alert alert-danger mx-auto mt-3 text-center"
+              role="alert"
+            >
+              {errorMessage}
+            </div>
+          )}
+
+          <button
+            className="submit mx-auto border-0 p-2  mt-3"
+            type="submit"
+            disabled={isLoading}
+          >
+            {isLoading ? (
+              <>
+                <span
+                  className="spinner-border spinner-border-sm me-2"
+                  role="status"
+                  aria-hidden="true"
+                ></span>
+                جاري تسجيل الدخول
+              </>
+            ) : (
+              "دخول"
+            )}
           </button>
 
           <p className="mx-auto my-4">
@@ -134,10 +275,10 @@ export default function Login() {
               إنشاء حساب{" "}
             </span>
           </p>
-        </div>
+        </form>
 
         <div className="avatar-section col-xxl-9 col-xl-8 col-lg-7 col-md-7 col-sm-6  position-relative">
-                <FloatingBackground />
+          <FloatingBackground />
           <div className="avatar m-auto h-100 d-flex justify-content-center align-items-center flex-column">
             <img
               src={"../src/assets/teacher-avatar.png"}

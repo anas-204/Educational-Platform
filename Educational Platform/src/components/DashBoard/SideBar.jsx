@@ -1,29 +1,24 @@
-import React from "react";
 import styled from "styled-components";
-import {
-  Home,
-  Calendar,
-  Trophy,
-  PenTool,
-  Target,
-  User,
-  LogOut,
-} from "lucide-react";
+import { Home, Calendar, Trophy, PenTool, Target, User } from "lucide-react";
 import { useNavigate } from "react-router-dom";
+import { LogOut } from "lucide-react";
 import Swal from "sweetalert2";
+
 const SidebarWrapper = styled.aside`
   background-color: hsl(var(--card));
-  border-right: 1px solid hsl(var(--border));
-  min-height: calc(100vh - 88.8px);
+  border-left: 1px solid #eeeeee3d;
   padding: 1rem;
   box-shadow: 1px 0 4px rgba(0, 0, 0, 0.05);
-  position: fixed;
-  top: 88.8px;
-  right: ${({ isOpen }) => (isOpen ? "0" : "-250px")};
-  width: 195px;
   height: 100vh;
-  transition: right 0.3s ease-in-out;
-  z-index: 1001;
+
+  @media (max-width: 768px) {
+    position: fixed;
+    right: ${({ isOpen }) => (isOpen ? "0" : "-250px")};
+    transition: right 0.3s ease-in-out;
+    z-index: 1001;
+    top: 88.8px;
+    width: 200px;
+  }
 `;
 
 const Nav = styled.nav`
@@ -43,21 +38,30 @@ const NavButton = styled.button`
   border: none;
   cursor: pointer;
   color: hsl(var(--foreground));
-  font-size: 0.95rem;
+  font-size: 15px;
   transition: all 0.2s ease;
-
   &:hover {
     background-color: hsl(var(--accent));
-    color: hsl(var(--accent-foreground));
+    color: hsl(var(--primary));
   }
 
   svg {
     width: 20px;
     height: 20px;
   }
+  @media (max-width: );
 `;
 
 export default function Sidebar({ isOpen }) {
+  const navigate = useNavigate();
+  const navItems = [
+    { icon: Home, label: "لوحة التحكم", path: "/StudentDashBoard" },
+    { icon: Calendar, label: "الجلسات", path: "/StudentDashBoard/Sessions" },
+    { icon: Trophy, label: "الاختبارات", path: "/StudentDashBoard/Quizzes" },
+    { icon: PenTool, label: "الواجبات", path: "/StudentDashBoard/Homework" },
+    { icon: Target, label: "التجارب", path: "/StudentDashBoard/Trials" },
+    { icon: User, label: "الملف الشخصي", path: "/StudentDashBoard/Profile" },
+  ];
   const handleLogout = () => {
     Swal.fire({
       title: "هل أنت متأكد؟",
@@ -77,30 +81,25 @@ export default function Sidebar({ isOpen }) {
       }
     });
   };
-  const navigate = useNavigate();
-  const navItems = [
-    { icon: Home, label: "لوحة التحكم", path: "/StudentDashBoard" },
-    { icon: Calendar, label: "الجلسات", path: "/StudentDashBoard/Sessions" },
-    { icon: Trophy, label: "الاختبارات", path: "/StudentDashBoard/Quizzes" },
-    { icon: PenTool, label: "الواجبات", path: "/StudentDashBoard/Homework" },
-    { icon: Target, label: "التجارب", path: "/StudentDashBoard/Trials" },
-    { icon: User, label: "الملف الشخصي", path: "/StudentDashBoard/Profile" },
-  ];
 
   return (
-    <SidebarWrapper isOpen={isOpen}>
+    <SidebarWrapper isOpen={isOpen} className="col-xl-2 col-sm-3 ">
       <Nav>
         {navItems.map((item) => (
-          <NavButton key={item.path} onClick={() => navigate(item.path)}>
+          <NavButton
+            key={item.path}
+            onClick={() => navigate(item.path)}
+            className="col-10"
+          >
             <item.icon />
             {item.label}
           </NavButton>
         ))}
-        <NavButton onClick={handleLogout}>
-          <LogOut  />
-          تسجيل الخروج
-        </NavButton>
       </Nav>
+      <NavButton onClick={handleLogout} className="d-md-none">
+        <LogOut />
+        تسجيل الخروج
+      </NavButton>
     </SidebarWrapper>
   );
 }

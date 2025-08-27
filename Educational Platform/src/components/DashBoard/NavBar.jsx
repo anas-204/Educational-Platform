@@ -1,7 +1,10 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import styled, { css } from "styled-components";
-import { GraduationCap, Sun, Moon, LogOut, Menu } from "lucide-react";
+import { GraduationCap, Sun, Moon, Menu } from "lucide-react";
 import Swal from "sweetalert2";
+import { useNavigate } from "react-router-dom";
+import { LogOut } from "lucide-react";
+
 const Nav = styled("nav")`
   background-color: hsl(var(--card));
   border-bottom: 1px solid hsl(var(--border));
@@ -50,7 +53,30 @@ const buttonBase = css`
     width: 1rem;
   }
 `;
+const NavButton = styled.button`
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.5rem 1rem;
+  text-align: right;
+  border-radius: 0.5rem;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  color: hsl(var(--foreground));
+  font-size: 0.95rem;
+  transition: all 0.2s ease;
+  border: 1px solid #eee;
+  &:hover {
+    background-color: hsl(var(--accent));
+    color: hsl(var(--primary));
+  }
 
+  svg {
+    width: 20px;
+    height: 20px;
+  }
+`;
 const ghost = css`
   background: transparent;
   color: hsl(var(--foreground));
@@ -96,7 +122,7 @@ const Burger = styled.button`
   }
 `;
 
-const Rigth = styled.div`
+const Right = styled.div`
   display: flex;
   gap: 0.75rem;
   align-items: center;
@@ -114,7 +140,7 @@ const Icon = styled("div")`
   }
 `;
 
-const Titel = styled("div")`
+const Title = styled("div")`
   display: flex;
   flex-direction: column;
   align-items: end;
@@ -133,32 +159,55 @@ const Titel = styled("div")`
 `;
 
 export default function NavBar({ toggleSidebar }) {
-  
+  const navigate = useNavigate();
+  const handleLogout = () => {
+    Swal.fire({
+      title: "هل أنت متأكد؟",
+      text: "سيتم تسجيل خروجك من الحساب",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "نعم، تسجيل الخروج",
+      cancelButtonText: "إلغاء",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        Swal.fire("تم تسجيل الخروج!", "", "success");
+        // Code Make Logout ya anooos
+        // remove token from Api ya anoos
+        navigate("/login");
+      }
+    });
+  };
   const [dark, setDark] = useState(false);
 
   const toggleTheme = () => setDark(!dark);
 
   return (
-    <Nav>
+    <Nav className="px-md-5 px-1">
       <Main>
         <Content>
           <Left>
-            <Burger onClick={toggleSidebar}>
+            <Burger onClick={toggleSidebar} className="d-md-none">
               <Menu />
             </Burger>
             <Button onClick={toggleTheme} variant="ghost" size="sm">
               {dark ? <Sun /> : <Moon />}
             </Button>
+            <NavButton onClick={handleLogout} className="d-none d-md-flex">
+              <LogOut />
+              تسجيل الخروج
+            </NavButton>
           </Left>
-          <Rigth>
-            <Titel>
+          <Right>
+            <Title>
               <h1>منصة التعليم</h1>
               <p>بوابة الطالب</p>
-            </Titel>
+            </Title>
             <Icon>
               <GraduationCap />
             </Icon>
-          </Rigth>
+          </Right>
         </Content>
       </Main>
     </Nav>
