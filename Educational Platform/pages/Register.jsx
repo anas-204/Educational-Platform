@@ -1,6 +1,6 @@
 import FloatingBackground from "../src/components/comon/FloatingBackground";
 import "../styles/register.css";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import InputLabel from "@mui/material/InputLabel";
@@ -14,9 +14,14 @@ export default function Register() {
     name: "",
     email: "",
     password: "",
-    phonenumber: "",
-    currentyear: "",
+    phone: "",
+    section: "",
+    center_id: "",
   });
+  const [centersData, updateCentersData] = useState([]);
+  useEffect(() => {
+    getCenters();
+  }, []);
 
   const handleChange = (e) => {
     setFormData({
@@ -25,10 +30,16 @@ export default function Register() {
     });
   };
 
-  const handleStudentYear = (event) => {
+  const handleSection = (event) => {
     setFormData({
       ...formData,
-      currentyear: event.target.value,
+      section: event.target.value,
+    });
+  };
+  const handleCenterChange = (event) => {
+    setFormData({
+      ...formData,
+      center_id: event.target.value,
     });
   };
 
@@ -39,6 +50,7 @@ export default function Register() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
+      console.log(formData);
       const response = await axios.post(
         "http://localhost:3000/auth/Register",
         formData
@@ -47,6 +59,17 @@ export default function Register() {
       navigate("/Login");
     } catch (error) {
       console.error("Registration error:", error);
+    }
+  };
+  const getCenters = async () => {
+    try {
+      const response = await axios.get(
+        "http://localhost:3000/teacher/center",
+        formData
+      );
+      updateCentersData(response.data);
+    } catch (error) {
+      console.error("Couldn't get centers", error);
     }
   };
 
@@ -97,6 +120,77 @@ export default function Register() {
               />
             </div>
           </div>
+          <InputLabel
+            id="demo-simple-select-filled-label"
+            sx={{
+              width: "80%",
+              margin: "3px auto",
+              textAlign: "right",
+              paddingRight: "0px",
+              fontFamily: "Cairo",
+            }}
+          >
+            المقر
+          </InputLabel>
+          <Select
+            labelId="demo-simple-select-filled-label"
+            id="center_id"
+            value={formData.center_id}
+            onChange={handleCenterChange}
+            sx={{
+              width: "80%",
+              margin: "0 auto",
+              border: "1px solid #e5e3e3ff",
+              borderRadius: "10px !important",
+              fontFamily: "Cairo",
+              height: "42px",
+              "& .MuiSelect-select": {
+                paddingRight: "35px",
+              },
+              "& .MuiOutlinedInput-notchedOutline": {
+                border: "none",
+              },
+              "&:focus": {
+                outline: "2px solid hsl(270, 100%, 50%)",
+                boxShadow: "0 0 0 2px hsl(270, 100%, 50%)",
+              },
+            }}
+            MenuProps={{
+              sx: {
+                borderRadius: "25px",
+                fontFamily: "Cairo",
+              },
+            }}
+            required
+          >
+            {centersData.length > 0 ? (
+              centersData.map((center) => (
+                <MenuItem
+                  key={center.id}
+                  value={center.id}
+                  className="menuItem"
+                  sx={{
+                    borderRadius: "5px",
+                    fontFamily: "Cairo",
+                    borderBottom: "1px solid #eeeeee8f",
+                    direction: "rtl",
+                  }}
+                >
+                  {center.name == "Zayed Center"
+                    ? "مقر الشيخ زايد"
+                    : center.name == "Giza Center"
+                    ? "مقر الجيزة"
+                    : center.name == "Doki Center"
+                    ? "مقر الدقي"
+                    : center.name == "Elmohndseen Center"
+                    ? "مقر المهندسين"
+                    : "مقر عين شمس"}
+                </MenuItem>
+              ))
+            ) : (
+              <MenuItem disabled>جاري تحميل المراكز...</MenuItem>
+            )}
+          </Select>
 
           {/* Email Field */}
           <div className="email mx-auto my-1">
@@ -132,10 +226,7 @@ export default function Register() {
 
           {/* Phone Field */}
           <div className="phone mx-auto my-2">
-            <label
-              htmlFor="phonenumber"
-              className="phoneLabel text-end w-100 mb-1"
-            >
+            <label htmlFor="phone" className="phoneLabel text-end w-100 mb-1">
               رقم الهاتف
             </label>
             <div className="relative">
@@ -162,8 +253,8 @@ export default function Register() {
                 type={"tel"}
                 placeholder=" أدخل رقم هاتفك "
                 className="col-12 form-control text-end w-full pr-12 pl-3 py-2 text-gray-500 bg-transparent outline-none border focus:border-indigo-600 rounded-lg"
-                id="phonenumber"
-                value={formData.phonenumber}
+                id="phone"
+                value={formData.phone}
                 onChange={handleChange}
                 required
               />
@@ -185,9 +276,9 @@ export default function Register() {
           </InputLabel>
           <Select
             labelId="demo-simple-select-filled-label"
-            id="currentyear"
-            value={formData.currentyear}
-            onChange={handleStudentYear}
+            id="section"
+            value={formData.section}
+            onChange={handleSection}
             sx={{
               width: "80%",
               margin: "0 auto",
@@ -215,33 +306,48 @@ export default function Register() {
             required
           >
             <MenuItem
-              value={"الأول الثانوي"}
+              value={"first_sec"}
               className="menuItem"
               sx={{
                 borderRadius: "5px",
                 fontFamily: "Cairo",
                 borderBottom: "1px solid #eeeeee8f",
+                direction: "rtl",
               }}
             >
               الأول الثانوي
             </MenuItem>
             <MenuItem
-              value={"الثاني الثانوي"}
+              value={"second_sec_scientific"}
               className="menuItem"
               sx={{
                 borderRadius: "5px",
                 fontFamily: "Cairo",
                 borderBottom: "1px solid #eeeeee8f",
+                direction: "rtl",
               }}
             >
-              الثاني الثانوي
+              علمي - الثاني الثانوي
             </MenuItem>
             <MenuItem
-              value={"الثالث الثانوي"}
+              value={"second_sec_literary"}
               className="menuItem"
               sx={{
                 borderRadius: "5px",
                 fontFamily: "Cairo",
+                borderBottom: "1px solid #eeeeee8f",
+                direction: "rtl",
+              }}
+            >
+              أدبي - الثاني الثانوي
+            </MenuItem>
+            <MenuItem
+              value={"third_sec"}
+              className="menuItem"
+              sx={{
+                borderRadius: "5px",
+                fontFamily: "Cairo",
+                direction: "rtl",
               }}
             >
               الثالث الثانوي
