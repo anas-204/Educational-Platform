@@ -1,9 +1,9 @@
-import HomeWorkCard from "../../src/components/HomeWork/HomeWorkCard";
+import HomeWorkCard from "../../src/components/DashBoard/HomeWork/HomeWorkCard";
 import "../../styles/homeWork.css";
 export default function Homework() {
   return (
     <>
-      <div className="homeWorkContainer col-xl-10 col-md-9 col-12 mx-auto pb-5 pe-5">
+      <div className="homeWorkContainer">
         <div className="header my-4">
           <h3>الواجبات المنزلية</h3>
           <p>عرض جميع الواجبات وحالة التسليم</p>
