@@ -2,7 +2,7 @@ import Sidebar from "../../src/components/DashBoard/SideBar";
 import NavBar from "../../src/components/DashBoard/NavBar";
 import styled from "styled-components";
 import { useState } from "react";
-import Homework from "./Homework";
+import Trials from "./Trials";
 const Main = styled.div`
   height: 100vh;
   overflow-x: hidden;
@@ -26,7 +26,7 @@ export default function StudentDashBoard() {
         <NavBar toggleSidebar={toggleSidebar} />
         <Content>
           <Sidebar isOpen={sidebarOpen} onClose={closeSidebar} />
-          <Homework />
+          <Trials />
         </Content>
       </Main>
     </>

@@ -1,4 +1,4 @@
-import HomeWorkCard from "../../src/components/HomeWork/HomeWorkCard";
+import HomeWorkCard from "../../src/components/cards/HomeWorkCard";
 import "../../styles/homeWork.css";
 export default function Homework() {
   return (
