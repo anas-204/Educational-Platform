@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { Home, Calendar, Trophy, PenTool, Target, User } from "lucide-react";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { LogOut } from "lucide-react";
 import Swal from "sweetalert2";
 
@@ -12,12 +12,12 @@ const SidebarWrapper = styled.aside`
   height: 100vh;
 
   @media (max-width: 768px) {
-    position: fixed;
     right: ${({ isOpen }) => (isOpen ? "0" : "-250px")};
-    transition: right 0.3s ease-in-out;
-    z-index: 1001;
-    top: 88.8px;
+    position: fixed;
+    top: 85.8px;
     width: 200px;
+    z-index: 1001;
+    transition: right 0.3s ease-in-out;
   }
 `;
 
@@ -37,23 +37,30 @@ const NavButton = styled.button`
   background: transparent;
   border: none;
   cursor: pointer;
-  color: hsl(var(--foreground));
   font-size: 15px;
-  transition: all 0.2s ease;
-  &:hover {
-    background-color: hsl(var(--accent));
-    color: hsl(var(--primary));
-  }
+  position: relative;
+  overflow: hidden;
+  z-index: 1;
+  color: ${({ active }) =>
+    active ? "hsl(var(--primary))" : "hsl(var(--foreground))"};
+  transition: color 0.3s ease;
 
-  svg {
-    width: 20px;
-    height: 20px;
+  &::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: ${({ active }) => (active ? "100%" : "0")};
+    height: 100%;
+    background: hsl(var(--accent));
+    z-index: -1;
+    transition: width 0.4s ease-in-out;
   }
-  @media (max-width: );
 `;
 
 export default function Sidebar({ isOpen }) {
   const navigate = useNavigate();
+  const location = useLocation(); // The Present Url Ya anoos from react-router-Dom
   const navItems = [
     { icon: Home, label: "لوحة التحكم", path: "/StudentDashBoard" },
     { icon: Calendar, label: "الجلسات", path: "/StudentDashBoard/Sessions" },
@@ -75,8 +82,7 @@ export default function Sidebar({ isOpen }) {
     }).then((result) => {
       if (result.isConfirmed) {
         Swal.fire("تم تسجيل الخروج!", "", "success");
-        // Code Make Logout ya anooos
-        // remove token from Api ya anoos
+
         navigate("/login");
       }
     });
@@ -90,6 +96,7 @@ export default function Sidebar({ isOpen }) {
             key={item.path}
             onClick={() => navigate(item.path)}
             className="col-10"
+            active={location.pathname === item.path}
           >
             <item.icon />
             {item.label}

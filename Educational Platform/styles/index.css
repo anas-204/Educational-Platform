@@ -2,7 +2,7 @@ body{
   height:100vh;
 }
 *{
-  font-family:cairo;
+  font-family:Cairo;
 }
 :root {
   --background: 0 0% 100%;
