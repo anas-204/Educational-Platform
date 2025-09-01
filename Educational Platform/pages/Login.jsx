@@ -17,7 +17,6 @@ export default function Login() {
   const handleClick = () => {
     navigate("/Register");
   };
-
   const handleSubmit = async (e) => {
     e.preventDefault();
     setErrorMessage("");

@@ -1,8 +1,7 @@
-import Sidebar from "../../src/components/DashBoard/SideBar";
-import NavBar from "../../src/components/DashBoard/NavBar";
+import Sidebar from "../../src/components/comon/DashBoard/SideBar";
+import NavBar from "../../src/components/comon/DashBoard/NavBar";
 import styled from "styled-components";
 import { useState } from "react";
-
 import { Outlet } from "react-router-dom";
 
 const Main = styled.div`
@@ -16,10 +15,10 @@ const Content = styled.div`
 
   @media (min-width: 769px) {
     & > div:first-child {
-      flex: 0 0 25%;
+      flex: 0 0 15%;
     }
     & > div:last-child {
-      flex: 0 0 75%;
+      flex: 0 0 81%;
     }
   }
 

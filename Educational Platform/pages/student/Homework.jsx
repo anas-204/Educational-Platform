@@ -4,8 +4,8 @@ export default function Homework() {
   return (
     <>
       <div className="homeWorkContainer">
-        <div className="header my-4">
-          <h3>الواجبات المنزلية</h3>
+        <div className="header">
+          <h3>الواجبات المنزلية </h3>
           <p>عرض جميع الواجبات وحالة التسليم</p>
         </div>
         <div className="body">

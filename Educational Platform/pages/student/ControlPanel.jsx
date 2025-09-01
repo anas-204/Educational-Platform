@@ -20,7 +20,7 @@ const Header = styled.div`
 `;
 export default function ControlPanel() {
   return (
-    <Main className="">
+    <Main className=" py-3 px-3 mb-4 col-11">
       <Header>
         <h1>أهلاً بك مرة أخرى!</h1>
         <p>مستعد لمتابعة رحلتك التعليمية؟</p>

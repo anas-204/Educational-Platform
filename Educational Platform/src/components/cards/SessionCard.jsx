@@ -1,4 +1,3 @@
-import React from "react";
 import styled from "styled-components";
 import { User, Clock, Calendar } from "lucide-react";
 
@@ -26,8 +25,8 @@ const HeaderInfo = styled.div`
   align-items: center;
   h3 {
     letter-spacing: -0.025em;
-    font-weight: 600;
-    font-size: 1.25rem;
+    font-weight: 600 !important;
+    font-size: 1.25rem !important;
     line-height: 1.75rem;
   }
 `;
@@ -95,7 +94,7 @@ const Button = styled.button`
 
 export default function SessionCard({ title, status, date, hour, duration }) {
   return (
-    <Card>
+    <Card className="card py-3 px-3 mb-4 col-11">
       <Header>
         <HeaderInfo>
           <h3>{title}</h3>

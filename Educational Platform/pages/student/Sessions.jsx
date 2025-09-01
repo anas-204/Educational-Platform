@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import SeesionCard from "../../src/components/DashBoard/Sessions/SeesionCard";
+import SessionCard from "../../src/components/cards/SessionCard";
 const Body = styled.div`
   display: flex;
   flex-direction: column;
@@ -7,27 +7,27 @@ const Body = styled.div`
 `;
 export default function SessionsPage() {
   return (
-    <div >
-      <div className=" my-4">
+    <div>
+      <div className="">
         <h3>الجلسات التعليمية</h3>
         <p>عرض جميع الجلسات المسجلة والقادمة</p>
       </div>
       <Body>
-        <SeesionCard
+        <SessionCard
           title="مقدمة في الرياضيات"
           status="مكتملة"
           date="2025-01-15"
           hour="10:00"
           duration="90 دقيقة"
         />
-        <SeesionCard
+        <SessionCard
           title="الفيزياء - الحركة"
           status="قادمة"
           date="2025-01-18"
           hour="14:00"
           duration="90 دقيقة"
         />
-        <SeesionCard
+        <SessionCard
           title="الكيمياء العضوية"
           status="قادمة"
           date="2025-01-20"
