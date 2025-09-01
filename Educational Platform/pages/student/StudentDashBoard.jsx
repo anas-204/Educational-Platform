@@ -1,8 +1,7 @@
-import Sidebar from "../../src/components/DashBoard/SideBar";
-import NavBar from "../../src/components/DashBoard/NavBar";
+import Sidebar from "../../src/components/comon/DashBoard/SideBar";
+import NavBar from "../../src/components/comon/DashBoard/NavBar";
 import styled from "styled-components";
 import { useState } from "react";
-
 import { Outlet } from "react-router-dom";
 
 const Main = styled.div`

@@ -1,0 +1,41 @@
+.trailsBigCard{
+    width: 96.5% !important;
+    box-shadow: #adabab4a 0px 2px 3px 0px;
+    border: 1px solid #eee !important;
+}
+@media screen and (max-width:1200px) {
+    .trailsBigCard{
+        width: 85% !important;
+    }
+    
+}
+@media screen and (max-width:768px) {
+    .trailsBigCard{
+        width: 91% !important;
+    }    
+}
+h6{
+    font-size: 25px !important;
+}
+.status p{
+    font-size: 12px;
+}
+.det p{
+    font-size: 14px;
+}
+.done,.notDone{
+    background-color: hsl(var(--status));
+    border-radius: 7px !important;
+    height: fit-content;
+}
+.done p,.notDone p{
+    border-radius: 10px;
+    margin: 0;
+    font-size: 12px;
+    background-color: hsl(var(--status));
+    padding: 5px 8px;
+}
+.notDone,.notDone p {
+    background-color: hsl(var(--primary-light));
+}
+

@@ -5,7 +5,7 @@ export default function Homework() {
     <>
       <div className="homeWorkContainer">
         <div className="header">
-          <h3 style={{fontWeight:"bold"}}>الواجبات المنزلية</h3>
+          <h3 style={{ fontWeight: "bold" }}>الواجبات المنزلية</h3>
           <p>عرض جميع الواجبات وحالة التسليم</p>
         </div>
         <div className="body">

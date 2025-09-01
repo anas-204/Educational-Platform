@@ -1,4 +1,3 @@
-import React from "react";
 import styled from "styled-components";
 import QuizzesCard from "../../src/components/cards/QuizzesCard";
 
@@ -30,7 +29,7 @@ export default function Quizzes() {
           subject={"فيزياء"}
           status={"متاح"}
           highScore={50}
-          myScore={0} 
+          myScore={0}
           attempts={"0/3"}
           deadline={"2025-01-30"}
         />

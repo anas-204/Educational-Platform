@@ -1,7 +1,6 @@
-import React from "react";
 import { useNavigate } from "react-router-dom";
 import { styled, css } from "styled-components";
-import {ArrowLeft}  from "lucide-react";
+import { ArrowLeft } from "lucide-react";
 const Para = styled("div")`
   text-align: center;
   animation: fadeIn 0.5s ease-out;

@@ -1,0 +1,43 @@
+.prize{
+    color: #16A249;
+}
+.up{
+    color: #16A249;
+}
+.eye1{
+    color: hsl(var(--primary));
+}
+.eye2{
+    color: #F8C630;
+}
+span svg{
+    font-size: 40px !important;
+    font-weight: 300;
+    margin: auto;
+    padding-top: 5px;
+    padding-right: 5px;
+}
+.stats p:first-child{
+    font-size: 25px;
+}
+.trailsSmallCard{
+    width: 23% !important;
+    box-shadow: #adabab4a 0px 2px 3px 0px;
+    border: 1px solid #eee !important;
+}
+@media screen and (max-width:1200px) {
+    .trailsSmallCard{
+        width: 45% !important;
+    }
+    
+}
+@media screen and (max-width:768px) {
+    .trailsSmallCard{
+        width: 48% !important;
+    }    
+}
+@media screen and (max-width:576px) {
+    .trailsSmallCard{
+        width: 90% !important;
+    }    
+}
