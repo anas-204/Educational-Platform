@@ -13,13 +13,12 @@ const Content = styled.div`
   direction: rtl;
   display: flex;
   padding-bottom: 20px;
-
   @media (min-width: 769px) {
     & > div:first-child {
-      flex: 0 0 25%;
+      flex: 0 0 15%;
     }
     & > div:last-child {
-      flex: 0 0 75%;
+      flex: 0 0 81%;
     }
   }
 

@@ -1,6 +1,13 @@
 import React from "react";
 import styled from "styled-components";
-const Main = styled.div``;
+import { Book, Trophy, Target, FileText } from "lucide-react";
+import ControlPannelSmallCard from "../../src/components/cards/ControlPannelSmallCard";
+import ControlPannelCommingSession from "../../src/components/cards/ControlPannelCommingSession";
+import ControlPannelResultsCard from "../../src/components/cards/ControlPannelResultsCard";
+import ControlPannelHomeWork from "../../src/components/cards/ControlPannelHomeWork";
+const Main = styled.div`
+  margin-inline: auto;
+`;
 const Header = styled.div`
   --tw-text-opacity: 1;
   color: rgb(255 255 255 / var(--tw-text-opacity, 1));
@@ -18,13 +25,106 @@ const Header = styled.div`
     color: rgba(255, 255, 255, 0.9);
   }
 `;
+const SmallCardContainer = styled.div`
+  gap: 1rem;
+  margin: 1.5rem 0;
+  display: grid;
+  grid-template-columns: repeat(1, minmax(0px, 1fr));
+  @media (min-width: 768px) {
+    grid-template-columns: repeat(2, minmax(0px, 1fr));
+  }
+  @media (min-width: 1024px) {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+`;
+const BigCardContainer = styled.div`
+  display: grid;
+  gap: 1.5rem;
+  grid-template-columns: repeat(1, minmax(0, 1fr));
+  margin-top: 2rem;
+
+  @media (min-width: 1024px) {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+`;
 export default function ControlPanel() {
   return (
-    <Main className="">
+    <Main className="py-3 px-3 mb-4 col-11">
       <Header>
         <h1>أهلاً بك مرة أخرى!</h1>
         <p>مستعد لمتابعة رحلتك التعليمية؟</p>
       </Header>
+      <SmallCardContainer>
+        <ControlPannelSmallCard
+          titel={"إجمالي الجلسات"}
+          icon={<Book />}
+          number={"24"}
+          info={"+2 من الأسبوع الماضي"}
+        />
+        <ControlPannelSmallCard
+          titel={"متوسط الدرجات"}
+          icon={<Trophy />}
+          number={"85%"}
+          info={"+5% من الشهر الماضي"}
+        />
+        <ControlPannelSmallCard
+          titel={"الاختبارات المكتملة"}
+          icon={<Target />}
+          number={"18"}
+          info={"3 قيد الانتظار"}
+        />
+        <ControlPannelSmallCard
+          titel={"الواجبات"}
+          icon={<FileText />}
+          number={"2"}
+          info={" في انتظار التسليم"}
+        />
+      </SmallCardContainer>
+      <BigCardContainer>
+        <ControlPannelCommingSession
+          sessions={[
+            {
+              subjectName: "رياضيات متقدمة",
+              MrName: "د. أحمد",
+              Date: "2024-01-15",
+              Time: "10:00 صباحاً",
+            },
+            {
+              subjectName: "فيزياء",
+              MrName: "د. خالد",
+              Date: "2024-01-16",
+              Time: "12:00 ظهراً",
+            },
+            {
+              subjectName: "كيمياء",
+              MrName: "د. منى",
+              Date: "2024-01-17",
+              Time: "02:00 مساءً",
+            },
+          ]}
+        />
+        <ControlPannelResultsCard
+          results={[
+            { subject: "اختبار التفاضل", date: "2024-01-10", score: 85 },
+            { subject: "قوانين الفيزياء", date: "2024-01-08", score: 92 },
+            { subject: "الروابط الكيميائية", date: "2024-01-05", score: 78 },
+          ]}
+        />
+      </BigCardContainer>
+      <ControlPannelHomeWork
+        assignments={[
+          {
+            title: "مسائل التفاضل",
+            subject: "الرياضيات",
+            dueDate: "2024-01-20",
+          },
+          {
+            title: "تقرير عن الروابط",
+            subject: "الكيمياء",
+            dueDate: "2024-01-25",
+          },
+        ]}
+      />
     </Main>
   );
 }

@@ -4,12 +4,13 @@ const Body = styled.div`
   display: flex;
   flex-direction: column;
   gap: 1rem;
+
 `;
 export default function SessionsPage() {
   return (
-    <div >
-      <div className=" my-4">
-        <h3>الجلسات التعليمية</h3>
+    <div>
+      <div>
+        <h3 style={{fontWeight:"bold"}}>الجلسات التعليمية</h3>
         <p>عرض جميع الجلسات المسجلة والقادمة</p>
       </div>
       <Body>

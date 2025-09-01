@@ -70,6 +70,8 @@ const BodyInfo = styled.div`
 
 const Icon = styled.div`
   color: hsl(var(--muted-foreground));
+  width: 1rem;
+  height: 1rem;
 `;
 
 const Buttons = styled.div`
@@ -95,7 +97,7 @@ const Button = styled.button`
 
 export default function SessionCard({ title, status, date, hour, duration }) {
   return (
-    <Card>
+    <Card className="card py-3 px-3 mb-4 col-11">
       <Header>
         <HeaderInfo>
           <h3>{title}</h3>
