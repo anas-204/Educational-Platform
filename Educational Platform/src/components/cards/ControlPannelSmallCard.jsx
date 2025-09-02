@@ -1,4 +1,3 @@
-import React from "react";
 import styled from "styled-components";
 
 const Card = styled.div`
@@ -47,7 +46,7 @@ export default function ControlPannelSmallCard({ titel, icon, number, info }) {
   return (
     <Card>
       <CardHeader>
-        <h3>{titel}</h3>
+        <h4>{titel}</h4>
         <Icon>{icon}</Icon>
       </CardHeader>
       <CardContent>

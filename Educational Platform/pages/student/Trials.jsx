@@ -104,16 +104,14 @@ export default function Trials() {
         <TrailsBigCard
           title="تجربة الفيزياء العملية"
           subject="اختبار في الميكانيكا والديناميكا"
-          status="يمكن إعادة المحاولة"
           maxGrade="80"
-          currentGrade="68"
+          currentGrade="50"
           trails="1"
           duration="90"
         />
         <TrailsBigCard
           title="تجربة الكيمياء التطبيقية"
           subject="اختبار شامل في التفاعلات والمعادلات"
-          status="مكتمل"
           maxGrade="75"
           duration="100"
         />

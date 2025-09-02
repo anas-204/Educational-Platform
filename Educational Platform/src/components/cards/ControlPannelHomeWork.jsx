@@ -1,7 +1,7 @@
-import React from "react";
 import styled from "styled-components";
 import { Pencil } from "lucide-react";
-export const Card = styled.div`
+
+const Card = styled.div`
   margin: 1.5rem 0;
   --tw-shadow: var(--shadow-soft);
   --tw-shadow-colored: var(--shadow-soft);
@@ -16,7 +16,7 @@ const CardHeader = styled.div`
   padding: 1.5rem;
   display: flex;
   flex-direction: column;
-  h3 {
+  h4 {
     letter-spacing: -0.025em;
     line-height: 1;
     font-weight: 600;
@@ -103,10 +103,10 @@ export default function ControlPannelHomeWork({ assignments }) {
   return (
     <Card>
       <CardHeader>
-        <h3>
+        <h4>
           <Pencil />
           الواجبات المعلقة
-        </h3>
+        </h4>
         <p>المهام في انتظار التسليم</p>
       </CardHeader>
       <CardContent>

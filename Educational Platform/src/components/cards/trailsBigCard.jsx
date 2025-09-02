@@ -1,4 +1,6 @@
 import "../../../styles/trailsBigCard.css";
+import { Progress } from "@heroui/react";
+
 export default function trailsBigCard(props) {
   return (
     <div className="trailsBigCard card py-3 px-3 my-4 col-11">
@@ -66,7 +68,7 @@ export default function trailsBigCard(props) {
             </svg>
             <div className="det d-flex gap-1">
               <p>نتيجتي : </p>
-              <p>{props.currentGrade}</p>
+              <p>{props.currentGrade ? props.currentGrade : "لم يتم بعد"}</p>
             </div>
           </div>
           <div className="d-flex col-md-3 align-items-center gap-1 justify-content-center">
@@ -87,7 +89,7 @@ export default function trailsBigCard(props) {
             </svg>
             <div className="det d-flex gap-1">
               <p>المحاولات : </p>
-              <p>{props.trails}/3</p>
+              <p>{props.trails ? props.trails : 0}/3</p>
             </div>
           </div>
           <div className="d-flex col-md-3 align-items-center gap-1 justify-content-center">
@@ -108,13 +110,52 @@ export default function trailsBigCard(props) {
             </svg>
             <div className="det d-flex gap-1">
               <p> المدة :</p>
-              <p>{props.currentGrade} دقيقة</p>
+              <p>{props.duration} دقيقة</p>
             </div>
           </div>
         </div>
+        {props.currentGrade ? (
+          <div className="percent d-flex justify-content-between">
+            <p className="m-0">نسبة النجاح</p>
+            <p className="m-0">
+              {(props.currentGrade / props.maxGrade) * 100} %
+            </p>
+          </div>
+        ) : (
+          ""
+        )}
+        {props.currentGrade ? (
+          <div className="flex flex-col gap-6 w-full mb-3 mt-2 progres rounded-3">
+            <Progress
+              aria-label="Loading..."
+              value={
+                props.currentGrade
+                  ? (props.currentGrade / props.maxGrade) * 100
+                  : 0
+              }
+            />
+          </div>
+        ) : (
+          ""
+        )}
       </div>
-
-      <button className="btn col-1 getDet">عرض التفاصيل</button>
+      <div className="btns d-flex gap-2 flex-wrap">
+        {props.trails > 0 && props.trails < 3 && props.trails != 0 ? (
+          <button className="btn col-1 getDet bg-danger-subtle">
+            إعادة المحاولة (متبقي {3 - props.trails})
+          </button>
+        ) : (
+          " "
+        )}
+        {props.trails ? (
+          ""
+        ) : (
+          <button className="btn col-1 getDet bg-success-subtle">
+            بدء التجربة
+          </button>
+        )}
+        <button className="btn col-1 getDet">عرض التفاصيل</button>
+      </div>
     </div>
   );
 }

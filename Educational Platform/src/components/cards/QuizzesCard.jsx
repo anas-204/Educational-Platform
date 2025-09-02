@@ -1,10 +1,20 @@
-import React from "react";
 import styled from "styled-components";
-import { Card } from "./ControlPannelHomeWork";
 import { Clock, Star, Award } from "lucide-react";
+import { Progress } from "@heroui/react";
 
+const Card = styled.div`
+  margin: 0.2rem 0;
+  --tw-shadow: var(--shadow-soft);
+  --tw-shadow-colored: var(--shadow-soft);
+  box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000),
+    var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
+  color: hsl(var(--card-foreground));
+  border-width: 1px;
+  border-radius: 0.75rem;
+  border-color: hsl(var(--border));
+`;
 const CardHeader = styled.div`
-  padding: 1.5rem;
+  padding: 1rem;
   display: flex;
   flex-direction: column;
 `;
@@ -30,10 +40,10 @@ const CardHeaderInfo = styled.div`
 `;
 
 const Status = styled.span`
-  border-radius: 9999px;
-  font-size: 0.875rem;
+  border-radius: 1rem;
+  font-size: 0.75rem;
   line-height: 1.25rem;
-  padding: 0.25rem 0.75rem;
+  padding: 0.25rem 0.5rem;
   white-space: nowrap;
   color: ${({ status }) =>
     status === "مكتملة"
@@ -128,23 +138,6 @@ const ProgressLabel = styled.div`
   color: hsl(var(--muted-foreground));
 `;
 
-const ProgressBar = styled.div`
-  background: hsl(var(--secondary));
-  height: 14px;
-  border-radius: 8px;
-  overflow: hidden;
-  position: relative;
-  text-align: left;
-`;
-
-const ProgressFill = styled.div`
-  height: 100%;
-  width: ${({ percent }) => percent}%;
-  background: hsl(var(--primary));
-  position: absolute;
-  left: 0;
-`;
-
 const Buttons = styled.div`
   display: flex;
   gap: 0.5rem;
@@ -167,14 +160,20 @@ export default function QuizzesCard({
       <CardHeader>
         <CardHeaderInfo>
           <div>
-            <h3>{title}</h3>
+            <h4>{title}</h4>
             <p>{subject}</p>
           </div>
           <Status status={status}>{status}</Status>
         </CardHeaderInfo>
       </CardHeader>
 
-      <div style={{ padding: "1.5rem", paddingTop: "0" }}>
+      <div
+        style={{
+          padding: "1rem",
+          paddingTop: "0.2rem",
+          paddingBottom: "0.5rem",
+        }}
+      >
         <CradContent>
           <div>
             <Award />
@@ -204,9 +203,12 @@ export default function QuizzesCard({
               <span>نسبة النجاح</span>
               <span>{percent}%</span>
             </ProgressLabel>
-            <ProgressBar>
-              <ProgressFill percent={percent} status={status} />
-            </ProgressBar>
+            <div className="flex flex-col gap-6 w-full mb-3 mt-2 progres rounded-3">
+              <Progress
+                aria-label="Loading..."
+                value={myScore ? (myScore / highScore) * 100 : 0}
+              />
+            </div>
           </ProgressWrapper>
         )}
 

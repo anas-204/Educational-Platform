@@ -14,7 +14,7 @@ const Card = styled.div`
 `;
 
 const Header = styled.div`
-  padding: 1.5rem;
+  padding: 0.5rem;
   display: flex;
   flex-direction: column;
 `;
@@ -46,7 +46,7 @@ const Status = styled.span`
 
 const Body = styled.div`
   padding: 1.5rem;
-  padding-top: 0;
+  padding-block: 0.5rem;
 `;
 
 const BodyInfo = styled.div`

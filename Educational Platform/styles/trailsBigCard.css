@@ -36,6 +36,15 @@ h6{
     padding: 5px 8px;
 }
 .notDone,.notDone p {
-    background-color: hsl(var(--primary-light));
+    background-color: hsl(var(--accent)) !important;
+}
+.progres{
+    background-color: hsl(var(--secondary)) !important;
+} 
+div.bg-primary{
+    background-color: hsl(var(--primary)) !important;
+}
+.percent p{
+    font-size: 14px;
 }
 

@@ -16,7 +16,7 @@ const CardHeader = styled.div`
   padding: 1.5rem;
   display: flex;
   flex-direction: column;
-  h3 {
+  h4 {
     letter-spacing: -0.025em;
     font-weight: 600;
     line-height: 1;
@@ -94,9 +94,9 @@ export default function ControlPannelCommingSession({ sessions }) {
   return (
     <Card>
       <CardHeader>
-        <h3>
+        <h4>
           <Calendar /> الجلسات القادمة
-        </h3>
+        </h4>
 
         <p>جلساتك التعليمية المجدولة</p>
       </CardHeader>

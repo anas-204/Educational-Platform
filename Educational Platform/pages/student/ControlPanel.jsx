@@ -1,4 +1,3 @@
-import React from "react";
 import styled from "styled-components";
 import { Book, Trophy, Target, FileText } from "lucide-react";
 import ControlPannelSmallCard from "../../src/components/cards/ControlPannelSmallCard";
@@ -6,7 +5,9 @@ import ControlPannelCommingSession from "../../src/components/cards/ControlPanne
 import ControlPannelResultsCard from "../../src/components/cards/ControlPannelResultsCard";
 import ControlPannelHomeWork from "../../src/components/cards/ControlPannelHomeWork";
 const Main = styled.div`
-  margin-inline: auto;
+  @media (max-width: 768px) {
+    margin-inline: auto;
+  }
 `;
 const Header = styled.div`
   --tw-text-opacity: 1;

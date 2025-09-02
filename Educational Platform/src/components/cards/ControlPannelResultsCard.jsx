@@ -1,6 +1,5 @@
-import React from "react";
 import styled from "styled-components";
-import { Calendar, Trophy } from "lucide-react";
+import { Trophy } from "lucide-react";
 
 const Card = styled.div`
   box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000),
@@ -14,7 +13,7 @@ const CardHeader = styled.div`
   padding: 1.5rem;
   display: flex;
   flex-direction: column;
-  h3 {
+  h4 {
     letter-spacing: -0.025em;
     font-weight: 600;
     line-height: 1;
@@ -84,10 +83,10 @@ export default function ControlPannelResultsCard({ results }) {
   return (
     <Card>
       <CardHeader>
-        <h3>
+        <h4>
           <Trophy />
           نتائج الاختبارات الأخيرة
-        </h3>
+        </h4>
         <p>أداؤك في الاختبارات الأخيرة</p>
       </CardHeader>
       <CardContent>
