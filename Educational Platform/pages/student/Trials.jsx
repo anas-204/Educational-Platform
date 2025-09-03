@@ -5,7 +5,7 @@ import TrailsBigCard from "../../src/components/cards/trailsBigCard";
 export default function Trials() {
   return (
     <>
-      <div className="header">
+      <div className="header mb-3">
         <h3>التجارب والاختبارات</h3>
         <p>عرض جميع التجارب والنتائج</p>
       </div>

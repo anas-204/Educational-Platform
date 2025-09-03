@@ -60,7 +60,7 @@ const NavButton = styled.button`
 
 export default function Sidebar({ isOpen }) {
   const navigate = useNavigate();
-  const location = useLocation(); // The Present Url Ya anoos from react-router-Dom
+  const location = useLocation();
   const navItems = [
     { icon: Home, label: "لوحة التحكم", path: "/StudentDashBoard" },
     { icon: Calendar, label: "الجلسات", path: "/StudentDashBoard/Sessions" },

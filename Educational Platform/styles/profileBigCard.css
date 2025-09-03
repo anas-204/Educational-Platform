@@ -1,0 +1,21 @@
+.subject p:nth-child(1){
+    font-size: 14px;
+}
+.A,.B,.other{
+    background-color: hsl(var(--primary));
+    color: white;
+    padding:1px 10px;
+    border-radius: 10px;
+    font-size: 12px;
+}
+.other{
+    background-color: hsl(var(--secondary));
+}
+.profileBigCard h5{
+    font-size: 25px !important;
+    font-weight: 600 !important;
+}
+.profileBigCard {
+    width: 99%;
+}
+

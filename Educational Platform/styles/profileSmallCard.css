@@ -1,0 +1,33 @@
+.profileSmallCard p:nth-child(2){
+    font-size: 25px;
+    font-weight: 700;
+    margin-bottom:0 !important;
+}
+.profileSmallCard p:nth-child(3){
+    font-size: 14px;
+}
+.profileSmallCard {
+    width: 24% !important;
+    margin-left: 10px;
+}
+@media screen and (max-width:1600px) {
+    .profileSmallCard {
+    width: 48% !important;
+    margin-bottom: 10px;
+    }
+}
+@media screen and (max-width:992px) {
+    .profileSmallCard {
+    width: 47% !important;
+    }
+}
+@media screen and (max-width:858px) {
+    .profileSmallCard {
+    width: 98% !important;
+    }
+}
+.profile{
+    height: inherit;
+}
+
+
