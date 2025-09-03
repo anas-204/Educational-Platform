@@ -33,6 +33,7 @@ const Content = styled.div`
 `;
 const Out = styled.div`
   padding: 1.5rem;
+  margin-top: 85px;
 `;
 
 export default function StudentDashBoard() {

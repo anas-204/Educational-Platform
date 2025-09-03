@@ -4,24 +4,26 @@ import { GraduationCap, Sun, Moon, Menu } from "lucide-react";
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
 import { LogOut } from "lucide-react";
-
 const Nav = styled("nav")`
   background-color: hsl(var(--card));
   border-bottom: 1px solid hsl(var(--border));
   box-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1002; 
+  height: 85px;
 `;
-
 const Main = styled.div`
   padding: 0.5rem 1.5rem;
 `;
-
 const Content = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
   direction: rtl;
 `;
-
 const Left = styled.div`
   gap: 1rem;
   display: flex;
@@ -31,7 +33,6 @@ const Left = styled.div`
     gap: 0.5rem;
   }
 `;
-
 const buttonBase = css`
   display: inline-flex;
   align-items: center;
@@ -85,7 +86,6 @@ const ghost = css`
     color: hsl(var(--accent-foreground));
   }
 `;
-
 const outline = css`
   border: 1px solid hsl(var(--input));
   background: hsl(var(--background));
@@ -94,20 +94,17 @@ const outline = css`
     color: hsl(var(--accent-foreground));
   }
 `;
-
 const sm = css`
   height: 2.25rem;
   padding: 0 0.75rem;
   font-size: 0.875rem;
 `;
-
 const Button = styled.button`
   ${buttonBase}
   ${(props) => props.variant === "ghost" && ghost}
   ${(props) => props.variant === "outline" && outline}
   ${(props) => props.size === "sm" && sm}
 `;
-
 const Burger = styled.button`
   ${buttonBase}
   background: transparent;
@@ -121,13 +118,11 @@ const Burger = styled.button`
     height: 1.5rem;
   }
 `;
-
 const Right = styled.div`
   display: flex;
   gap: 0.75rem;
   align-items: center;
 `;
-
 const Icon = styled("div")`
   padding: 0.5rem;
   background: var(--primary-gradient);
@@ -139,7 +134,6 @@ const Icon = styled("div")`
     color: #fff;
   }
 `;
-
 const Title = styled("div")`
   display: flex;
   flex-direction: column;
