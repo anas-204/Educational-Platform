@@ -36,8 +36,7 @@ const Para = styled("div")`
     font-size: 1.25rem;
     max-width: 48rem;
     margin-bottom: 2rem;
-    margin-left: auto;
-    margin-right: auto;
+
   }
 
   @keyframes fadeIn {
@@ -163,7 +162,7 @@ export default function Description() {
         حوّل
         <span>رحلتك التعليمية</span>
       </h1>
-      <p>
+      <p className="mx-auto mb-2">
         انضم إلى آلاف الطلاب والمعلمين في منصتنا التعليمية الشاملة. احصل على
         جلسات تفاعلية واختبارات وتتبع تقدمك كما لم يحدث من قبل.
       </p>

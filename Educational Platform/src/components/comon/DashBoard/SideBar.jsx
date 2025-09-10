@@ -44,12 +44,13 @@ const NavButton = styled.button`
   font-size: 15px;
   position: relative;
   overflow: hidden;
-  white-space: no-wrap;
+  white-space: nowrap;
   z-index: 1;
   color: ${({ active }) =>
     active ? "hsl(var(--primary))" : "hsl(var(--foreground))"};
   transition: color 0.3s ease;
-
+  svg {
+  }
   &::before {
     content: "";
     position: absolute;
