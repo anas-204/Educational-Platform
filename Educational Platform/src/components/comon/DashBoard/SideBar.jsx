@@ -1,9 +1,20 @@
 import styled from "styled-components";
-import { Home, Calendar, Trophy, PenTool, Target, User } from "lucide-react";
+import {
+  Home,
+  Calendar,
+  Trophy,
+  PenTool,
+  Target,
+  User,
+  BookOpen,
+  Users,
+  BarChart3,
+  FileText,
+} from "lucide-react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { LogOut } from "lucide-react";
 import Swal from "sweetalert2";
-
+import { useState, useEffect } from "react";
 const SidebarWrapper = styled.aside`
   background-color: hsl(var(--card));
   border-left: 1px solid #eeeeee3d;
@@ -67,7 +78,15 @@ const NavButton = styled.button`
 export default function Sidebar({ isOpen }) {
   const navigate = useNavigate();
   const location = useLocation();
-  const navItems = [
+  const [userType, setUserType] = useState("student");
+  useEffect(() => {
+    const storedUserType = localStorage.getItem("userType");
+    if (storedUserType) {
+      setUserType(storedUserType);
+    }
+  }, []);
+
+  const studentNavItems = [
     { icon: Home, label: "لوحة التحكم", path: "/StudentDashBoard" },
     { icon: Calendar, label: "الجلسات", path: "/StudentDashBoard/Sessions" },
     { icon: Trophy, label: "الاختبارات", path: "/StudentDashBoard/Quizzes" },
@@ -75,6 +94,15 @@ export default function Sidebar({ isOpen }) {
     { icon: Target, label: "التجارب", path: "/StudentDashBoard/Trials" },
     { icon: User, label: "الملف الشخصي", path: "/StudentDashBoard/Profile" },
   ];
+  const teacherNavItems = [
+    { icon: Home, label: "لوحة التحكم", path: "/TeacherDashBoard" },
+    { icon: Calendar, label: "الجلسات", path: "/TeacherDashBoard/SessionManagement" },
+    { icon: Users, label: "الطلاب", path: "/TeacherDashBoard/Students" },
+    { icon: BarChart3, label: "المهام", path: "/TeacherDashBoard/Mission" },
+    { icon: Trophy, label: "الاختبارات", path: "/TeacherDashBoard/Assignments" },
+    { icon: User, label: "الملف الشخصي", path: "/TeacherDashBoard/TeacherProfile" },
+  ];
+  const navItems = userType === "teacher" ? teacherNavItems : studentNavItems;
   const handleLogout = () => {
     Swal.fire({
       title: "هل أنت متأكد؟",

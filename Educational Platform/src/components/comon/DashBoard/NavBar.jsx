@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import styled, { css } from "styled-components";
 import { GraduationCap, Sun, Moon, Menu } from "lucide-react";
 import Swal from "sweetalert2";
@@ -12,7 +12,7 @@ const Nav = styled("nav")`
   top: 0;
   left: 0;
   right: 0;
-  z-index: 1002; 
+  z-index: 1002;
   height: 85px;
 `;
 const Main = styled.div`
@@ -174,9 +174,21 @@ export default function NavBar({ toggleSidebar }) {
     });
   };
   const [dark, setDark] = useState(false);
-
+  const [guide, setGuide] = useState("");
   const toggleTheme = () => setDark(!dark);
+  const [userType, setUserType] = useState("student");
+  useEffect(() => {
+    const storedUserType = localStorage.getItem("userType");
+    if (storedUserType) {
+      setUserType(storedUserType);
+    }
 
+    if (userType === "teacher") {
+      setGuide("المعلم");
+    } else {
+      setGuide("الطالب");
+    }
+  }, [userType]);
   return (
     <Nav className="px-md-5 px-1">
       <Main>
@@ -196,7 +208,7 @@ export default function NavBar({ toggleSidebar }) {
           <Right>
             <Title>
               <h1>منصة التعليم</h1>
-              <p>بوابة الطالب</p>
+              <p>بوابة {guide} </p>
             </Title>
             <Icon>
               <GraduationCap />

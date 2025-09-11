@@ -1,15 +1,15 @@
 import styled from "styled-components";
 import { Book, Trophy, Target, FileText } from "lucide-react";
-import ControlPannelSmallCard from "../../src/components/cards/ControlPannelSmallCard";
+import ControlPannelSmallCard from "../../src/components/cards/common/ControlPannelSmallCard";
 import ControlPannelCommingSession from "../../src/components/cards/ControlPannelCommingSession";
 import ControlPannelResultsCard from "../../src/components/cards/ControlPannelResultsCard";
 import ControlPannelHomeWork from "../../src/components/cards/ControlPannelHomeWork";
-const Main = styled.div`
+export const Main = styled.div`
   @media (max-width: 768px) {
     margin-inline: auto;
   }
 `;
-const Header = styled.div`
+export const Header = styled.div`
   --tw-text-opacity: 1;
   color: rgb(255 255 255 / var(--tw-text-opacity, 1));
   padding: 1.5rem;
@@ -26,7 +26,7 @@ const Header = styled.div`
     color: rgba(255, 255, 255, 0.9);
   }
 `;
-const SmallCardContainer = styled.div`
+export const SmallCardContainer = styled.div`
   gap: 1rem;
   margin: 1.5rem 0;
   display: grid;
@@ -38,7 +38,7 @@ const SmallCardContainer = styled.div`
     grid-template-columns: repeat(4, minmax(0, 1fr));
   }
 `;
-const BigCardContainer = styled.div`
+export const BigCardContainer = styled.div`
   display: grid;
   gap: 1.5rem;
   grid-template-columns: repeat(1, minmax(0, 1fr));

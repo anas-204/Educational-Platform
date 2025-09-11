@@ -15,7 +15,7 @@ const CardHeader = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  h3 {
+  h4 {
     letter-spacing: -0.025em;
     font-weight: 500;
     font-size: 0.875rem;
@@ -27,6 +27,7 @@ const Icon = styled.div`
   color: hsl(var(--muted-foreground));
   width: 1rem;
   height: 1rem;
+  margin-top: -8px;
 `;
 const CardContent = styled.div`
   padding: 1.5rem;
