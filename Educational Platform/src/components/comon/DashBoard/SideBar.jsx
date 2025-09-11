@@ -9,15 +9,19 @@ const SidebarWrapper = styled.aside`
   border-left: 1px solid #eeeeee3d;
   padding: 1rem;
   box-shadow: 1px 0 4px rgba(0, 0, 0, 0.05);
-  height: 100vh;
+  height: calc(100vh - 85px);
+  top: 85px;
+  right: ${({ isOpen }) => (isOpen ? "0" : "-250px")};
+  width: 200px;
+  z-index: 1001;
+  transition: right 0.3s ease-in-out;
+  position: relative;
 
-  @media (max-width: 768px) {
-    right: ${({ isOpen }) => (isOpen ? "0" : "-250px")};
+  @media (max-width: 769px) {
     position: fixed;
-    top: 85.8px;
-    width: 200px;
-    z-index: 1001;
-    transition: right 0.3s ease-in-out;
+  }
+  @media (min-width: 769px) {
+    right: 0;
   }
 `;
 
@@ -40,11 +44,13 @@ const NavButton = styled.button`
   font-size: 15px;
   position: relative;
   overflow: hidden;
+  white-space: nowrap;
   z-index: 1;
   color: ${({ active }) =>
     active ? "hsl(var(--primary))" : "hsl(var(--foreground))"};
   transition: color 0.3s ease;
-
+  svg {
+  }
   &::before {
     content: "";
     position: absolute;

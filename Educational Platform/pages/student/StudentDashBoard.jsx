@@ -17,7 +17,7 @@ const Content = styled.div`
       flex: 0 0 15%;
     }
     & > div:last-child {
-      flex: 0 0 81%;
+      flex: 0 0 85%;
     }
   }
 
@@ -33,6 +33,7 @@ const Content = styled.div`
 `;
 const Out = styled.div`
   padding: 1.5rem;
+  margin-top: 85px;
 `;
 
 export default function StudentDashBoard() {

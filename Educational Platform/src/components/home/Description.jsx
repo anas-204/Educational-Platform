@@ -36,8 +36,7 @@ const Para = styled("div")`
     font-size: 1.25rem;
     max-width: 48rem;
     margin-bottom: 2rem;
-    margin-left: auto;
-    margin-right: auto;
+
   }
 
   @keyframes fadeIn {
