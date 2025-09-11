@@ -43,7 +43,7 @@ export default function trailsBigCard(props) {
               <path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"></path>
               <path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"></path>
             </svg>
-            <div className="det d-flex gap-1">
+            <div className="det d-flex gap-1 mb-2">
               <p>النتيجة العليا : </p>
               <p>{props.maxGrade}</p>
             </div>
@@ -66,7 +66,7 @@ export default function trailsBigCard(props) {
               <circle cx="12" cy="12" r="6"></circle>
               <circle cx="12" cy="12" r="2"></circle>
             </svg>
-            <div className="det d-flex gap-1">
+            <div className="det d-flex gap-1 mb-2">
               <p>نتيجتي : </p>
               <p>{props.currentGrade ? props.currentGrade : "لم يتم بعد"}</p>
             </div>
@@ -87,7 +87,7 @@ export default function trailsBigCard(props) {
               <circle cx="12" cy="12" r="10"></circle>
               <polyline points="12 6 12 12 16 14"></polyline>
             </svg>
-            <div className="det d-flex gap-1">
+            <div className="det d-flex gap-1 mb-2">
               <p>المحاولات : </p>
               <p>{props.trails ? props.trails : 0}/3</p>
             </div>
@@ -108,7 +108,7 @@ export default function trailsBigCard(props) {
               <circle cx="12" cy="12" r="10"></circle>
               <polyline points="12 6 12 12 16 14"></polyline>
             </svg>
-            <div className="det d-flex gap-1">
+            <div className="det d-flex gap-1 mb-2">
               <p> المدة :</p>
               <p>{props.duration} دقيقة</p>
             </div>

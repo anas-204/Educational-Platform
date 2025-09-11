@@ -10,7 +10,7 @@ const HomePage = styled("div")`
 
 export default function Home() {
   return (
-    <HomePage className="">
+    <HomePage>
       <NavBar />
       <Hero />
       <FloatingBackground />
