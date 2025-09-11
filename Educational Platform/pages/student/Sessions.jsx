@@ -1,11 +1,31 @@
 import styled from "styled-components";
 import SessionCard from "../../src/components/cards/SessionCard";
+import { useEffect, useState } from "react";
 const Body = styled.div`
   display: flex;
   flex-direction: column;
   gap: 1rem;
 `;
 export default function SessionsPage() {
+  const [sessions, setSessions] = useState([]);
+  const token = localStorage.getItem("authToken");
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const res = await fetch("http://localhost:3000/student/sessions", {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+        const json = await res.json();
+        setSessions(json);
+      } catch (error) {
+        console.error("Error fetching sessions:", error);
+      }
+    };
+
+    fetchData();
+  }, []);
   return (
     <div>
       <div>
@@ -13,27 +33,27 @@ export default function SessionsPage() {
         <p>عرض جميع الجلسات المسجلة والقادمة</p>
       </div>
       <Body>
-        <SessionCard
+        {sessions.map((session) => (
+          <SessionCard
+            key={session.id}
+            title={session.sessions.title}
+            status={session.status === "present" ? "مكتملة" : "غائب"}
+            date={new Date(
+              session.sessions.session_datetime
+            ).toLocaleDateString()}
+            hour={new Date(
+              session.sessions.session_datetime
+            ).toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })}
+            duration="90 دقيقة"
+          />
+        ))}
+        {/* <SessionCard
           title="مقدمة في الرياضيات"
           status="مكتملة"
           date="2025-01-15"
           hour="10:00"
           duration="90 دقيقة"
-        />
-        <SessionCard
-          title="الفيزياء - الحركة"
-          status="قادمة"
-          date="2025-01-18"
-          hour="14:00"
-          duration="90 دقيقة"
-        />
-        <SessionCard
-          title="الكيمياء العضوية"
-          status="قادمة"
-          date="2025-01-20"
-          hour="16:00"
-          duration="90 دقيقة"
-        />
+        /> */}
       </Body>
     </div>
   );
