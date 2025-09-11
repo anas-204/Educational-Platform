@@ -1,44 +1,57 @@
 import HomeWorkCard from "../../src/components/cards/HomeWorkCard";
 import "../../styles/homeWork.css";
+import { useEffect, useState } from "react";
+import axios from "axios";
 export default function Homework() {
+  const [homeWorks, setHomeWorks] = useState([]);
+
+  useEffect(() => {
+    getHomeWork();
+  }, []);
+
+  const getHomeWork = async () => {
+    const token = localStorage.getItem("authToken");
+    try {
+      const response = await axios.get(
+        "http://localhost:3000/student/homeworks",
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      setHomeWorks(response.data);
+    } catch (error) {
+      console.error("Error fetching homework:", error);
+    }
+  };
   return (
     <>
       <div className="homeWorkContainer">
-        <div className="header">
+        <div className="header mb-4">
           <h3 style={{ fontWeight: "bold" }}>الواجبات المنزلية</h3>
           <p>عرض جميع الواجبات وحالة التسليم</p>
         </div>
         <div className="body">
-          <HomeWorkCard
-            title="حل مسائل الجبر"
-            subject="رياضيات"
-            describtion="حل المسائل من الصفحة 45 إلى 50"
-            status="تم التسليم "
-            requiredDate="2025-01-10"
-            submitDate="2025-01-18"
-            endDate="2025-01-20"
-            id="1"
-          />
-          <HomeWorkCard
-            title="تجربة الحركة المتسارعة"
-            subject="فيزياء"
-            describtion="تقرير عن تجربة قانون نيوتن الثاني"
-            status="قيد الإنجاز"
-            requiredDate="2025-01-15"
-            submitDate=""
-            endDate="2025-01-25"
-            id="2"
-          />
-          <HomeWorkCard
-            title="القطاعات الكيميائية"
-            subject="كيمياء"
-            describtion="عن أدوات القطاعات الكيميائية مع رسم توضيحي"
-            status="قيد الإنجاز"
-            requiredDate="2025-01-05"
-            submitDate=""
-            endDate="2025-01-21"
-            id="3"
-          />
+          {homeWorks.map((homework) => (
+            <HomeWorkCard
+              key={homework.id}
+              title={homework.homeworks.title}
+              subject="رياضيات"
+              description={homework.homeworks.description}
+              status={homework.status ? homework.status : "مكتمل"}
+              requiredDate={new Date(
+                homework.homeworks.start_date
+              ).toLocaleDateString("ar-EG")}
+              submitDate={new Date(homework.submission_date).toLocaleDateString(
+                "ar-EG"
+              )}
+              endDate={new Date(homework.homeworks.due_date).toLocaleDateString(
+                "ar-EG"
+              )}
+              id={homework.id}
+            />
+          ))}
         </div>
       </div>
     </>

@@ -32,6 +32,8 @@ export default function Login() {
       console.log(response.data);
 
       localStorage.setItem("authToken", response.data.token);
+      console.log(response.data.token);
+
       localStorage.setItem("userType", userType);
       localStorage.setItem("userData", JSON.stringify(response.data.user));
 

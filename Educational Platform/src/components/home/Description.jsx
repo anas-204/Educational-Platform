@@ -161,9 +161,9 @@ export default function Description() {
     <Para>
       <h1>
         حوّل
-        <span>رحلتك التعليمية</span>
+        <span className="mt-4">رحلتك التعليمية</span>
       </h1>
-      <p>
+      <p className="mx-auto mb-4">
         انضم إلى آلاف الطلاب والمعلمين في منصتنا التعليمية الشاملة. احصل على
         جلسات تفاعلية واختبارات وتتبع تقدمك كما لم يحدث من قبل.
       </p>

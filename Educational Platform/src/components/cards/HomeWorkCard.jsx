@@ -12,7 +12,7 @@ export default function HomeWorkCard(props) {
         </div>
       </div>
       <div className="body">
-        <p>{props.describtion}</p>
+        <p>{props.description}</p>
         <div className="dates d-flex col-10 col-sm-12 col-12 gap-sm-4 gap-3">
           <div className="required d-flex col-md-3 align-items-center gap-3">
             <i className="bi bi-calendar4"></i>
@@ -41,7 +41,6 @@ export default function HomeWorkCard(props) {
           )}
         </div>
       </div>
-      <button type="file"></button>
       <button className="btn col-1 getDet">عرض التفاصيل</button>
     </div>
   );
