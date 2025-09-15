@@ -128,7 +128,6 @@ const AttendanceRate = styled.div`
     gap: 0.5rem;
     align-items: center;
     display: flex;
-    flex-wrap: wrap;
     span {
       text-align: right;
       font-weight: 500;
