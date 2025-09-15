@@ -1,6 +1,6 @@
-import TrailsSmallCard from "../../src/components/cards/trailsSmallCard";
+import TrailsSmallCard from "../../src/components/cards/student/trailsSmallCard";
 import TrendingUpIcon from "@mui/icons-material/TrendingUp";
-import TrailsBigCard from "../../src/components/cards/trailsBigCard";
+import TrailsBigCard from "../../src/components/cards/student/trailsBigCard";
 
 export default function Trials() {
   return (

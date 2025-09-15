@@ -98,7 +98,7 @@ export default function Sidebar({ isOpen }) {
     { icon: Home, label: "لوحة التحكم", path: "/TeacherDashBoard" },
     { icon: Calendar, label: "الجلسات", path: "/TeacherDashBoard/SessionManagement" },
     { icon: Users, label: "الطلاب", path: "/TeacherDashBoard/Students" },
-    { icon: BarChart3, label: "المهام", path: "/TeacherDashBoard/Mission" },
+    { icon: FileText, label: "المهام", path: "/TeacherDashBoard/Mission" },
     { icon: Trophy, label: "الاختبارات", path: "/TeacherDashBoard/Assignments" },
     { icon: User, label: "الملف الشخصي", path: "/TeacherDashBoard/TeacherProfile" },
   ];

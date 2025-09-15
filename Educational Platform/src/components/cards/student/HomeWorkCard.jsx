@@ -1,4 +1,4 @@
-import "../../../styles/homeWorkCard.css";
+import "../../../../styles/homeWorkCard.css";
 export default function HomeWorkCard(props) {
   return (
     <div className="homeWorkCard card py-3 px-3 mb-4 col-11">

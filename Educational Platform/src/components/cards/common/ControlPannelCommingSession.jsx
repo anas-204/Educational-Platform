@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import { User, Clock, Calendar } from "lucide-react";
-
+import { useState, useEffect } from "react";
 const Card = styled.div`
   --tw-shadow-colored: var(--shadow-soft);
   box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000),
@@ -91,14 +91,25 @@ const Button = styled.button`
   }
 `;
 export default function ControlPannelCommingSession({ sessions }) {
+  const [userType, setUserType] = useState("");
+  useEffect(() => {
+    const storedUserType = localStorage.getItem("userType");
+    if (storedUserType) {
+      setUserType(storedUserType);
+    }
+  }, []);
+
   return (
     <Card>
       <CardHeader>
         <h4>
           <Calendar /> الجلسات القادمة
         </h4>
-
-        <p>جلساتك التعليمية المجدولة</p>
+        {userType === "student" ? (
+          <p>جلساتك التعليمية المجدولة</p>
+        ) : (
+          <p>جلسات التدريس المجدولة</p>
+        )}
       </CardHeader>
       <CardContent>
         {sessions.map((session, index) => (
@@ -106,15 +117,22 @@ export default function ControlPannelCommingSession({ sessions }) {
             <CardInfo>
               <CardInfoRigth>
                 <h4>{session.subjectName}</h4>
-                <p>مع {session.MrName}</p>
+                {userType === "student" ? <p>مع {session.MrName}</p> : ""}
                 <div>
                   <Calendar />
                   {session.Date}
                   <Clock style={{ marginLeft: "3px" }} />
                   {session.Time}
+                  {userType === "student" ? (
+                    ""
+                  ) : (
+                    <>
+                      <User /> {session.studentNumber} طالب
+                    </>
+                  )}
                 </div>
               </CardInfoRigth>
-              <Button>انضمام</Button>
+              <Button>{userType === "student" ? "انضمام" : "أدار"}</Button>
             </CardInfo>
           </div>
         ))}

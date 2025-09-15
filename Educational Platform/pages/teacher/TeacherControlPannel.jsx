@@ -6,9 +6,10 @@ import { BigCardContainer } from "../student/ControlPanel";
 import { Plus } from "lucide-react";
 import { styled, css } from "styled-components";
 import ControlPannelSmallCard from "../../src/components/cards/common/ControlPannelSmallCard";
-import ControlPannelCommingSession from "../../src/components/cards/ControlPannelCommingSession";
-import ControlPannelResultsCard from "../../src/components/cards/ControlPannelResultsCard";
+import ControlPannelCommingSession from "../../src/components/cards/common/ControlPannelCommingSession";
+import ControlPannelResultsCard from "../../src/components/cards/common/ControlPannelResultsCard";
 import { File, ChevronUp, Heart, User } from "lucide-react";
+import ControlPannelMissions from "../../src/components/cards/teacher/controlPannel/ControlPannelMissions";
 const variants = {
   glass: css`
     background: rgba(255, 255, 255, 0.1);
@@ -20,7 +21,7 @@ const variants = {
     }
   `,
 };
-const Button = styled.button`
+export const Button = styled.button`
   font-weight: 500;
   font-size: 0.875rem;
   line-height: 1.25rem;
@@ -52,7 +53,7 @@ export default function TeacherControlPannel() {
             <font>إنشاء جلسة جديدة</font>
           </Button>
         </div>
-      </Header>{" "}
+      </Header>
       <SmallCardContainer>
         <ControlPannelSmallCard
           titel={"إجمالي الطلاب"}
@@ -84,32 +85,48 @@ export default function TeacherControlPannel() {
           sessions={[
             {
               subjectName: "رياضيات متقدمة",
-              MrName: "د. أحمد",
               Date: "2024-01-15",
               Time: "10:00 صباحاً",
+              studentNumber: "25",
             },
             {
               subjectName: "فيزياء",
-              MrName: "د. خالد",
               Date: "2024-01-16",
               Time: "12:00 ظهراً",
+              studentNumber: "25",
             },
             {
               subjectName: "كيمياء",
-              MrName: "د. منى",
               Date: "2024-01-17",
               Time: "02:00 مساءً",
+              studentNumber: "25",
             },
           ]}
         />
         <ControlPannelResultsCard
           results={[
-            { subject: "اختبار التفاضل", date: "2024-01-10", score: 85 },
-            { subject: "قوانين الفيزياء", date: "2024-01-08", score: 92 },
-            { subject: "الروابط الكيميائية", date: "2024-01-05", score: 78 },
+            { subject: "اختبار التفاضل", degree: "25/30 مقدمة", score: 85 },
+            { subject: "قوانين الفيزياء", degree: "22/25 مقدمة", score: 92 },
+            { subject: "الروابط الكيميائية", degree: "28/30 مقدمة", score: 78 },
           ]}
         />
       </BigCardContainer>
+      <ControlPannelMissions
+        missions={[
+          {
+            title: "تقارير مختبر الفيزياء للصف",
+            total: "15 سلع",
+          },
+          {
+            title: "مراجعة عمليات إرسال الاختبار",
+            total: "8 عناصر",
+          },
+          {
+            title: "إعداد جلسة الكيمياء",
+            total: "1 سلع",
+          },
+        ]}
+      />
     </Main>
   );
 }

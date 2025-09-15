@@ -1,6 +1,6 @@
 import styled from "styled-components";
-import { Trophy } from "lucide-react";
-
+import { Trophy, Zap } from "lucide-react";
+import { useState, useEffect } from "react";
 const Card = styled.div`
   box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000),
     var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
@@ -80,21 +80,42 @@ const Score = styled.div`
 `;
 
 export default function ControlPannelResultsCard({ results }) {
+  const [userType, setUserType] = useState("");
+  useEffect(() => {
+    const storedUserType = localStorage.getItem("userType");
+    if (storedUserType) {
+      setUserType(storedUserType);
+    }
+  }, []);
+
   return (
     <Card>
       <CardHeader>
-        <h4>
-          <Trophy />
-          نتائج الاختبارات الأخيرة
-        </h4>
-        <p>أداؤك في الاختبارات الأخيرة</p>
+        {userType === "student" ? (
+          <>
+            <h4>
+              <Trophy />
+              نتائج الاختبارات الأخيرة
+            </h4>
+            <p>أداؤك في الاختبارات الأخيرة</p>
+          </>
+        ) : (
+          <>
+            <h4>
+              <Zap />
+              نظرة عامة على أداء الاختبار
+            </h4>
+
+            <p>إحصائيات الاختبار الأخيرة</p>
+          </>
+        )}
       </CardHeader>
       <CardContent>
         {results.map((test, index) => (
           <ResultItem key={index}>
             <Left>
               <h4>{test.subject}</h4>
-              <p>{test.date}</p>
+              {userType === "student" ? <p>{test.date}</p> : <p>{test.degree}</p>}
             </Left>
             <Score>
               <div>{test.score}/100</div>

@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import SessionCard from "../../src/components/cards/SessionCard";
+import SessionCard from "../../src/components/cards/student/SessionCard";
 const Body = styled.div`
   display: flex;
   flex-direction: column;

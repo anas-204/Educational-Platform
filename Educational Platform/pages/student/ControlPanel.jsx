@@ -1,9 +1,9 @@
 import styled from "styled-components";
 import { Book, Trophy, Target, FileText } from "lucide-react";
 import ControlPannelSmallCard from "../../src/components/cards/common/ControlPannelSmallCard";
-import ControlPannelCommingSession from "../../src/components/cards/ControlPannelCommingSession";
-import ControlPannelResultsCard from "../../src/components/cards/ControlPannelResultsCard";
-import ControlPannelHomeWork from "../../src/components/cards/ControlPannelHomeWork";
+import ControlPannelCommingSession from "../../src/components/cards/common/ControlPannelCommingSession";
+import ControlPannelResultsCard from "../../src/components/cards/common/ControlPannelResultsCard";
+import ControlPannelHomeWork from "../../src/components/cards/student/ControlPannelHomeWork";
 export const Main = styled.div`
   @media (max-width: 768px) {
     margin-inline: auto;
