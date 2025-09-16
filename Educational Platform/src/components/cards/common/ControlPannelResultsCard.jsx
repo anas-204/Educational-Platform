@@ -1,6 +1,8 @@
 import styled from "styled-components";
 import { Trophy, Zap } from "lucide-react";
 import { useState, useEffect } from "react";
+import { CircularProgress } from "@heroui/react";
+
 const Card = styled.div`
   box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000),
     var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
@@ -18,6 +20,7 @@ const CardHeader = styled.div`
     font-weight: 600;
     line-height: 1;
     font-size: 1.5rem;
+    color: hsl(var(--foreground));
     gap: 0.5rem;
     display: flex;
     align-items: center;
@@ -56,6 +59,7 @@ const Left = styled.div`
     margin: 0;
     font-size: 1rem;
     font-weight: 500;
+    color: hsl(var(--foreground));
   }
   p {
     margin: 0.25rem 0;
@@ -66,16 +70,12 @@ const Left = styled.div`
 
 const Score = styled.div`
   text-align: right;
-  :first-child {
-    font-weight: 700;
-    font-size: 1.125rem;
-    line-height: 1.75rem;
-  }
 
   :last-child {
-    color: hsl(var(--muted-foreground));
+    color: hsl(var(--primary-dark));
     font-size: 0.875rem;
     line-height: 1.25rem;
+    text-align: center;
   }
 `;
 
@@ -115,11 +115,20 @@ export default function ControlPannelResultsCard({ results }) {
           <ResultItem key={index}>
             <Left>
               <h4>{test.subject}</h4>
-              {userType === "student" ? <p>{test.date}</p> : <p>{test.degree}</p>}
+              {userType === "student" ? (
+                <p>{test.date}</p>
+              ) : (
+                <p>{test.degree}</p>
+              )}
             </Left>
             <Score>
-              <div>{test.score}/100</div>
-              <div>{test.score}%</div>
+              <CircularProgress
+                label="التقدير"
+                showValueLabel={true}
+                size="lg"
+                value={test.score}
+                strokeWidth={1.5}
+              />
             </Score>
           </ResultItem>
         ))}

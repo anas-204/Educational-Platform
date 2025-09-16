@@ -12,6 +12,8 @@ const Card = styled.div`
   border-width: 1px;
   border-radius: 0.75rem;
   border-color: hsl(var(--border));
+  padding-bottom: 10px;
+  background-color: hsl(var(--card));
 `;
 const CardHeader = styled.div`
   padding: 1rem;
@@ -221,7 +223,12 @@ export default function QuizzesCard({
 
         {status === "يمكن إعادة المحاولة" && (
           <Buttons>
-            <ActionButton type="retry">إعادة المحاولة</ActionButton>
+            <ActionButton
+              style={{ color: "hsl(var(--foreground))" }}
+              type="retry"
+            >
+              إعادة المحاولة
+            </ActionButton>
             <ActionButton type="success">عرض التفاصيل</ActionButton>
           </Buttons>
         )}

@@ -7,7 +7,8 @@ const Card = styled.div`
   color: hsl(0deg 0% 0%);
   border-radius: 0.75rem;
   background-color: hsl(var(--card));
-  border: 1px solid #e5e7eb;
+  border: 1px solid;
+  border-color: hsl(var(--border));
   &:hover {
     box-shadow: var(--shadow-medium);
   }
@@ -28,6 +29,7 @@ const HeaderInfo = styled.div`
     font-weight: 600 !important;
     font-size: 1.25rem !important;
     line-height: 1.75rem;
+    color: hsl(var(--foreground)) !important;
   }
 `;
 
@@ -63,6 +65,7 @@ const BodyInfo = styled.div`
     span {
       font-size: 0.875rem;
       line-height: 1.25rem;
+      color: hsl(var(--foreground)) !important;
     }
   }
 `;
@@ -84,10 +87,12 @@ const Button = styled.button`
   font-weight: 500;
   padding: 0.5rem 0.75rem;
   border-radius: calc(0.75rem - 2px);
-  border: 1px solid #ccc;
+  border: 1px solid;
+  border-color: hsl(var(--border));
   background-color: hsl(var(--background));
   cursor: pointer;
   transition: all 0.3s;
+  color: hsl(var(--foreground)) !important;
   &:hover {
     background-color: hsl(var(--accent)) !important;
     color: hsl(var(--primary)) !important;

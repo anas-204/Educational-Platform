@@ -5,13 +5,14 @@ import { useState } from "react";
 import { Outlet } from "react-router-dom";
 
 const Main = styled.div`
-  height: 100vh;
+  height: inherit;
   overflow-x: hidden;
 `;
 const Content = styled.div`
   direction: rtl;
   display: flex;
-  padding-bottom: 20px;
+  background-color: hsl(var(--background));
+
   @media (min-width: 769px) {
     & > div:first-child {
       flex: 0 0 15%;
@@ -32,7 +33,7 @@ const Content = styled.div`
   }
 `;
 const Out = styled.div`
-  padding: 1.5rem;
+  padding-top: 10px;
   margin-top: 85px;
 `;
 
