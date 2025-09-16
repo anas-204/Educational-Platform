@@ -1,6 +1,5 @@
-import React from "react";
 import styled from "styled-components";
-import { User, Clock, Calendar } from "lucide-react";
+import { Clock, Calendar } from "lucide-react";
 
 const Card = styled.div`
   --tw-shadow-colored: var(--shadow-soft);
@@ -81,7 +80,6 @@ const Button = styled.button`
   font-weight: 500;
   padding: 0.5rem 0.75rem;
   border-radius: calc(0.75rem - 2px);
-  border: 1px solid #ccc;
   background-color: hsl(var(--background));
   cursor: pointer;
   transition: all 0.3s;

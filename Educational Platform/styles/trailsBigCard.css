@@ -1,7 +1,9 @@
 .trailsBigCard{
     width: 96.5% !important;
     box-shadow: #adabab4a 0px 2px 3px 0px;
-    border: 1px solid #eee !important;
+    border-width: 1px !important;
+    border-radius: 0.75rem !important;
+    border-color: hsl(var(--border)) !important;
 }
 @media screen and (max-width:1200px) {
     .trailsBigCard{

@@ -8,6 +8,7 @@ export const Main = styled.div`
   @media (max-width: 768px) {
     margin-inline: auto;
   }
+  background-color: hsl(var(--background));
 `;
 export const Header = styled.div`
   --tw-text-opacity: 1;
@@ -16,6 +17,7 @@ export const Header = styled.div`
   background: var(--hero-gradient);
   border-radius: 0.75rem;
   border-color: hsl(var(--border));
+  margin-top: 20px;
   h1 {
     font-weight: 700;
     font-size: 1.875rem;
@@ -50,12 +52,12 @@ export const BigCardContainer = styled.div`
 `;
 export default function ControlPanel() {
   return (
-    <Main className="py-3 px-3 mb-4 col-11">
-      <Header>
+    <Main className="py-3 px-3 col-12">
+      <Header className="col-11">
         <h1>أهلاً بك مرة أخرى!</h1>
         <p>مستعد لمتابعة رحلتك التعليمية؟</p>
       </Header>
-      <SmallCardContainer>
+      <SmallCardContainer className="col-11">
         <ControlPannelSmallCard
           titel={"إجمالي الجلسات"}
           icon={<Book />}
@@ -65,7 +67,7 @@ export default function ControlPanel() {
         <ControlPannelSmallCard
           titel={"متوسط الدرجات"}
           icon={<Trophy />}
-          number={"85%"}
+          number={85}
           info={"+5% من الشهر الماضي"}
         />
         <ControlPannelSmallCard
@@ -81,7 +83,7 @@ export default function ControlPanel() {
           info={" في انتظار التسليم"}
         />
       </SmallCardContainer>
-      <BigCardContainer>
+      <BigCardContainer className="col-11">
         <ControlPannelCommingSession
           sessions={[
             {
@@ -113,6 +115,7 @@ export default function ControlPanel() {
         />
       </BigCardContainer>
       <ControlPannelHomeWork
+        className="col-11"
         assignments={[
           {
             title: "مسائل التفاضل",

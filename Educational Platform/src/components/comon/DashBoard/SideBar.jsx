@@ -20,7 +20,6 @@ const SidebarWrapper = styled.aside`
   border-left: 1px solid #eeeeee3d;
   padding: 1rem;
   box-shadow: 1px 0 4px rgba(0, 0, 0, 0.05);
-  height: calc(100vh - 85px);
   top: 85px;
   right: ${({ isOpen }) => (isOpen ? "0" : "-250px")};
   width: 200px;
@@ -30,9 +29,11 @@ const SidebarWrapper = styled.aside`
 
   @media (max-width: 769px) {
     position: fixed;
+    height: calc(100vh - 85px);
   }
   @media (min-width: 769px) {
     right: 0;
+    height: inherit;
   }
 `;
 
@@ -96,11 +97,23 @@ export default function Sidebar({ isOpen }) {
   ];
   const teacherNavItems = [
     { icon: Home, label: "لوحة التحكم", path: "/TeacherDashBoard" },
-    { icon: Calendar, label: "الجلسات", path: "/TeacherDashBoard/SessionManagement" },
+    {
+      icon: Calendar,
+      label: "الجلسات",
+      path: "/TeacherDashBoard/SessionManagement",
+    },
     { icon: Users, label: "الطلاب", path: "/TeacherDashBoard/Students" },
     { icon: BarChart3, label: "المهام", path: "/TeacherDashBoard/Mission" },
-    { icon: Trophy, label: "الاختبارات", path: "/TeacherDashBoard/Assignments" },
-    { icon: User, label: "الملف الشخصي", path: "/TeacherDashBoard/TeacherProfile" },
+    {
+      icon: Trophy,
+      label: "الاختبارات",
+      path: "/TeacherDashBoard/Assignments",
+    },
+    {
+      icon: User,
+      label: "الملف الشخصي",
+      path: "/TeacherDashBoard/TeacherProfile",
+    },
   ];
   const navItems = userType === "teacher" ? teacherNavItems : studentNavItems;
   const handleLogout = () => {

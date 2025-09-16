@@ -5,11 +5,11 @@ import TrailsBigCard from "../../src/components/cards/trailsBigCard";
 export default function Trials() {
   return (
     <>
-      <div className="header mb-3">
-        <h3>التجارب والاختبارات</h3>
+      <div className="header mb-3 pt-3 ps-4">
+        <h3 style={{ color: "hsl(var(--foreground))" }}>التجارب والاختبارات</h3>
         <p>عرض جميع التجارب والنتائج</p>
       </div>
-      <div className="statistics d-flex flex-wrap col-11 col-xl-12  gap-3 gap-xxl-4 justify-content-center justify-content-md-start">
+      <div className="statistics d-flex flex-wrap col-11 col-xl-12  gap-3 gap-xxl-4 justify-content-center justify-content-md-start ps-4">
         <TrailsSmallCard
           icon={
             <svg

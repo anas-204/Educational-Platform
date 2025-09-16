@@ -90,7 +90,6 @@ const Button = styled.button`
   font-weight: 500;
   padding: 0.5rem 0.75rem;
   border-radius: calc(0.75rem - 2px);
-  border: 1px solid #ccc;
   background-color: hsl(var(--background));
   cursor: pointer;
   transition: all 0.3s;
@@ -101,7 +100,7 @@ const Button = styled.button`
 `;
 export default function ControlPannelHomeWork({ assignments }) {
   return (
-    <Card>
+    <Card className="col-11">
       <CardHeader>
         <h4>
           <Pencil />

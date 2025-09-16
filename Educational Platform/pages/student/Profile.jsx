@@ -5,15 +5,21 @@ import ProfileBigCard1 from "../../src/components/cards/ProfileBigCard";
 export default function Profile() {
   return (
     <>
-      <div className="profilePage col-11 col-xl-12 mx-auto mx-md-0">
+      <div
+        className="profilePage col-11 col-xl-12 mx-auto mx-md-0"
+        style={{ height: "100vh" }}
+      >
         <div className="profilePageHeader d-flex justify-content-between align-items-center mb-3 col-12">
-          <h3>الملف الشخصي</h3>
+          <h3 style={{ color: "hsl(var(--foreground))" }}>الملف الشخصي</h3>
           <button className="btn">
             <i className="bi bi-pencil-square mx-1"></i> تعديل الملف
           </button>
         </div>
         <div className="profileBody d-flex gap-3 flex-sm-row flex-column mx-auto ">
-          <div className="profile col-xxl-3 col-lg-3 rounded-3 p-3 h-100">
+          <div
+            className="profile col-xxl-3 col-lg-3 rounded-3 p-3 h-100"
+            style={{ borderColor: "hsl(var(--border))" }}
+          >
             <img
               src={ProfileImage}
               alt="profile Image"
