@@ -71,7 +71,7 @@ export default function ControlPannelMissions({ missions }) {
       <CardContent>
         <CardContentInfo>
           {missions.map((assignment, index) => (
-            <div key={index}>
+            <div key={index} style={{}}>
               <h4>{assignment.title}</h4>
               <div>
                 <span> {assignment.total}</span>

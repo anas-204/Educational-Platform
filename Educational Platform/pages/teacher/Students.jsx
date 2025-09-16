@@ -5,6 +5,7 @@ import { SmallCardContainer } from "../student/ControlPanel";
 import { Award , User, Calendar, ArrowUp } from "lucide-react";
 import ControlPannelSmallCard from "../../src/components/cards/teacher/Session/SmallCard";
 import ListOfStudents from "../../src/components/cards/teacher/student/ListOfStudents";
+import DistributionOfStudents from "../../src/components/cards/teacher/student/DistributionOfStudents";
 const Main = styled.div`
   @media (max-width: 768px) {
     margin-inline: auto;
@@ -180,6 +181,7 @@ export default function SessionManagement() {
         />
       </SmallCardContainer>
       <ListOfStudents />
+      <DistributionOfStudents />
     </Main>
   );
 }
