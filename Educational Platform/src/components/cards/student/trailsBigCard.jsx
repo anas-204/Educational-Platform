@@ -48,7 +48,7 @@ export default function trailsBigCard(props) {
               <path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"></path>
             </svg>
             <div className="det d-flex gap-1 mb-2">
-              <p style={{ color: "hsl(var(--foreground))" }}>
+              <p style={{ color: "hsl(var(--foreground)) !important" }}>
                 النتيجة العليا :{" "}
               </p>
               <p>{props.maxGrade}</p>
@@ -122,7 +122,10 @@ export default function trailsBigCard(props) {
               <polyline points="12 6 12 12 16 14"></polyline>
             </svg>
             <div className="det d-flex gap-1 mb-2">
-              <p> المدة :</p>
+              <p style={{ color: "hsl(var(--foreground)) !important" }}>
+                {" "}
+                المدة :
+              </p>
               <p>{props.duration} دقيقة</p>
             </div>
           </div>
