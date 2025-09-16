@@ -18,20 +18,22 @@ const SidebarWrapper = styled.aside`
   border-left: 1px solid #eeeeee3d;
   padding: 1rem;
   box-shadow: 1px 0 4px rgba(0, 0, 0, 0.05);
-  top: 85px;
-  right: ${({ isOpen }) => (isOpen ? "0" : "-250px")};
   width: 200px;
   z-index: 1001;
-  transition: right 0.3s ease-in-out;
-  position: relative;
 
-  @media (max-width: 769px) {
+  @media (max-width: 768px) {
     position: fixed;
+    top: 85px;
+    right: ${({ isOpen }) => (isOpen ? "0" : "-250px")};
     height: calc(100vh - 85px);
+    transition: right 0.3s ease-in-out;
   }
+
   @media (min-width: 769px) {
+    position: sticky;
+    top: 85px;
+    height: calc(100vh - 85px);
     right: 0;
-    height: inherit;
   }
 `;
 

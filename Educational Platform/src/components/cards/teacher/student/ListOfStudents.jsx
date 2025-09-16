@@ -305,7 +305,7 @@ export default function ListOfStudents() {
         <h3>قائمة الطلاب</h3>
       </Header>
 
-      <div className="pt-0 p-4">
+      <div className="p-4 pt-0">
         {students.map((student, index) => (
           <StudentCard key={index} className="mt-3">
             <div className="main">

@@ -2,10 +2,11 @@ import React from "react";
 import { styled } from "styled-components";
 import { Plus, Search } from "lucide-react";
 import { SmallCardContainer } from "../student/ControlPanel";
-import { Award , User, Calendar, ArrowUp } from "lucide-react";
+import { Award, User, Calendar, ArrowUp } from "lucide-react";
 import ControlPannelSmallCard from "../../src/components/cards/teacher/Session/SmallCard";
 import ListOfStudents from "../../src/components/cards/teacher/student/ListOfStudents";
 import DistributionOfStudents from "../../src/components/cards/teacher/student/DistributionOfStudents";
+import TheBestStudent from "../../src/components/cards/teacher/student/TheBestStudent";
 const Main = styled.div`
   @media (max-width: 768px) {
     margin-inline: auto;
@@ -135,6 +136,15 @@ const Button2 = styled.button`
     color: hsl(var(--primary)) !important;
   }
 `;
+const DistributionAndBestContainer = styled.div`
+  margin-block: 1.5rem;
+  display: grid;
+  gap: 1.5rem;
+  @media (min-width: 1024px) {
+    grid-template-columns: repeat(2, minmax(0px, 1fr));
+  }
+  grid-template-columns: repeat(1, minmax(0px, 1fr));
+`;
 export default function SessionManagement() {
   return (
     <Main className="py-3 px-3 mb-4 col-11">
@@ -181,7 +191,10 @@ export default function SessionManagement() {
         />
       </SmallCardContainer>
       <ListOfStudents />
-      <DistributionOfStudents />
+      <DistributionAndBestContainer>
+        <DistributionOfStudents />
+        <TheBestStudent />
+      </DistributionAndBestContainer>
     </Main>
   );
 }

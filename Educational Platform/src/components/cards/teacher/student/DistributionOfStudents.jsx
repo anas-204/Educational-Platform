@@ -17,8 +17,8 @@ const Header = styled.div`
   h3 {
     letter-spacing: -0.025em;
     line-height: 1;
-    font-weight: 600;
-    font-size: 1.5rem;
+    font-weight: 600 !important;
+    font-size: 1.5rem !important;
   }
 `;
 const TheStage = styled.div`
@@ -39,7 +39,6 @@ const Number = styled.div`
 export default function DistributionOfStudents() {
   const myScore = 1;
   const highScore = 3;
-  const percent = Math.round((myScore / highScore) * 100);
 
   return (
     <Card>
