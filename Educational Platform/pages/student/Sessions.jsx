@@ -5,6 +5,7 @@ const Body = styled.div`
   display: flex;
   flex-direction: column;
   gap: 1rem;
+  height: 100vh;
 `;
 export default function SessionsPage() {
   const [sessions, setSessions] = useState([]);
@@ -28,11 +29,13 @@ export default function SessionsPage() {
   }, []);
   return (
     <div>
-      <div>
-        <h3 style={{ fontWeight: "bold" }}>الجلسات التعليمية</h3>
+      <div style={{ padding: "30px 20px" }}>
+        <h3 style={{ fontWeight: "bold", color: "hsl(var(--foreground))" }}>
+          الجلسات التعليمية
+        </h3>
         <p>عرض جميع الجلسات المسجلة والقادمة</p>
       </div>
-      <Body>
+      <Body style={{ paddingInlineStart: "20px" }}>
         {sessions.map((session) => (
           <SessionCard
             key={session.id}

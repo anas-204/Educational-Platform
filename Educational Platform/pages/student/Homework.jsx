@@ -35,7 +35,7 @@ export default function Homework() {
           </h3>
           <p>عرض جميع الواجبات وحالة التسليم</p>
         </div>
-        <div className="body">
+        <div className="body ps-4">
           {homeWorks.length ? (
             homeWorks.map((homework) => (
               <HomeWorkCard

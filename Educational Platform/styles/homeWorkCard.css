@@ -21,7 +21,7 @@
 .dates p{
     margin-bottom: 2px;
     font-size: 14px;
-    color: black;
+    /* color: hsl(var(--foreground)) ; */
 }
 .dates i{
     color: #a9a9a9;

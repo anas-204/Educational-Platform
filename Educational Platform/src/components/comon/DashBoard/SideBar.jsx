@@ -6,9 +6,7 @@ import {
   PenTool,
   Target,
   User,
-  BookOpen,
   Users,
-  BarChart3,
   FileText,
 } from "lucide-react";
 import { useLocation, useNavigate } from "react-router-dom";
@@ -56,7 +54,6 @@ const NavButton = styled.button`
   font-size: 15px;
   position: relative;
   overflow: hidden;
-  white-space: nowrap;
   z-index: 1;
   color: ${({ active }) =>
     active ? "hsl(var(--primary))" : "hsl(var(--foreground))"};

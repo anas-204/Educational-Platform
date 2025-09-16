@@ -54,6 +54,7 @@ export const CardContentInfo = styled.div`
     border-color: hsl(var(--warning) / 0.2);
     border-width: 1px;
     border-radius: 0.75rem;
+
     h4 {
       font-weight: 500;
       font-size: 1rem;
@@ -70,7 +71,6 @@ export const CardContentInfo = styled.div`
       display: flex;
       align-items: center;
       justify-content: space-between;
-      background: none;
       flex-wrap: wrap;
       border: none;
       //   @media (max-width: 767px) {

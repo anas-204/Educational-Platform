@@ -30,12 +30,12 @@ const Content = styled.div`
       flex: 1 1 100%;
     }
   }
-  overflow: hidden;
 `;
 const Out = styled.div`
   padding-inline: 0;
   padding-top: 10px;
   margin-top: 65px;
+  height: inherit;
 `;
 
 export default function StudentDashBoard() {

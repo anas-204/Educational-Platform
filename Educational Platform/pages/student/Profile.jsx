@@ -6,26 +6,38 @@ export default function Profile() {
   return (
     <>
       <div
-        className="profilePage col-11 col-xl-12 mx-auto mx-md-0"
-        style={{ height: "100vh" }}
+        className="profilePage col-11 col-xl-12 mx-auto mx-md-0 pb-4"
+        style={{ height: "inherit" }}
       >
-        <div className="profilePageHeader d-flex justify-content-between align-items-center mb-3 col-12">
-          <h3 style={{ color: "hsl(var(--foreground))" }}>الملف الشخصي</h3>
+        <div className="profilePageHeader d-flex justify-content-between align-items-center mb-3 col-12 px-4 pt-3">
+          <h3 style={{ color: "hsl(var(--foreground))", padding: "20px 20px" }}>
+            الملف الشخصي
+          </h3>
           <button className="btn">
             <i className="bi bi-pencil-square mx-1"></i> تعديل الملف
           </button>
         </div>
-        <div className="profileBody d-flex gap-3 flex-sm-row flex-column mx-auto ">
+        <div className="profileBody d-flex gap-3 flex-sm-row flex-column mx-auto px-3  ">
           <div
-            className="profile col-xxl-3 col-lg-3 rounded-3 p-3 h-100"
-            style={{ borderColor: "hsl(var(--border))" }}
+            className="profile col-xxl-3 col-lg-3 rounded-3 p-3 "
+            style={{
+              backgroundColor: "hsl(var(--card))",
+              border: "1px solid hsl(var(--border))",
+            }}
           >
             <img
               src={ProfileImage}
               alt="profile Image"
               className="mx-auto profileImage"
             />
-            <p className="text-center text-dark">مصطفي إبراهيم الرفاعي</p>
+            <p
+              className="text-center "
+              style={{
+                color: "hsl(var(--foreground))",
+              }}
+            >
+              مصطفي إبراهيم الرفاعي
+            </p>
             <p className="text-center">الثالث الثانوي</p>
             <div className="data my-4">
               <p className="d-flex gap-2 align-items-center">

@@ -10,6 +10,7 @@ export default function ControlPannelMissions({ missions }) {
   const CardContentInfo = styled.div`
     display: grid;
     gap: 1rem;
+
     @media (min-width: 768px) {
       grid-template-columns: repeat(3, minmax(0, 1fr));
     }
@@ -19,6 +20,7 @@ export default function ControlPannelMissions({ missions }) {
       padding: 1rem;
       border-width: 1px;
       border-color: hsl(var(--border));
+
       h4 {
         text-align: right;
         font-weight: 500 !important;
@@ -38,9 +40,6 @@ export default function ControlPannelMissions({ missions }) {
         }
       }
       transition: all 0.3s;
-      &:hover {
-        background-color: hsla(263, 87%, 97%, 0.68) !important;
-      }
     }
   `;
   const Button = styled.button`

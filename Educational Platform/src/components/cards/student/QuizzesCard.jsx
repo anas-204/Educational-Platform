@@ -13,6 +13,7 @@ const Card = styled.div`
   border-radius: 0.75rem;
   border-color: hsl(var(--border));
   padding-bottom: 10px;
+  background-color: hsl(var(--card));
 `;
 const CardHeader = styled.div`
   padding: 1rem;
