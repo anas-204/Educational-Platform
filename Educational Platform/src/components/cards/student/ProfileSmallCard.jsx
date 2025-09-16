@@ -1,4 +1,4 @@
-import "../../../styles/ProfileSmallCard.css";
+import "../../../../styles/ProfileSmallCard.css";
 export default function ProfileSmallCard(props) {
   return (
     <>

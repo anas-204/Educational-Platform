@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import QuizzesCard from "../../src/components/cards/QuizzesCard";
+import QuizzesCard from "../../src/components/cards/student/QuizzesCard";
 
 const Body = styled.div`
   display: flex;

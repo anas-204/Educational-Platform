@@ -1,4 +1,4 @@
-import HomeWorkCard from "../../src/components/cards/HomeWorkCard";
+import HomeWorkCard from "../../src/components/cards/student/HomeWorkCard";
 import "../../styles/homeWork.css";
 import { useEffect, useState } from "react";
 import axios from "axios";

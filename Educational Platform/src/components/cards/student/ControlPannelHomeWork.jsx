@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { Pencil } from "lucide-react";
 
-const Card = styled.div`
+export const Card = styled.div`
   margin: 1.5rem 0;
   --tw-shadow: var(--shadow-soft);
   --tw-shadow-colored: var(--shadow-soft);
@@ -12,7 +12,7 @@ const Card = styled.div`
   border-radius: 0.75rem;
   border-color: hsl(var(--border));
 `;
-const CardHeader = styled.div`
+export const CardHeader = styled.div`
   padding: 1.5rem;
   display: flex;
   flex-direction: column;
@@ -36,12 +36,12 @@ const CardHeader = styled.div`
     line-height: 1.25rem;
   }
 `;
-const CardContent = styled.div`
+export const CardContent = styled.div`
   padding: 1.5rem;
   padding-top: 0;
   border-color: hsl(var(--border));
 `;
-const CardContentInfo = styled.div`
+export const CardContentInfo = styled.div`
   display: grid;
   grid-template-columns: repeat(1, minmax(0, 1fr));
   @media (min-width: 768px) {

@@ -1,4 +1,4 @@
-import "../../../styles/trailsBigCard.css";
+import "../../../../styles/trailsBigCard.css";
 import { Progress } from "@heroui/react";
 
 export default function trailsBigCard(props) {

@@ -1,5 +1,5 @@
-import ProfileProgressBar from "../comon/profileProgressBar";
-import "../../../styles/profileBigCard.css";
+import ProfileProgressBar from "../../comon/profileProgressBar";
+import "../../../../styles/profileBigCard.css";
 export default function ProfileBigCard() {
   return (
     <>

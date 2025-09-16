@@ -1,7 +1,7 @@
 import "../../styles/profilePage.css";
 import ProfileImage from "../../src/assets/profile-image.jpg";
-import ProfileSmallCard from "./../../src/components/cards/ProfileSmallCard";
-import ProfileBigCard1 from "../../src/components/cards/ProfileBigCard";
+import ProfileSmallCard from "../../src/components/cards/student/ProfileSmallCard";
+import ProfileBigCard1 from "../../src/components/cards/student/ProfileBigCard";
 export default function Profile() {
   return (
     <>

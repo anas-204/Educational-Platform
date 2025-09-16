@@ -1,4 +1,4 @@
-import "../../../styles/trailsSmallCard.css";
+import "../../../../styles/trailsSmallCard.css";
 export default function trailsSmallCard(props) {
   return (
     <>
