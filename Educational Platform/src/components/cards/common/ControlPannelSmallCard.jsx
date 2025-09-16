@@ -20,6 +20,7 @@ const CardHeader = styled.div`
     font-weight: 500;
     font-size: 0.875rem;
     line-height: 1.25rem;
+    color: hsl(var(--foreground));
   }
 `;
 
@@ -36,6 +37,7 @@ const CardContent = styled.div`
     font-weight: 700;
     font-size: 1.5rem;
     line-height: 2rem;
+    color: hsl(var(--primary-dark));
   }
   p {
     color: hsl(var(--muted-foreground));

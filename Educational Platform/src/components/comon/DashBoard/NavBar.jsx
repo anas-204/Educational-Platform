@@ -85,6 +85,7 @@ const ghost = css`
     background: hsl(var(--accent));
     color: hsl(var(--accent-foreground));
   }
+  border-color: hsl(var(--foreground));
 `;
 const outline = css`
   border: 1px solid hsl(var(--input));
@@ -144,15 +145,37 @@ const Title = styled("div")`
   h1 {
     font-weight: 700;
     font-size: 1.25rem;
+    color: hsl(var(--foreground));
   }
   p {
-    color: hsl(var(--muted-foreground));
+    color: hsl(var(--foreground));
     font-size: 0.875rem;
     text-transform: capitalize;
   }
 `;
 
 export default function NavBar({ toggleSidebar }) {
+  const [theme, setTheme] = useState(() => {
+    return localStorage.getItem("prefers-color-scheme") || "dark";
+  });
+
+  useEffect(() => {
+    localStorage.setItem("prefers-color-scheme", theme);
+    if (theme === "dark") {
+      document.documentElement.classList.add("dark-theme");
+      document.documentElement.classList.remove("light-theme");
+    } else {
+      document.documentElement.classList.add("light-theme");
+      document.documentElement.classList.remove("dark-theme");
+    }
+
+    document.documentElement.setAttribute("data-theme", theme);
+  }, [theme]);
+
+  const toggleTheme = () => {
+    setTheme((prevTheme) => (prevTheme === "dark" ? "light" : "dark"));
+  };
+
   const navigate = useNavigate();
   const handleLogout = () => {
     Swal.fire({
@@ -167,22 +190,18 @@ export default function NavBar({ toggleSidebar }) {
     }).then((result) => {
       if (result.isConfirmed) {
         Swal.fire("تم تسجيل الخروج!", "", "success");
-        // Code Make Logout ya anooos
-        // remove token from Api ya anoos
         navigate("/login");
       }
     });
   };
-  const [dark, setDark] = useState(false);
+
   const [guide, setGuide] = useState("");
-  const toggleTheme = () => setDark(!dark);
   const [userType, setUserType] = useState("student");
   useEffect(() => {
     const storedUserType = localStorage.getItem("userType");
     if (storedUserType) {
       setUserType(storedUserType);
     }
-
     if (userType === "teacher") {
       setGuide("المعلم");
     } else {
@@ -198,7 +217,7 @@ export default function NavBar({ toggleSidebar }) {
               <Menu />
             </Burger>
             <Button onClick={toggleTheme} variant="ghost" size="sm">
-              {dark ? <Sun /> : <Moon />}
+              {theme === "dark" ? <Sun /> : <Moon />}
             </Button>
             <NavButton onClick={handleLogout} className="d-none d-md-flex">
               <LogOut />

@@ -5,13 +5,13 @@ import { useState } from "react";
 import { Outlet } from "react-router-dom";
 
 const Main = styled.div`
-  height: 100vh;
-  overflow-x: hidden;
+  height: inherit;
+  overflow: hidden;
 `;
 const Content = styled.div`
   direction: rtl;
   display: flex;
-  padding-bottom: 20px;
+  background-color: hsl(var(--background));
   @media (min-width: 769px) {
     & > div:first-child {
       flex: 0 0 15%;
@@ -30,10 +30,12 @@ const Content = styled.div`
       flex: 1 1 100%;
     }
   }
+  overflow: hidden;
 `;
 const Out = styled.div`
-  padding: 1.5rem;
-  margin-top: 85px;
+  padding-inline: 0;
+  padding-top: 10px;
+  margin-top: 65px;
 `;
 
 export default function StudentDashBoard() {

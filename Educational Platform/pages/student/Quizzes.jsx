@@ -6,11 +6,14 @@ const Body = styled.div`
   flex-direction: column;
   gap: 1rem;
 `;
+
 export default function Quizzes() {
   return (
-    <div className="py-3 px-3 mb-4 col-11">
-      <div>
-        <h3 style={{ fontWeight: "bold" }}>الجلسات التعليمية</h3>
+    <div className="py-3 px-3 mb-4 col-11 ">
+      <div className="py-2">
+        <h3 style={{ fontWeight: "bold", color: "hsl(var(--foreground))" }}>
+          الجلسات التعليمية
+        </h3>
         <p>عرض جميع الاختبارات والنتائج</p>
       </div>
       <Body>
