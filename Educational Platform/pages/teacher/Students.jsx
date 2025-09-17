@@ -7,12 +7,12 @@ import ControlPannelSmallCard from "../../src/components/cards/teacher/Session/S
 import ListOfStudents from "../../src/components/cards/teacher/student/ListOfStudents";
 import DistributionOfStudents from "../../src/components/cards/teacher/student/DistributionOfStudents";
 import TheBestStudent from "../../src/components/cards/teacher/student/TheBestStudent";
-const Main = styled.div`
+export const Main = styled.div`
   @media (max-width: 768px) {
     margin-inline: auto;
   }
 `;
-const Header = styled.div`
+export const Header = styled.div`
   --tw-text-opacity: 1;
   padding: 1.5rem;
   padding-bottom: 0;
@@ -35,7 +35,7 @@ const Header = styled.div`
   }
 `;
 
-const Button = styled.button`
+export const Button = styled.button`
   font-weight: 500;
   font-size: 0.875rem;
   line-height: 1.25rem;
@@ -59,7 +59,7 @@ const Button = styled.button`
     background-color: #6c28d9c7 !important;
   }
 `;
-const SearchContainer = styled.div`
+export const SearchContainer = styled.div`
   --tw-space-y-reverse: 0;
   margin-top: calc(1.5rem * calc(1 - var(--tw-space-y-reverse)));
   margin-bottom: calc(1.5rem * var(--tw-space-y-reverse));
@@ -70,7 +70,7 @@ const SearchContainer = styled.div`
   border-radius: 0.75rem;
   border-color: hsl(var(--border));
 `;
-const SearchInput = styled.div`
+export const SearchInput = styled.div`
   display: flex;
   flex-direction: column;
   gap: 1rem;
@@ -114,7 +114,7 @@ const SearchInput = styled.div`
     }
   }
 `;
-const Button2 = styled.button`
+export const Button2 = styled.button`
   font-weight: 500;
   font-size: 0.875rem;
   line-height: 1.25rem;
@@ -190,6 +190,8 @@ export default function SessionManagement() {
           number={"87%"}
         />
       </SmallCardContainer>
+
+      
       <ListOfStudents />
       <DistributionAndBestContainer>
         <DistributionOfStudents />
