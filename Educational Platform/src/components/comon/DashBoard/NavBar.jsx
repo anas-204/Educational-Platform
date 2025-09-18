@@ -117,6 +117,7 @@ const Burger = styled.button`
   svg {
     width: 1.5rem;
     height: 1.5rem;
+    color: hsl(var(--foreground));
   }
 `;
 const Right = styled.div`
