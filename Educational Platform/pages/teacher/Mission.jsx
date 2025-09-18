@@ -20,7 +20,7 @@ import {
 import { SmallCardContainer } from "../student/ControlPanel";
 import ControlPannelSmallCard from "../../src/components/cards/teacher/Session/SmallCard";
 import ActiveMission from "../../src/components/cards/teacher/mission/ActiveMission";
-import CompleteSessions from "../../src/components/cards/teacher/mission/CompleteSessions";
+import CompleteMissions from "../../src/components/cards/teacher/mission/CompleteMissions";
 import DistributionOfSubject from "../../src/components/cards/teacher/mission/DistributionOfSubject";
 import Rate from "../../src/components/cards/teacher/mission/Rate";
 const DistributionAndrateContainer = styled.div`
@@ -78,7 +78,7 @@ export default function Mission() {
       </SmallCardContainer>
       <ActiveMission />
       <div style={{ marginTop: "25px" }}>
-        <CompleteSessions />
+        <CompleteMissions />
       </div>
       <div style={{ marginTop: "25px" }}>
         <DistributionAndrateContainer>

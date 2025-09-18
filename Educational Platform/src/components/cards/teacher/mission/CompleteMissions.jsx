@@ -114,7 +114,7 @@ const ActionBtn = styled.button`
   }
 `;
 
-export default function CompletedTasks() {
+export default function CompleteMissions() {
   const tasks = [
     {
       id: 1,
