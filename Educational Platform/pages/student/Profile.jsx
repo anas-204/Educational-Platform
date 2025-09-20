@@ -2,7 +2,37 @@ import "../../styles/profilePage.css";
 import ProfileImage from "../../src/assets/profile-image.jpg";
 import ProfileSmallCard from "../../src/components/cards/student/ProfileSmallCard";
 import ProfileBigCard1 from "../../src/components/cards/student/ProfileBigCard";
+import axios from "axios";
+import { useState, useEffect } from "react";
 export default function Profile() {
+  const [studentInfo, setStudentInfo] = useState([]);
+  const sectionMap = {
+    third_sec: "الثالث الثانوي",
+    second_sec_scientific: "الثاني الثانوي - علمي",
+    second_sec_literary: "الثاني الثانوي - أدبي",
+  };
+  console.log(studentInfo.section);
+
+  const studentSection = sectionMap[studentInfo.section] || "";
+
+  useEffect(() => {
+    getStudentInfo();
+  }, []);
+
+  const getStudentInfo = async () => {
+    const token = localStorage.getItem("authToken");
+    try {
+      const response = await axios.get("http://localhost:3000/student/info", {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      setStudentInfo(response.data);
+      response.section = sectionMap[response.section] || "الأول الثانوي";
+    } catch (error) {
+      console.error("Error fetching Info:", error);
+    }
+  };
   return (
     <>
       <div
@@ -36,9 +66,9 @@ export default function Profile() {
                 color: "hsl(var(--foreground))",
               }}
             >
-              مصطفي إبراهيم الرفاعي
+              {studentInfo.name}
             </p>
-            <p className="text-center">الثالث الثانوي</p>
+            <p className="text-center">{studentSection}</p>
             <div className="data my-4">
               <p className="d-flex gap-2 align-items-center">
                 <svg
@@ -57,7 +87,7 @@ export default function Profile() {
                   <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"></path>
                   <circle cx="12" cy="7" r="4"></circle>
                 </svg>{" "}
-                كود الطالب : STU001
+                كود الطالب : STU - {studentInfo.id}
               </p>
               <p className="d-flex gap-2 align-items-center">
                 <svg
@@ -75,7 +105,7 @@ export default function Profile() {
                   <rect width="20" height="16" x="2" y="4" rx="2"></rect>
                   <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path>
                 </svg>
-                student@example.com
+                {studentInfo.email}
               </p>
               <p className="d-flex align-items-center gap-2">
                 <svg
@@ -92,7 +122,7 @@ export default function Profile() {
                 >
                   <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
                 </svg>
-                01101778044
+                {studentInfo.phone}
               </p>
               <p className="d-flex gap-2 align-items-center">
                 <svg
@@ -106,7 +136,15 @@ export default function Profile() {
                   <path d="M12.166 8.94c-.524 1.062-1.234 2.12-1.96 3.07A32 32 0 0 1 8 14.58a32 32 0 0 1-2.206-2.57c-.726-.95-1.436-2.008-1.96-3.07C3.304 7.867 3 6.862 3 6a5 5 0 0 1 10 0c0 .862-.305 1.867-.834 2.94M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10" />
                   <path d="M8 8a2 2 0 1 1 0-4 2 2 0 0 1 0 4m0 1a3 3 0 1 0 0-6 3 3 0 0 0 0 6" />
                 </svg>
-                سنتر المهندسين
+                {studentInfo.center == "Zayed Center"
+                  ? "سنتر الشيخ زايد"
+                  : studentInfo.center == "Giza Center"
+                  ? "سنتر الجيزة"
+                  : studentInfo.center == "Doki Center"
+                  ? "سنتر الدقي"
+                  : studentInfo.center == "Elmohndseen Center"
+                  ? "سنتر المهندسين"
+                  : "سنتر عين شمس"}
               </p>
             </div>
           </div>

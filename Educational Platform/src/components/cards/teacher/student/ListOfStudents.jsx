@@ -1,6 +1,5 @@
-import React from "react";
 import styled from "styled-components";
-import { Progress } from "@heroui/react";
+import { CircularProgress } from "@heroui/react";
 import { MessageCircle, Eye, GraduationCap, User, Mail } from "lucide-react";
 const Card = styled.div`
   --tw-shadow: var(--shadow-medium);
@@ -20,6 +19,7 @@ const Header = styled.div`
     line-height: 1;
     font-weight: 600 !important;
     font-size: 1.5rem !important;
+    color: hsl(var(--foreground));
   }
 `;
 const StudentCard = styled.div`
@@ -30,6 +30,7 @@ const StudentCard = styled.div`
   padding: 1rem;
   border-width: 1px;
   border-radius: 0.75rem;
+  background-color : hsl(var(--card-gradient))
   border-color: hsl(var(--border));
   .main {
     @media (min-width: 1024px) {
@@ -69,6 +70,7 @@ const PersonalDetails = styled.div`
       font-weight: 600 !important;
       font-size: 1.125rem !important;
       line-height: 1.75rem;
+      color: hsl(var(--foreground));
     }
     p {
       color: hsl(var(--muted-foreground));
@@ -120,38 +122,21 @@ const LevelDetails = styled.div`
   }
 `;
 const AttendanceRate = styled.div`
-  p {
-    text-align: right;
-    color: hsl(var(--muted-foreground));
-  }
-  > div:first-of-type {
-    gap: 0.5rem;
-    align-items: center;
-    display: flex;
-    span {
-      text-align: right;
-      font-weight: 500;
-      margin-top: -8px;
-    }
+  :last-child {
+    color: hsl(var(--secondary-dark));
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+    text-align: center;
+    padding-top: 5px;
   }
 `;
 const AverageGrade = styled.div`
-  > p:first-of-type {
-    color: hsl(var(--muted-foreground));
-  }
-  > p:last-of-type {
+  :last-child {
     color: hsl(var(--success));
-    font-weight: 500;
-    font-size: 1.125rem;
-    line-height: 1.75rem;
-  }
-  const CompleteSessions = styled.div > p:first-of-type {
-    color: hsl(var(--muted-foreground));
-  }
-  > p:last-of-type {
-    font-weight: 500;
-    font-size: 1.125rem;
-    line-height: 1.75rem;
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+    text-align: center;
+    padding-top: 5px;
   }
 `;
 const CompleteSessions = styled.div`
@@ -168,6 +153,8 @@ const EmailPhoneAndStatus = styled.div`
   width: 1000pc;
   margin-top: 0.75rem;
   margin-bottom: 0.75rem;
+  margin-inline: auto;
+
   align-items: center;
   display: flex;
   justify-content: space-between;
@@ -320,7 +307,7 @@ export default function ListOfStudents() {
                 <div>
                   <h3>{student.name}</h3>
                   <p>{student.grade}</p>
-                  <Subjects>
+                  <Subjects className="mb-2">
                     {student.subjects.map((subj, i) => (
                       <div key={i}>{subj}</div>
                     ))}
@@ -329,25 +316,36 @@ export default function ListOfStudents() {
               </PersonalDetails>
 
               {/* تفاصيل المستوى */}
-              <div className="flex-fill">
+              <div className="">
                 <LevelDetails>
                   <AttendanceRate>
-                    <p>نسبة الحضور</p>
                     <div>
-                      <div className="flex flex-col gap-6 w-full mb-3 mt-2 progres rounded-3">
-                        <Progress
-                          aria-label="Attendance"
-                          value={parseInt(student.attendance)}
-                          className="w-[150px]"
-                        />
-                      </div>
-                      <span>{student.attendance}</span>
+                      <CircularProgress
+                        style={{
+                          color: "hsl(var(--muted-foreground))",
+                          paddingTop: "5px",
+                        }}
+                        label="نسبة الحضور"
+                        showValueLabel={true}
+                        size="lg"
+                        value={parseInt(student.attendance)}
+                        strokeWidth={1.5}
+                      />
                     </div>
                   </AttendanceRate>
 
                   <AverageGrade>
-                    <p>متوسط الدرجات</p>
-                    <p>{student.average}</p>
+                    <CircularProgress
+                      style={{
+                        color: "hsl(var(--muted-foreground))",
+                        paddingTop: "5px",
+                      }}
+                      label="متوسط الدرجات"
+                      showValueLabel={true}
+                      size="lg"
+                      value={parseInt(student.attendance)}
+                      strokeWidth={1.5}
+                    />
                   </AverageGrade>
 
                   <CompleteSessions>

@@ -14,7 +14,7 @@ export const Main = styled.div`
 `;
 export const Header = styled.div`
   --tw-text-opacity: 1;
-  padding: 1.5rem;
+  padding: 0.5rem;
   padding-bottom: 0;
   display: flex;
   justify-content: space-between;
@@ -32,6 +32,7 @@ export const Header = styled.div`
     font-size: 1.875rem;
     line-height: 2.25rem;
     margin-bottom: 0.5rem;
+    color: hsl(var(--foreground));
   }
 `;
 
@@ -41,7 +42,6 @@ export const Button = styled.button`
   line-height: 1.25rem;
   padding-left: 2rem;
   padding-right: 2rem;
-  border-width: 1px;
   border-radius: 10px;
   white-space: nowrap;
   gap: 0.5rem;
@@ -191,7 +191,6 @@ export default function SessionManagement() {
         />
       </SmallCardContainer>
 
-      
       <ListOfStudents />
       <DistributionAndBestContainer>
         <DistributionOfStudents />

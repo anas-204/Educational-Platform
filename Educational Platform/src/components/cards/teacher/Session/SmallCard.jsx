@@ -17,6 +17,7 @@ const Number = styled.p`
   font-weight: 700;
   font-size: 1.5rem;
   line-height: 2rem;
+  color: hsl(var(--foreground));
 `;
 const Titel = styled.p`
   color: hsl(var(--muted-foreground));

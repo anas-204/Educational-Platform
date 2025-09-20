@@ -12,7 +12,7 @@ export default function Quizzes() {
     <div className="py-3 px-3 mb-4 col-11 ">
       <div className="py-2">
         <h3 style={{ fontWeight: "bold", color: "hsl(var(--foreground))" }}>
-          الجلسات التعليمية
+          الاختبارات
         </h3>
         <p>عرض جميع الاختبارات والنتائج</p>
       </div>

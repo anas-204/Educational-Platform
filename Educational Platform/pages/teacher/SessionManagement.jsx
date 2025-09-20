@@ -1,4 +1,3 @@
-import React from "react";
 import { styled } from "styled-components";
 import { Plus, Search } from "lucide-react";
 import { SmallCardContainer } from "../student/ControlPanel";
@@ -13,7 +12,7 @@ const Main = styled.div`
 `;
 const Header = styled.div`
   --tw-text-opacity: 1;
-  padding: 1.5rem;
+  padding: 0.5rem;
   padding-bottom: 0;
   display: flex;
   justify-content: space-between;
@@ -31,6 +30,7 @@ const Header = styled.div`
     font-size: 1.875rem;
     line-height: 2.25rem;
     margin-bottom: 0.5rem;
+    color: hsl(var(--foreground));
   }
 `;
 
@@ -40,7 +40,6 @@ const Button = styled.button`
   line-height: 1.25rem;
   padding-left: 2rem;
   padding-right: 2rem;
-  border-width: 1px;
   border-radius: 10px;
   white-space: nowrap;
   gap: 0.5rem;
@@ -50,7 +49,7 @@ const Button = styled.button`
   display: inline-flex;
   cursor: pointer;
   text-transform: none;
-  background-color: #6d28d9;
+  background-color: hsl(var(--primary-dark));
   color: white;
   cursor: pointer;
   transition: all 0.3s;
@@ -142,7 +141,7 @@ export default function SessionManagement() {
         <h1>إدارة الجلسات</h1>
         <Button>
           <Plus />
-          <font>إنشاء جلسة جديدة</font>
+          إنشاء جلسة جديدة
         </Button>
       </Header>
       <SearchContainer>

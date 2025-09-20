@@ -2,7 +2,7 @@ import styled from "styled-components";
 import { Calendar, Clock, Users, Eye } from "lucide-react";
 
 const Wrapper = styled.div`
-  border: 1px solid #e5e7eb;
+  border: 1px solid hsl(var(--border));
   border-radius: 1rem;
   padding: 1rem;
   --tw-shadow: var(--shadow-medium);
@@ -17,10 +17,11 @@ const Title = styled.h3`
   text-align: right;
   letter-spacing: -0.025em;
   font-size: 1.5rem !important;
+  color: hsl(var(--foreground));
 `;
 
 const SessionBox = styled.div`
-  border: 1px solid #e5e7eb;
+  border: 1px solid hsl(var(--border));
   border-radius: 0.75rem;
   padding: 1rem;
   margin-bottom: 1rem;
@@ -37,6 +38,7 @@ const Header = styled.div`
     font-size: 1.125rem !important;
     line-height: 1.75rem !important;
     font-weight: 600 !important;
+    color: hsl(var(--foreground));
   }
 `;
 
@@ -57,8 +59,8 @@ const Badge = styled.span`
 const InfoRow = styled.div`
   display: flex;
   flex-wrap: wrap;
-  gap: 1rem;
-  margin-bottom: 0.75rem;
+  gap: 2.5rem;
+  margin-bottom: 1.5rem;
 
   div {
     display: flex;
@@ -66,6 +68,9 @@ const InfoRow = styled.div`
     gap: 0.25rem;
     font-size: 0.875rem;
     color: hsl(var(--muted-foreground));
+    svg {
+      margin-left: 5px !important ;
+    }
   }
 `;
 
@@ -79,16 +84,17 @@ const ActionBtn = styled.button`
   display: flex;
   align-items: center;
   gap: 0.25rem;
-  padding: 0.25rem 0.75rem;
+  padding: 0.35rem 1rem;
   font-size: 0.875rem;
-  border: 1px solid #e5e7eb;
+  border: 1px solid hsl(var(--border));
   border-radius: 0.5rem;
-  background: #fff;
+  background: hsl(var(--background));
   cursor: pointer;
-  transition: background 0.2s;
+  transition: all 0.2s;
 
   &:hover {
-    background: hsl(var(--accent));
+    background: hsl(var(--primary-dark));
+    color: hsl(var(--background));
   }
 `;
 
@@ -115,16 +121,16 @@ export default function UpcomingSessions() {
 
           <InfoRow>
             <div>
-              <Calendar size={16} />
+              <Calendar size={16} color="hsl(var(--primary-dark))" />
               {session.date}
             </div>
 
             <div>
-              <Clock size={16} />
+              <Clock size={16} color="hsl(var(--primary-dark))" />
               {session.duration}
             </div>
             <div>
-              <Users size={16} />
+              <Users size={16} color="hsl(var(--primary-dark))" />
               {session.students}
             </div>
           </InfoRow>
