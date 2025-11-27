@@ -3,8 +3,11 @@ import "../../styles/homeWork.css";
 import { useEffect, useState } from "react";
 import "../../src/assets/homework.png";
 import axios from "axios";
+import Loader from "../../src/components/cards/common/Loader";
+
 export default function Homework() {
   const [homeWorks, setHomeWorks] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     getHomeWork();
@@ -24,8 +27,13 @@ export default function Homework() {
       setHomeWorks(response.data);
     } catch (error) {
       console.error("Error fetching homework:", error);
+    } finally {
+      setLoading(false);
     }
   };
+  if (loading) {
+    return <Loader />;
+  }
   return (
     <>
       <div className="homeWorkContainer" style={{ height: "100vh" }}>
@@ -42,6 +50,8 @@ export default function Homework() {
                 key={homework.id}
                 title={homework.homeworks.title}
                 subject="رياضيات"
+                grade={homework.grade}
+                fullMark={homework.homeworks.full_mark}
                 description={homework.homeworks.description}
                 status={homework.status ? homework.status : "مكتمل"}
                 requiredDate={new Date(

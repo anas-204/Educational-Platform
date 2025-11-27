@@ -1,4 +1,3 @@
-import React from "react";
 import { GraduationCap } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import styled, { css } from "styled-components";

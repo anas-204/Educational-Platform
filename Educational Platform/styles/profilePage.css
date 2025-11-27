@@ -1,4 +1,4 @@
-.profilePageHeader .btn{
+.profilePageHeader .btn, .profile .btn{
     background-color: hsl(var(--primary)) !important;
     color:white;
 }
