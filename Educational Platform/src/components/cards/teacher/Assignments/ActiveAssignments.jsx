@@ -12,7 +12,7 @@ import {
 import { Progress } from "@heroui/react";
 
 const Wrapper = styled.div`
-  border: 1px solid #e5e7eb;
+  border: 1px solid hsl(var(--border));
   border-radius: 1rem;
   padding: 1rem;
   background: hsl(var(--background));
@@ -28,14 +28,16 @@ const Title = styled.h3`
   text-align: right;
   letter-spacing: -0.025em;
   font-size: 1.5rem !important;
+  color: hsl(var(--foreground));
 `;
 
 const SessionBox = styled.div`
-  border: 1px solid #e5e7eb;
+  border: 1px solid hsl(var(--border));
   border-radius: 0.75rem;
   padding: 1rem;
   margin-bottom: 1rem;
   background: hsl(var(--card));
+  color: hsl(var(--foreground));
 `;
 
 const Header = styled.div`
@@ -116,9 +118,9 @@ const ActionBtn = styled.button`
   gap: 0.25rem;
   padding: 0.25rem 0.75rem;
   font-size: 0.875rem;
-  border: 1px solid #e5e7eb;
+  border: 1px solid hsl(var(--border));
   border-radius: 0.5rem;
-  background: #fff;
+  background: hsl(var(--background));
   cursor: pointer;
   transition: background 0.2s;
 
@@ -222,7 +224,7 @@ export default function ActiveMission() {
             </div>
             <div>
               <Clock size={16} />
-             {mission.duration}
+              {mission.duration}
             </div>
             <div>
               <Users size={16} />

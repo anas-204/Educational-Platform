@@ -20,6 +20,7 @@ const Header = styled.div`
     line-height: 1;
     font-weight: 600 !important;
     font-size: 1.5rem !important;
+    color: hsl(var(--foreground));
   }
 `;
 const Body = styled.div`
@@ -33,6 +34,7 @@ const Subject = styled.div`
 
   > span:first-of-type {
     font-weight: 500 !important;
+    color: hsl(var(--foreground));
   }
   > span:last-of-type {
     color: hsl(var(--muted-foreground));

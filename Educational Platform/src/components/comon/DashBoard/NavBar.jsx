@@ -67,7 +67,7 @@ const NavButton = styled.button`
   color: hsl(var(--foreground));
   font-size: 0.95rem;
   transition: all 0.2s ease;
-  border: 1px solid #eee;
+  border: 1px solid hsl(var(--border));
   &:hover {
     background-color: hsl(var(--accent));
     color: hsl(var(--primary));

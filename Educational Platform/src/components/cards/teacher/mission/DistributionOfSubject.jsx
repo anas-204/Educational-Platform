@@ -9,6 +9,7 @@ const Card = styled.div`
   border-width: 1px;
   border-radius: 0.75rem;
   border-color: hsl(var(--border));
+  color: hsl(var(--foreground));
 `;
 const Header = styled.div`
   padding: 1.5rem;

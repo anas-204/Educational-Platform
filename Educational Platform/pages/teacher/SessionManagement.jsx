@@ -5,6 +5,7 @@ import { Clock, User, Book, Calendar } from "lucide-react";
 import ControlPannelSmallCard from "../../src/components/cards/teacher/Session/SmallCard";
 import UpcomingSessions from "../../src/components/cards/teacher/Session/UpcomingSessions";
 import CompleteSessions from "../../src/components/cards/teacher/Session/CompleteSessions";
+import Cover from "../../src/components/comon/cover";
 const Main = styled.div`
   @media (max-width: 768px) {
     margin-inline: auto;
@@ -137,6 +138,7 @@ const Button2 = styled.button`
 export default function SessionManagement() {
   return (
     <Main className="py-3 px-3 mb-4 col-11">
+      <Cover show={false} />
       <Header>
         <h1>إدارة الجلسات</h1>
         <Button>
