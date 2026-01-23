@@ -15,7 +15,7 @@ import Swal from "sweetalert2";
 import { useState, useEffect } from "react";
 const SidebarWrapper = styled.aside`
   background-color: hsl(var(--card));
-  border-left: 1px solid #eeeeee3d;
+  border-left: 1px solid hsl(var(--border));
   padding: 1rem;
   box-shadow: 1px 0 4px rgba(0, 0, 0, 0.05);
   width: 200px;

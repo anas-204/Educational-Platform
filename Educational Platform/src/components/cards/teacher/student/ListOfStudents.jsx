@@ -30,7 +30,7 @@ const StudentCard = styled.div`
   padding: 1rem;
   border-width: 1px;
   border-radius: 0.75rem;
-  background-color : hsl(var(--card-gradient))
+  background-color: hsl(var(--card));
   border-color: hsl(var(--border));
   .main {
     @media (min-width: 1024px) {
@@ -196,7 +196,7 @@ const EmailPhoneAndStatus = styled.div`
       status === "نشط" ? "hsl(var(--primary))" : "hsl(var(--secondary))"};
   }
 `;
-const Buttoms = styled.div`
+const Buttons = styled.div`
   gap: 0.5rem;
   display: flex;
   @media (min-width: 1024px) {
@@ -222,6 +222,7 @@ const Buttoms = styled.div`
     cursor: pointer;
     background-color: hsl(var(--background));
     transition: all 0.3s;
+    color: hsl(var(--foreground));
     &:hover {
       background-color: hsl(var(--accent)) !important;
       color: hsl(var(--primary)) !important;
@@ -337,7 +338,7 @@ export default function ListOfStudents() {
                   <AverageGrade>
                     <CircularProgress
                       style={{
-                        color: "hsl(var(--muted-foreground))",
+                        color: "hsl(var(--primary))",
                         paddingTop: "5px",
                       }}
                       label="متوسط الدرجات"
@@ -373,14 +374,14 @@ export default function ListOfStudents() {
               </div>
 
               {/* الأزرار */}
-              <Buttoms>
+              <Buttons>
                 <button>
                   <MessageCircle /> رساله
                 </button>
                 <button>
                   <Eye /> عرض
                 </button>
-              </Buttoms>
+              </Buttons>
             </div>
           </StudentCard>
         ))}

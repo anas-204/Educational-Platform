@@ -91,6 +91,7 @@ const ActionBtn = styled.button`
   background: hsl(var(--background));
   cursor: pointer;
   transition: all 0.2s;
+  color: hsl(var(--foreground));
 
   &:hover {
     background: hsl(var(--primary-dark));

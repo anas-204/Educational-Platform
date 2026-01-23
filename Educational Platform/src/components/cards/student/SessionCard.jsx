@@ -96,10 +96,18 @@ const Button = styled.button`
   &:hover {
     background-color: hsl(var(--accent)) !important;
     color: hsl(var(--primary)) !important;
-  }
+  }import Description from './../../home/Description';
+
 `;
 
-export default function SessionCard({ title, status, date, hour, duration }) {
+export default function SessionCard({
+  title,
+  status,
+  date,
+  hour,
+  duration,
+  Description,
+}) {
   return (
     <Card className="card py-3 px-3 mb-4 col-11">
       <Header>
@@ -107,6 +115,7 @@ export default function SessionCard({ title, status, date, hour, duration }) {
           <h3>{title}</h3>
           <Status status={status}>{status}</Status>
         </HeaderInfo>
+        <span>{Description}</span>
       </Header>
       <Body>
         <BodyInfo>

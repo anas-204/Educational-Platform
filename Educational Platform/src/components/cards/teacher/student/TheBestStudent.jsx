@@ -19,6 +19,7 @@ const Header = styled.div`
     font-weight: 600 !important;
     font-size: 1.5rem !important;
   }
+  color: hsl(var(--foreground));
 `;
 const TheStudentContainer = styled.div`
   gap: 0.75rem;
@@ -68,7 +69,7 @@ const Name = styled.div`
   > p:first-of-type {
     text-align: right;
     font-weight: bold;
-    color: black;
+    color: hsl(var(--foreground));
     font-size: 0.875rem !imprtant;
     line-height: 1.25rem;
   }

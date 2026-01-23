@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { useState, useEffect } from "react";
 import {
   Calendar,
   Clock,
@@ -8,6 +9,7 @@ import {
   Edit,
   Trash2,
 } from "lucide-react";
+import { Description } from "@mui/icons-material";
 
 const Wrapper = styled.div`
   border: 1px solid hsl(var(--border));
@@ -15,8 +17,9 @@ const Wrapper = styled.div`
   padding: 1rem;
   background: hsl(var(--background));
   --tw-shadow: var(--shadow-medium);
-  box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000),
-    var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
+  box-shadow:
+    var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000),
+    var(--tw-shadow);
   background-color: hsl(var(--card-gradient));
 `;
 
@@ -47,7 +50,9 @@ const Header = styled.div`
     font-size: 1.125rem !important;
     line-height: 1.75rem !important;
     font-weight: 600 !important;
-    color: hsl(var(--foreground));
+    color: hsl(
+      var(--fimport Description from "./../../../home/Description" ; oreground)
+    );
   }
 `;
 
@@ -61,8 +66,8 @@ const Badge = styled.span`
     status === "مجدولة"
       ? "#7c3aed"
       : status === "مؤكدة"
-      ? "#0ea5e9"
-      : "#6b7280"};
+        ? "#0ea5e9"
+        : "#6b7280"};
 `;
 
 const InfoRow = styled.div`
@@ -101,6 +106,7 @@ const ActionBtn = styled.button`
   background: hsl(vare(--background));
   cursor: pointer;
   transition: all 0.2s;
+  color: hsl(var(--foreground));
 
   &:hover {
     background: hsl(var(--primary-dark));
@@ -109,7 +115,101 @@ const ActionBtn = styled.button`
 `;
 
 export default function UpcomingSessions() {
-  const sessions = [
+  const [sessions, setSessions] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  // Function to split ISO date and format time in Arabic
+  const splitDateTime = (isoDateString) => {
+    if (!isoDateString) return { date: "", time: "" };
+
+    // Split at 'T' to separate date and time
+    const [datePart, timePart] = isoDateString.split("T");
+
+    if (!datePart || !timePart) {
+      return { date: "", time: "" };
+    }
+
+    // Date is already in YYYY-MM-DD format
+    const date = datePart;
+
+    // Extract hours and minutes from time part (before the seconds)
+    const timeComponents = timePart.split(":");
+    if (timeComponents.length < 2) {
+      return { date, time: "" };
+    }
+
+    let hours = parseInt(timeComponents[0]);
+    const minutes = timeComponents[1];
+
+    // Convert to 12-hour Arabic format
+    const ampm = hours >= 12 ? "م" : "ص";
+    hours = hours % 12;
+    hours = hours || 12; // Convert 0 to 12
+
+    // Format time as "ساعة:دقيقة ص/م"
+    const time = `${hours}:${minutes} ${ampm}`;
+
+    return { date, time };
+  };
+
+  useEffect(() => {
+    fetchSessions();
+  }, []);
+
+  const fetchSessions = async () => {
+    try {
+      const token = localStorage.getItem("authToken");
+      if (!token) {
+        throw new Error("No token found");
+      }
+
+      const response = await fetch("http://localhost:3000/teacher/session", {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        console.log(data);
+
+        if (data && data.length > 0) {
+          const transformedSessions = data.map((session) => {
+            const dateField = session.session_datetime;
+            console.log(dateField);
+
+            const { date, time } = splitDateTime(dateField);
+
+            return {
+              id: session.id || session._id || Math.random(),
+              title: session.title || "بدون عنوان",
+              description: session.description || "لا يوجد وصف متاح",
+              date: date,
+              time: time,
+              students: `${session.students || 0} طالب`,
+              location: session.centers?.name || "غير محدد",
+            };
+          });
+          console.log(transformedSessions);
+
+          setSessions(transformedSessions);
+        } else {
+          setSessions(getDummyData());
+        }
+      } else {
+        setSessions(getDummyData());
+      }
+    } catch (error) {
+      console.error("Error fetching sessions:", error);
+      setSessions(getDummyData());
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const getDummyData = () => [
     {
       id: 1,
       title: "الرياضيات - المعادلات التفاضلية",
@@ -131,52 +231,67 @@ export default function UpcomingSessions() {
       location: "معمل الفيزياء",
     },
   ];
+
+  if (loading) {
+    return (
+      <Wrapper>
+        <Title>الجلسات القادمة</Title>
+        <div style={{ textAlign: "center", padding: "20px" }}>
+          جاري تحميل الجلسات...
+        </div>
+      </Wrapper>
+    );
+  }
+
   return (
     <Wrapper>
       <Title>الجلسات القادمة</Title>
-      {sessions.map((session) => (
-        <SessionBox key={session.id}>
-          <Header>
-            <h3>{session.title}</h3>
-            <Badge status={session.status}>{session.status}</Badge>
-          </Header>
 
-          <InfoRow>
-            <div>
-              <Calendar size={16} />
-              {session.date}
-            </div>
-            <div>
-              <Clock size={16} />
-              {session.time}
-            </div>
-            <div>
-              <Clock size={16} />
-              {session.duration}
-            </div>
-            <div>
-              <Users size={16} />
-              {session.students}
-            </div>
-            <div>
-              <MapPin size={16} />
-              {session.location}
-            </div>
-          </InfoRow>
+      {sessions.length === 0 ? (
+        <div style={{ textAlign: "center", padding: "20px", color: "#666" }}>
+          لا توجد جلسات قادمة
+        </div>
+      ) : (
+        sessions.map((session) => (
+          <SessionBox key={session.id}>
+            <Header>
+              <h3>{session.title}</h3>
+              <Badge status={session.status}>{session.description}</Badge>
+            </Header>
 
-          <Actions>
-            <ActionBtn>
-              <Eye size={16} /> عرض
-            </ActionBtn>
-            <ActionBtn>
-              <Edit size={16} /> تعديل
-            </ActionBtn>
-            <ActionBtn>
-              <Trash2 size={16} /> أبعد
-            </ActionBtn>
-          </Actions>
-        </SessionBox>
-      ))}
+            <InfoRow>
+              <div>
+                <Calendar size={16} />
+                {session.date}
+              </div>
+              <div>
+                <Clock size={16} />
+                {session.time}
+              </div>
+              <div>
+                <Users size={16} />
+                {session.students}
+              </div>
+              <div>
+                <MapPin size={16} />
+                {session.location}
+              </div>
+            </InfoRow>
+
+            <Actions>
+              <ActionBtn>
+                <Eye size={16} /> عرض
+              </ActionBtn>
+              <ActionBtn>
+                <Edit size={16} /> تعديل
+              </ActionBtn>
+              <ActionBtn>
+                <Trash2 size={16} /> أبعد
+              </ActionBtn>
+            </Actions>
+          </SessionBox>
+        ))
+      )}
     </Wrapper>
   );
 }

@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import { useEffect, useState } from "react";
 import SessionCard from "../../src/components/cards/student/SessionCard";
+import Loader from "../../src/components/cards/common/Loader";
 const Body = styled.div`
   display: flex;
   flex-direction: column;
@@ -9,6 +10,7 @@ const Body = styled.div`
 `;
 export default function SessionsPage() {
   const [sessions, setSessions] = useState([]);
+  const [loading, setLoading] = useState(true);
   const token = localStorage.getItem("authToken");
   useEffect(() => {
     const fetchData = async () => {
@@ -22,11 +24,18 @@ export default function SessionsPage() {
         setSessions(json);
       } catch (error) {
         console.error("Error fetching sessions:", error);
+      } finally {
+        setLoading(false);
       }
     };
 
     fetchData();
   }, []);
+
+  if (loading) {
+    return <Loader />;
+  }
+
   return (
     <div>
       <div style={{ padding: "30px 20px" }}>
@@ -44,19 +53,13 @@ export default function SessionsPage() {
             date={new Date(
               session.sessions.session_datetime
             ).toLocaleDateString()}
+            Description={session.sessions.description}
             hour={new Date(
               session.sessions.session_datetime
             ).toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })}
             duration="90 دقيقة"
           />
         ))}
-        {/* <SessionCard
-          title="مقدمة في الرياضيات"
-          status="مكتملة"
-          date="2025-01-15"
-          hour="10:00"
-          duration="90 دقيقة"
-        /> */}
       </Body>
     </div>
   );

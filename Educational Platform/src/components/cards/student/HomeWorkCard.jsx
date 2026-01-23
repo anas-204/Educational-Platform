@@ -16,7 +16,10 @@ export default function HomeWorkCard(props) {
           <p>{props.subject}</p>
         </div>
         <div className="status text-center">
-          <p>{props.status}</p>
+          <p>{props.submitDate ? props.status : "غير مكتملة"}</p>
+          <p>
+            الدرجة : {props.grade} / {props.fullMark}{" "}
+          </p>
         </div>
       </div>
       <div className="body">

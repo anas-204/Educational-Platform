@@ -2,7 +2,7 @@ import styled from "styled-components";
 import { Calendar, Users, CheckCircle2, Eye, PieChart } from "lucide-react";
 
 const Wrapper = styled.div`
-  border: 1px solid #e5e7eb;
+  border: 1px solid hsl(var(--border));
   border-radius: 1rem;
   padding: 1rem;
   --tw-shadow: var(--shadow-medium);
@@ -17,10 +17,11 @@ const Title = styled.h3`
   text-align: right;
   letter-spacing: -0.025em;
   font-size: 1.25rem !important;
+  color: hsl(var(--foreground));
 `;
 
 const SessionBox = styled.div`
-  border: 1px solid #e5e7eb;
+  border: 1px solid hsl(var(--border));
   border-radius: 0.75rem;
   padding: 1rem;
   margin-bottom: 1rem;
@@ -36,6 +37,7 @@ const Header = styled.div`
   h3 {
     font-size: 1rem !important;
     font-weight: 600 !important;
+    color: hsl(var(--foreground));
   }
 `;
 
