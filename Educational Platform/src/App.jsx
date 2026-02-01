@@ -17,6 +17,8 @@ import Assignments from "../pages/teacher/Assignments";
 import SessionManagement from "../pages/teacher/SessionManagement";
 import Students from "../pages/teacher/Students";
 import TeacherProfile from "../pages/teacher/TeacherProfile";
+import ProtectedRoute from "./components/ProtectedRoute";
+
 export default function App() {
   return (
     <>
@@ -25,7 +27,15 @@ export default function App() {
           <Route index element={<Home />} />
           <Route path="/Register" element={<Register />} />
           <Route path="/Login" element={<Login />} />
-          <Route path="/StudentDashBoard" element={<StudentDashBoard />}>
+
+          <Route
+            path="/StudentDashBoard"
+            element={
+              <ProtectedRoute role="student">
+                <StudentDashBoard />
+              </ProtectedRoute>
+            }
+          >
             <Route index element={<ControlPanel />} />
             <Route path="Sessions" element={<Sessions />} />
             <Route path="Quizzes" element={<Quizzes />} />
@@ -33,7 +43,15 @@ export default function App() {
             <Route path="Trials" element={<Trials />} />
             <Route path="Profile" element={<Profile />} />
           </Route>
-          <Route path="/TeacherDashBoard" element={<TeacherDashBoard />}>
+
+          <Route
+            path="/TeacherDashBoard"
+            element={
+              <ProtectedRoute role="teacher">
+                <TeacherDashBoard />
+              </ProtectedRoute>
+            }
+          >
             <Route index element={<TeacherControlPannel />} />
             <Route path="Mission" element={<Mission />} />
             <Route path="Assignments" element={<Assignments />} />
