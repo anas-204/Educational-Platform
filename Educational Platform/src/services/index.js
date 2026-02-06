@@ -1,4 +1,3 @@
-
 /*Auth*/
 export const LOGIN = ({ API, payload }) =>
   API("auth/login", {
@@ -12,17 +11,24 @@ export const SESSIONS = ({ API }) =>
     method: "GET",
   });
 
+/*Teacher*/
+export const TEACHER_SESSIONS = ({ API }) =>
+  API("teacher/session", {
+    method: "GET",
+  });
+
+export const TEACHER_STUDENTS = ({ API }) =>
+  API("teacher/student", {
+    method: "GET",
+  });
+
 
 
   
-/*Teacher*/
-
-
-
-
-
 /*Default*/
 export default {
   LOGIN,
   SESSIONS,
+  TEACHER_SESSIONS,
+  TEACHER_STUDENTS,
 };

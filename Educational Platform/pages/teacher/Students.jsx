@@ -7,6 +7,62 @@ import ControlPannelSmallCard from "../../src/components/cards/teacher/Session/S
 import ListOfStudents from "../../src/components/cards/teacher/student/ListOfStudents";
 import DistributionOfStudents from "../../src/components/cards/teacher/student/DistributionOfStudents";
 import TheBestStudent from "../../src/components/cards/teacher/student/TheBestStudent";
+
+export default function SessionManagement() {
+  return (
+    <Main className="py-3 px-3 mb-4 col-11">
+      <Header>
+        <h1>إدارة الطلاب</h1>
+        <Button>
+          <Plus />
+          <font>إضافة طالب جديد</font>
+        </Button>
+      </Header>
+      <SearchContainer>
+        <div className="p-3">
+          <SearchInput>
+            <div className="left">
+              <Search size={18} color="#6b7280" />
+              <input placeholder="البحث عن الطلاب...." />
+            </div>
+            <Button2>تصفية حسب الحالة</Button2>
+            <Button2>تصفية حسب المرحلة</Button2>
+          </SearchInput>
+        </div>
+      </SearchContainer>
+      <SmallCardContainer>
+        {" "}
+        <ControlPannelSmallCard
+          icon={<User color="hsl(var(--primary))" />}
+          titel="إجمالي الطلاب"
+          number={"4"}
+        />{" "}
+        <ControlPannelSmallCard
+          icon={<ArrowUp color=" hsl(var(--success))" />}
+          titel="طلاب نشطين"
+          number={"3"}
+        />{" "}
+        <ControlPannelSmallCard
+          icon={<Calendar color="hsl(var(--warning))" />}
+          titel="جلسات مكتملة"
+          number={"100"}
+        />
+        <ControlPannelSmallCard
+          icon={<Award color="hsl(var(--tertiary))" />}
+          titel="متوسط الحضور"
+          number={"87%"}
+        />
+      </SmallCardContainer>
+
+      <ListOfStudents />
+      <DistributionAndBestContainer>
+        <DistributionOfStudents />
+        <TheBestStudent />
+      </DistributionAndBestContainer>
+    </Main>
+  );
+}
+
 export const Main = styled.div`
   @media (max-width: 768px) {
     margin-inline: auto;
@@ -145,57 +201,3 @@ const DistributionAndBestContainer = styled.div`
   }
   grid-template-columns: repeat(1, minmax(0px, 1fr));
 `;
-export default function SessionManagement() {
-  return (
-    <Main className="py-3 px-3 mb-4 col-11">
-      <Header>
-        <h1>إدارة الطلاب</h1>
-        <Button>
-          <Plus />
-          <font>إضافة طالب جديد</font>
-        </Button>
-      </Header>
-      <SearchContainer>
-        <div className="p-3">
-          <SearchInput>
-            <div className="left">
-              <Search size={18} color="#6b7280" />
-              <input placeholder="البحث عن الطلاب...." />
-            </div>
-            <Button2>تصفية حسب الحالة</Button2>
-            <Button2>تصفية حسب المرحلة</Button2>
-          </SearchInput>
-        </div>
-      </SearchContainer>
-      <SmallCardContainer>
-        {" "}
-        <ControlPannelSmallCard
-          icon={<User color="hsl(var(--primary))" />}
-          titel="إجمالي الطلاب"
-          number={"4"}
-        />{" "}
-        <ControlPannelSmallCard
-          icon={<ArrowUp color=" hsl(var(--success))" />}
-          titel="طلاب نشطين"
-          number={"3"}
-        />{" "}
-        <ControlPannelSmallCard
-          icon={<Calendar color="hsl(var(--warning))" />}
-          titel="جلسات مكتملة"
-          number={"100"}
-        />
-        <ControlPannelSmallCard
-          icon={<Award color="hsl(var(--tertiary))" />}
-          titel="متوسط الحضور"
-          number={"87%"}
-        />
-      </SmallCardContainer>
-
-      <ListOfStudents />
-      <DistributionAndBestContainer>
-        <DistributionOfStudents />
-        <TheBestStudent />
-      </DistributionAndBestContainer>
-    </Main>
-  );
-}

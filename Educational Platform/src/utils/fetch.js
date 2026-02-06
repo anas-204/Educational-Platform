@@ -2,13 +2,18 @@ import Cookies from "js-cookie";
 export default (BASE_URL) => {
   const fetchRequest = async (endpoint, options = {}) => {
     const TOKEN = Cookies.get("token")?.replace(/['"]+/g, "");
+
     const { headers = {}, body, ...restOptions } = options;
+
     const finalHeaders = {
       "x-app-type": "web",
       authorization: `Bearer ${TOKEN}`,
       Accept: "application/json",
       ...headers,
     };
+
+
+    
     if (!(body instanceof FormData))
       finalHeaders["Content-Type"] = "application/json";
     const response = await fetch(`${BASE_URL}/${endpoint}`, {
@@ -37,3 +42,6 @@ export default (BASE_URL) => {
 
   return fetchRequest;
 };
+/*
+get sttudent   
+* */
