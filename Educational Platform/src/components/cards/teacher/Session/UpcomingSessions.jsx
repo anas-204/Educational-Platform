@@ -1,15 +1,6 @@
 import styled from "styled-components";
 import { useState, useEffect } from "react";
-import {
-  Calendar,
-  Clock,
-  Users,
-  MapPin,
-  Eye,
-  Edit,
-  Trash2,
-} from "lucide-react";
-import { Description } from "@mui/icons-material";
+import { Calendar, Clock, Users, MapPin, Edit, Trash2 } from "lucide-react";
 
 const Wrapper = styled.div`
   border: 1px solid hsl(var(--border));
@@ -163,7 +154,7 @@ export default function UpcomingSessions() {
         throw new Error("No token found");
       }
 
-      const response = await fetch("http://localhost:3000/teacher/session", {
+      const response = await fetch("/api/teacher/session", {
         method: "GET",
         headers: {
           Authorization: `Bearer ${token}`,
@@ -255,7 +246,9 @@ export default function UpcomingSessions() {
         sessions.map((session) => (
           <SessionBox key={session.id}>
             <Header>
-              <h3>{session.title}</h3>
+              <h3 style={{ color: "hsl(var(--foreground))" }}>
+                {session.title}
+              </h3>
               <Badge status={session.status}>{session.description}</Badge>
             </Header>
 
@@ -279,9 +272,6 @@ export default function UpcomingSessions() {
             </InfoRow>
 
             <Actions>
-              <ActionBtn>
-                <Eye size={16} /> عرض
-              </ActionBtn>
               <ActionBtn>
                 <Edit size={16} /> تعديل
               </ActionBtn>

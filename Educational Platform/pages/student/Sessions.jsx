@@ -15,7 +15,7 @@ export default function SessionsPage() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const res = await fetch("http://localhost:3000/student/sessions", {
+        const res = await fetch("/api/student/sessions", {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -51,11 +51,11 @@ export default function SessionsPage() {
             title={session.sessions.title}
             status={session.status === "present" ? "مكتملة" : "غائب"}
             date={new Date(
-              session.sessions.session_datetime
+              session.sessions.session_datetime,
             ).toLocaleDateString()}
             Description={session.sessions.description}
             hour={new Date(
-              session.sessions.session_datetime
+              session.sessions.session_datetime,
             ).toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })}
             duration="90 دقيقة"
           />

@@ -1,4 +1,4 @@
-import React from "react";
+import { useNavigate } from "react-router-dom";
 import { Main } from "../student/ControlPanel";
 import { Header } from "../student/ControlPanel";
 import { SmallCardContainer } from "../student/ControlPanel";
@@ -10,6 +10,7 @@ import ControlPannelCommingSession from "../../src/components/cards/common/Contr
 import ControlPannelResultsCard from "../../src/components/cards/common/ControlPannelResultsCard";
 import { File, ChevronUp, Heart, User } from "lucide-react";
 import ControlPannelMissions from "../../src/components/cards/teacher/controlPannel/ControlPannelMissions";
+
 const variants = {
   glass: css`
     background: rgba(255, 255, 255, 0.1);
@@ -42,13 +43,17 @@ export const Button = styled.button`
   ${({ variant }) => variants[variant || "default"]};
 `;
 export default function TeacherControlPannel() {
+  const navigate = useNavigate();
+  const handleClick = () => {
+    navigate("/TeacherDashBoard/SessionManagement");
+  }
   return (
     <Main className="py-3 px-3 mb-4 col-11">
       <Header>
         <h1>مرحبا بك مرة أخرى أيها المعلم!</h1>
         <p>دعونا نلهم ونثقف اليوم</p>
         <div className="mt-3">
-          <Button variant="glass">
+          <Button variant="glass" onClick={handleClick}>
             <Plus />
             <font>إنشاء جلسة جديدة</font>
           </Button>

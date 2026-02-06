@@ -16,14 +16,11 @@ export default function Homework() {
   const getHomeWork = async () => {
     const token = localStorage.getItem("authToken");
     try {
-      const response = await axios.get(
-        "http://localhost:3000/student/homeworks",
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
+      const response = await axios.get("/api/student/homeworks", {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
       setHomeWorks(response.data);
     } catch (error) {
       console.error("Error fetching homework:", error);
@@ -55,13 +52,13 @@ export default function Homework() {
                 description={homework.homeworks.description}
                 status={homework.status ? homework.status : "مكتمل"}
                 requiredDate={new Date(
-                  homework.homeworks.start_date
+                  homework.homeworks.start_date,
                 ).toLocaleDateString("ar-EG")}
                 submitDate={new Date(
-                  homework.submission_date
+                  homework.submission_date,
                 ).toLocaleDateString("ar-EG")}
                 endDate={new Date(
-                  homework.homeworks.due_date
+                  homework.homeworks.due_date,
                 ).toLocaleDateString("ar-EG")}
                 id={homework.id}
               />
