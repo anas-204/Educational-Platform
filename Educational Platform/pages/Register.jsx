@@ -51,10 +51,7 @@ export default function Register() {
     e.preventDefault();
     try {
       console.log(formData);
-      const response = await axios.post(
-        "http://localhost:3000/auth/Register",
-        formData
-      );
+      const response = await axios.post("/api/auth/Register", formData);
       console.log(response.data);
       navigate("/Login");
     } catch (error) {
@@ -63,10 +60,7 @@ export default function Register() {
   };
   const getCenters = async () => {
     try {
-      const response = await axios.get(
-        "http://localhost:3000/teacher/center",
-        formData
-      );
+      const response = await axios.get("/api/teacher/center", formData);
       updateCentersData(response.data);
     } catch (error) {
       console.error("Couldn't get centers", error);
@@ -179,12 +173,12 @@ export default function Register() {
                   {center.name == "Zayed Center"
                     ? "مقر الشيخ زايد"
                     : center.name == "Giza Center"
-                    ? "مقر الجيزة"
-                    : center.name == "Doki Center"
-                    ? "مقر الدقي"
-                    : center.name == "Elmohndseen Center"
-                    ? "مقر المهندسين"
-                    : "مقر عين شمس"}
+                      ? "مقر الجيزة"
+                      : center.name == "Doki Center"
+                        ? "مقر الدقي"
+                        : center.name == "Elmohndseen Center"
+                          ? "مقر المهندسين"
+                          : "مقر عين شمس"}
                 </MenuItem>
               ))
             ) : (

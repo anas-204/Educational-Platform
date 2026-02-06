@@ -4,7 +4,7 @@
 .form-section{
     position: relative;
 }
-.form-select,.type,.collapseMenu,.email,.password,.submit,.form-select1,.name,.phone{
+.form-select,.type,.collapseMenu,.email,.password,.submit,.form-select1,.name,.phone,.date,.time,.description,.title,.cancel{
     width: 80% !important;
     margin-bottom: 5px !important;
 }

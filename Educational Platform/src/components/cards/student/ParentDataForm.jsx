@@ -86,7 +86,9 @@ const StyledWrapper = styled.div`
     pointer-events: none;
     position: absolute;
     transform-origin: 0 20%;
-    transition: transform 200ms, color 200ms;
+    transition:
+      transform 200ms,
+      color 200ms;
     top: 20px;
   }
 
@@ -204,7 +206,7 @@ const ParentDataForm = ({ onClose }) => {
     e.preventDefault();
 
     try {
-      const response = await fetch("http://localhost:3000/student/parents", {
+      const response = await fetch("/api/student/parents", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

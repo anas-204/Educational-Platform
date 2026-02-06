@@ -4,7 +4,7 @@ export default function Cover({ show }) {
       className="cover"
       style={{
         backgroundColor: "#000000bb",
-        position: "absolute",
+        position: "fixed",
         left: 0,
         top: 0,
         right: 0,

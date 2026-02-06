@@ -192,10 +192,10 @@ const ParentInfo = ({ parentData }) => (
         {parentData.relationship === "father"
           ? "أب"
           : parentData.relationship === "mother"
-          ? "أم"
-          : parentData.relationship === "others"
-          ? "شخص اّخر"
-          : "غير محدد"}
+            ? "أم"
+            : parentData.relationship === "others"
+              ? "شخص اّخر"
+              : "غير محدد"}
       </p>
     </div>
   </div>
@@ -234,7 +234,7 @@ export default function Profile() {
   const getStudentInfo = async () => {
     const token = localStorage.getItem("authToken");
     try {
-      const response = await axios.get("http://localhost:3000/student/info", {
+      const response = await axios.get("/api/student/info", {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -250,14 +250,11 @@ export default function Profile() {
   const getParentsData = async () => {
     const token = localStorage.getItem("authToken");
     try {
-      const response = await axios.get(
-        "http://localhost:3000/student/parents",
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
+      const response = await axios.get("/api/student/parents", {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
       // Get the latest parent data (assuming the API returns an array)
       if (response.data && response.data.length > 0) {
         setParentsData(response.data[response.data.length - 1]);

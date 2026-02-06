@@ -12,7 +12,7 @@ import {
 import { Description } from "@mui/icons-material";
 import apiRequest from "../../../../utils/apiRequest";
 import Cookies from "js-cookie";
-import {formatDateToYMD, timeFromDate} from "../../../../utils/format";
+import { formatDateToYMD, timeFromDate } from "../../../../utils/format";
 const Wrapper = styled.div`
   border: 1px solid hsl(var(--border));
   border-radius: 1rem;
@@ -161,7 +161,9 @@ export default function UpcomingSessions() {
         sessions.map((session) => (
           <SessionBox key={session.id}>
             <Header>
-              <h3>{session.title}</h3>
+              <h3 style={{ color: "hsl(var(--foreground))" }}>
+                {session.title}
+              </h3>
               <Badge status={session.status}>{session.description}</Badge>
             </Header>
 
@@ -185,9 +187,6 @@ export default function UpcomingSessions() {
             </InfoRow>
 
             <Actions>
-              <ActionBtn>
-                <Eye size={16} /> عرض
-              </ActionBtn>
               <ActionBtn>
                 <Edit size={16} /> تعديل
               </ActionBtn>
