@@ -2,10 +2,11 @@ import FloatingBackground from "../src/components/comon/FloatingBackground";
 import "../styles/login.css";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import Select from "@mui/material/Select";
+import apiRequest from "../src/utils/apiRequest";
+import Cookies from "js-cookie";
 
 export default function Login() {
   const navigate = useNavigate();
@@ -17,46 +18,33 @@ export default function Login() {
   const handleClick = () => {
     navigate("/Register");
   };
-  const handleSubmit = async (e) => {
+  const handleLogin = async (e) => {
     e.preventDefault();
     setErrorMessage("");
     setIsLoading(true);
 
     try {
-      const response = await axios.post("/api/auth/login", {
-        email: formData.email,
-        password: formData.password,
-        role: userType,
+      await apiRequest({
+        service: "LOGIN",
+        payload: {
+          email: formData.email,
+          password: formData.password,
+          role: userType,
+        },
+      }).then((res) => {
+        localStorage.setItem("userType", userType);
+        Cookies.set("token", res.token, { expires: 7 });
+        console.log(res);
+
+        if (userType === "student") {
+          navigate("/StudentDashBoard");
+        } else if (userType === "teacher") {
+          navigate("/TeacherDashBoard");
+        }
       });
-
-      console.log(response.data);
-
-      localStorage.setItem("authToken", response.data.token);
-      console.log(response.data.token);
-
-      localStorage.setItem("userType", userType);
-      localStorage.setItem("userData", JSON.stringify(response.data.user));
-
-      if (userType === "student") {
-        navigate("/StudentDashBoard");
-      } else {
-        navigate("/TeacherDashBoard");
-      }
-    } catch (error) {
-      console.error("Login error:", error);
-      if (error.code === "ERR_NETWORK") {
-        setErrorMessage("تعذر الاتصال بالخادم. يرجى التأكد من تشغيل الخادم.");
-      } else if (error.response && error.response.status === 401) {
-        setErrorMessage("البريد الإلكتروني أو كلمة المرور غير صحيحة");
-      } else if (
-        error.response &&
-        error.response.data &&
-        error.response.data.message
-      ) {
-        setErrorMessage(error.response.data.message);
-      } else {
-        setErrorMessage("حدث خطأ أثناء تسجيل الدخول. يرجى المحاولة مرة أخرى.");
-      }
+    } catch (err) {
+      console.error(err);
+      setErrorMessage(err.message);
     } finally {
       setIsLoading(false);
     }
@@ -83,7 +71,7 @@ export default function Login() {
       <div className="container1 d-flex">
         <form
           className="form-section col-xxl-3 col-xl-4 col-lg-5 col-md-5 col-sm-6 d-flex flex-column my-auto "
-          onSubmit={handleSubmit}
+          onSubmit={handleLogin}
         >
           <h2 className="mx-auto">تسجيل الدخول</h2>
           <p className="mx-auto mb-4">أدخل بياناتك للوصول إلى حسابك</p>
@@ -294,7 +282,3 @@ export default function Login() {
     </>
   );
 }
-/*
-jpwt  تشفير التووكن
-علي اساس الرولز ادي الصلاحيات
-*/

@@ -1,10 +1,146 @@
 import styled from "styled-components";
 import { CircularProgress } from "@heroui/react";
+import apiRequest from "../../../../utils/apiRequest";
 import { MessageCircle, Eye, GraduationCap, User, Mail } from "lucide-react";
+import { useState, useEffect } from "react";
+
+export default function ListOfStudents() {
+  const [students, setStudents] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    fetchStudents();
+  }, []);
+
+  const fetchStudents = async () => {
+    try {
+      await apiRequest({
+        service: "TEACHER_STUDENTS",
+      }).then((res) => {
+        setStudents(res);
+      });
+    } catch (err) {
+      console.error(err);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  if (loading) {
+    return (
+      <Card>
+        <Header>قائمة الطلاب</Header>
+        <div style={{ textAlign: "center", padding: "20px" }}>
+          جاري تحميل الجلسات...
+        </div>
+      </Card>
+    );
+  }
+  return (
+    <Card>
+      <Header>
+        <h3>قائمة الطلاب</h3>
+      </Header>
+      {/* <div className="p-4 pt-0">
+        {students.map((student, index) => (
+          <StudentCard key={index} className="mt-3">
+            <div className="main">
+              <PersonalDetails>
+                <span>
+                  <img
+                    src="https://class-bloom-center.lovable.app/placeholder.svg"
+                    alt=""
+                  />
+                </span>
+                <div>
+                  <h3>{student.name}</h3>
+                  <p>{student.grade}</p>
+                  <Subjects className="mb-2">
+                    {student.subjects.map((subj, i) => (
+                      <div key={i}>{subj}</div>
+                    ))}
+                  </Subjects>
+                </div>
+              </PersonalDetails>
+
+              <div className="">
+                <LevelDetails>
+                  <AttendanceRate>
+                    <div>
+                      <CircularProgress
+                        style={{
+                          color: "hsl(var(--muted-foreground))",
+                          paddingTop: "5px",
+                        }}
+                        label="نسبة الحضور"
+                        showValueLabel={true}
+                        size="lg"
+                        value={parseInt(student.attendance)}
+                        strokeWidth={1.5}
+                      />
+                    </div>
+                  </AttendanceRate>
+
+                  <AverageGrade>
+                    <CircularProgress
+                      style={{
+                        color: "hsl(var(--primary))",
+                        paddingTop: "5px",
+                      }}
+                      label="متوسط الدرجات"
+                      showValueLabel={true}
+                      size="lg"
+                      value={parseInt(student.attendance)}
+                      strokeWidth={1.5}
+                    />
+                  </AverageGrade>
+
+                  <CompleteSessions>
+                    <p>الجلسات المكتملة</p>
+                    <p>{student.sessions}</p>
+                  </CompleteSessions>
+
+                  <EmailPhoneAndStatus>
+                    <div className="details">
+                      <div>
+                        <GraduationCap /> انضم في {student.joinDate}
+                      </div>
+                      <div>
+                        <Mail /> {student.email}
+                      </div>
+                      <div>
+                        <User /> {student.phone}
+                      </div>
+                    </div>
+                    <div className="status">
+                      <div status={student.status}>{student.status}</div>
+                    </div>
+                  </EmailPhoneAndStatus>
+                </LevelDetails>
+              </div>
+
+              <Buttons>
+                <button>
+                  <MessageCircle /> رساله
+                </button>
+                <button>
+                  <Eye /> عرض
+                </button>
+              </Buttons>
+            </div>
+          </StudentCard>
+        ))}
+      </div>{" "} */}
+    </Card>
+  );
+}
+/*   */
+
 const Card = styled.div`
   --tw-shadow: var(--shadow-medium);
-  box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000),
-    var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
+  box-shadow:
+    var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000),
+    var(--tw-shadow);
   background-color: hsl(var(--card-gradient));
   border-width: 1px;
   border-radius: 0.75rem;
@@ -23,8 +159,8 @@ const Header = styled.div`
   }
 `;
 const StudentCard = styled.div`
-  transition-property: color, background-color, border-color,
-    text-decoration-color, fill, stroke;
+  transition-property:
+    color, background-color, border-color, text-decoration-color, fill, stroke;
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
   transition-duration: 0.15s;
   padding: 1rem;
@@ -236,157 +372,3 @@ const Buttons = styled.div`
     }
   }
 `;
-export default function ListOfStudents() {
-  const students = [
-    {
-      name: "براء محمد عبد العزيز",
-      grade: "الثالث الثانوي",
-      subjects: ["رياضيات", "فيزياء"],
-      attendance: "95%",
-      average: "91%",
-      sessions: 28,
-      email: "baraa@example.com",
-      phone: "01004022722",
-      joinDate: "سبتمبر 2024",
-      status: "نشط",
-    },
-    {
-      name: "فاطمة أحمد محمود",
-      grade: "الثاني الثانوي",
-      subjects: ["كيمياء", "أحياء"],
-      attendance: "88%",
-      average: "85%",
-      sessions: 22,
-      email: "fatma@example.com",
-      phone: "01123456789",
-      joinDate: "أكتوبر 2024",
-      status: "نشط",
-    },
-    {
-      name: "محمد علي حسن",
-      grade: "الأول الثانوي",
-      subjects: ["رياضيات"],
-      attendance: "72%",
-      average: "78%",
-      sessions: 15,
-      email: "mohamed@example.com",
-      phone: "01234567890",
-      joinDate: "نوفمبر 2024",
-      status: "متوقف",
-    },
-    {
-      name: "نور الدين سامي",
-      grade: "الثالث الثانوي",
-      subjects: ["فيزياء", "كيمياء"],
-      attendance: "92%",
-      average: "89%",
-      sessions: 35,
-      email: "nour@example.com",
-      phone: "01987654321",
-      joinDate: "أغسطس 2024",
-      status: "نشط",
-    },
-  ];
-  return (
-    <Card>
-      <Header>
-        <h3>قائمة الطلاب</h3>
-      </Header>
-
-      <div className="p-4 pt-0">
-        {students.map((student, index) => (
-          <StudentCard key={index} className="mt-3">
-            <div className="main">
-              {/* بيانات شخصية */}
-              <PersonalDetails>
-                <span>
-                  <img
-                    src="https://class-bloom-center.lovable.app/placeholder.svg"
-                    alt=""
-                  />
-                </span>
-                <div>
-                  <h3>{student.name}</h3>
-                  <p>{student.grade}</p>
-                  <Subjects className="mb-2">
-                    {student.subjects.map((subj, i) => (
-                      <div key={i}>{subj}</div>
-                    ))}
-                  </Subjects>
-                </div>
-              </PersonalDetails>
-
-              {/* تفاصيل المستوى */}
-              <div className="">
-                <LevelDetails>
-                  <AttendanceRate>
-                    <div>
-                      <CircularProgress
-                        style={{
-                          color: "hsl(var(--muted-foreground))",
-                          paddingTop: "5px",
-                        }}
-                        label="نسبة الحضور"
-                        showValueLabel={true}
-                        size="lg"
-                        value={parseInt(student.attendance)}
-                        strokeWidth={1.5}
-                      />
-                    </div>
-                  </AttendanceRate>
-
-                  <AverageGrade>
-                    <CircularProgress
-                      style={{
-                        color: "hsl(var(--primary))",
-                        paddingTop: "5px",
-                      }}
-                      label="متوسط الدرجات"
-                      showValueLabel={true}
-                      size="lg"
-                      value={parseInt(student.attendance)}
-                      strokeWidth={1.5}
-                    />
-                  </AverageGrade>
-
-                  <CompleteSessions>
-                    <p>الجلسات المكتملة</p>
-                    <p>{student.sessions}</p>
-                  </CompleteSessions>
-
-                  <EmailPhoneAndStatus>
-                    <div className="details">
-                      <div>
-                        <GraduationCap /> انضم في {student.joinDate}
-                      </div>
-                      <div>
-                        <Mail /> {student.email}
-                      </div>
-                      <div>
-                        <User /> {student.phone}
-                      </div>
-                    </div>
-                    <div className="status">
-                      <div status={student.status}>{student.status}</div>
-                    </div>
-                  </EmailPhoneAndStatus>
-                </LevelDetails>
-              </div>
-
-              {/* الأزرار */}
-              <Buttons>
-                <button>
-                  <MessageCircle /> رساله
-                </button>
-                <button>
-                  <Eye /> عرض
-                </button>
-              </Buttons>
-            </div>
-          </StudentCard>
-        ))}
-      </div>
-    </Card>
-  );
-}
-/*   */

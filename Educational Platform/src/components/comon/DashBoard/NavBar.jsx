@@ -4,6 +4,7 @@ import { GraduationCap, Sun, Moon, Menu } from "lucide-react";
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
 import { LogOut } from "lucide-react";
+import Cookies from "js-cookie";
 const Nav = styled("nav")`
   background-color: hsl(var(--card));
   border-bottom: 1px solid hsl(var(--border));
@@ -191,6 +192,8 @@ export default function NavBar({ toggleSidebar }) {
     }).then((result) => {
       if (result.isConfirmed) {
         Swal.fire("تم تسجيل الخروج!", "", "success");
+        localStorage.removeItem("userType");
+        Cookies.remove("token");
         navigate("/login");
       }
     });

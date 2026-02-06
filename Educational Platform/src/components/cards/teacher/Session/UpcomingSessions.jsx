@@ -1,7 +1,18 @@
 import styled from "styled-components";
 import { useState, useEffect } from "react";
-import { Calendar, Clock, Users, MapPin, Edit, Trash2 } from "lucide-react";
-
+import {
+  Calendar,
+  Clock,
+  Users,
+  MapPin,
+  Eye,
+  Edit,
+  Trash2,
+} from "lucide-react";
+import { Description } from "@mui/icons-material";
+import apiRequest from "../../../../utils/apiRequest";
+import Cookies from "js-cookie";
+import { formatDateToYMD, timeFromDate } from "../../../../utils/format";
 const Wrapper = styled.div`
   border: 1px solid hsl(var(--border));
   border-radius: 1rem;
@@ -109,119 +120,23 @@ export default function UpcomingSessions() {
   const [sessions, setSessions] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  // Function to split ISO date and format time in Arabic
-  const splitDateTime = (isoDateString) => {
-    if (!isoDateString) return { date: "", time: "" };
-
-    // Split at 'T' to separate date and time
-    const [datePart, timePart] = isoDateString.split("T");
-
-    if (!datePart || !timePart) {
-      return { date: "", time: "" };
-    }
-
-    // Date is already in YYYY-MM-DD format
-    const date = datePart;
-
-    // Extract hours and minutes from time part (before the seconds)
-    const timeComponents = timePart.split(":");
-    if (timeComponents.length < 2) {
-      return { date, time: "" };
-    }
-
-    let hours = parseInt(timeComponents[0]);
-    const minutes = timeComponents[1];
-
-    // Convert to 12-hour Arabic format
-    const ampm = hours >= 12 ? "م" : "ص";
-    hours = hours % 12;
-    hours = hours || 12; // Convert 0 to 12
-
-    // Format time as "ساعة:دقيقة ص/م"
-    const time = `${hours}:${minutes} ${ampm}`;
-
-    return { date, time };
-  };
-
   useEffect(() => {
     fetchSessions();
   }, []);
 
   const fetchSessions = async () => {
     try {
-      const token = localStorage.getItem("authToken");
-      if (!token) {
-        throw new Error("No token found");
-      }
-
-      const response = await fetch("/api/teacher/session", {
-        method: "GET",
-        headers: {
-          Authorization: `Bearer ${token}`,
-          "Content-Type": "application/json",
-        },
+      await apiRequest({
+        service: "TEACHER_SESSIONS",
+      }).then((res) => {
+        setSessions(res);
       });
-
-      if (response.ok) {
-        const data = await response.json();
-        console.log(data);
-
-        if (data && data.length > 0) {
-          const transformedSessions = data.map((session) => {
-            const dateField = session.session_datetime;
-            console.log(dateField);
-
-            const { date, time } = splitDateTime(dateField);
-
-            return {
-              id: session.id || session._id || Math.random(),
-              title: session.title || "بدون عنوان",
-              description: session.description || "لا يوجد وصف متاح",
-              date: date,
-              time: time,
-              students: `${session.students || 0} طالب`,
-              location: session.centers?.name || "غير محدد",
-            };
-          });
-          console.log(transformedSessions);
-
-          setSessions(transformedSessions);
-        } else {
-          setSessions(getDummyData());
-        }
-      } else {
-        setSessions(getDummyData());
-      }
-    } catch (error) {
-      console.error("Error fetching sessions:", error);
-      setSessions(getDummyData());
+    } catch (err) {
+      console.error(err);
     } finally {
       setLoading(false);
     }
   };
-
-  const getDummyData = () => [
-    {
-      id: 1,
-      title: "الرياضيات - المعادلات التفاضلية",
-      status: "مجدولة",
-      date: "2025-01-20",
-      time: "10:00 ص",
-      duration: "60 دقيقة",
-      students: "12/15 طالب",
-      location: "قاعة A-101",
-    },
-    {
-      id: 2,
-      title: "الفيزياء - قوانين نيوتن",
-      status: "مؤكدة",
-      date: "2025-01-21",
-      time: "2:00 م",
-      duration: "90 دقيقة",
-      students: "8/10 طالب",
-      location: "معمل الفيزياء",
-    },
-  ];
 
   if (loading) {
     return (
@@ -255,19 +170,19 @@ export default function UpcomingSessions() {
             <InfoRow>
               <div>
                 <Calendar size={16} />
-                {session.date}
+                {formatDateToYMD(session.session_datetime)}
               </div>
               <div>
                 <Clock size={16} />
-                {session.time}
+                {timeFromDate(session.session_datetime)}
               </div>
               <div>
                 <Users size={16} />
-                {session.students}
+                {session._count.attendances}
               </div>
               <div>
                 <MapPin size={16} />
-                {session.location}
+                {session.centers.name}
               </div>
             </InfoRow>
 
