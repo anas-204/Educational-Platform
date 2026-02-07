@@ -18,10 +18,12 @@ import SessionManagement from "../pages/teacher/SessionManagement";
 import Students from "../pages/teacher/Students";
 import TeacherProfile from "../pages/teacher/TeacherProfile";
 import ProtectedRoute from "./components/ProtectedRoute";
+import { Toaster } from "sonner";
 
 export default function App() {
   return (
     <>
+      <Toaster position="top-center" richColors closeButton dir="rtl" />
       <BrowserRouter>
         <Routes>
           <Route index element={<Home />} />

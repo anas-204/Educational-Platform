@@ -22,13 +22,22 @@ export const TEACHER_STUDENTS = ({ API }) =>
     method: "GET",
   });
 
+export const TEACHER_CENTERS = ({ API }) =>
+  API("teacher/center", {
+    method: "GET",
+  });
+export const TEACHER_SESSIONS_CREATE = ({ API, payload }) =>
+  API("teacher/session", {
+    method: "POST",
+    body: JSON.stringify(payload),
+  });
 
-
-  
 /*Default*/
 export default {
   LOGIN,
   SESSIONS,
   TEACHER_SESSIONS,
   TEACHER_STUDENTS,
+  TEACHER_CENTERS,
+  TEACHER_SESSIONS_CREATE,
 };

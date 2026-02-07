@@ -3,6 +3,8 @@ import axios from "axios";
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import Select from "@mui/material/Select";
+import apiRequest from "../../utils/apiRequest";
+import { toast } from "sonner";
 
 export default function SessionsForm({ onClose, onSubmitSuccess }) {
   const [formData, setFormData] = useState({
@@ -13,7 +15,7 @@ export default function SessionsForm({ onClose, onSubmitSuccess }) {
     session_date: "",
     session_time: "",
   });
-  const [centersData, updateCentersData] = useState([]);
+  const [centersData, setCenters] = useState([]);
 
   useEffect(() => {
     getCenters();
@@ -24,10 +26,12 @@ export default function SessionsForm({ onClose, onSubmitSuccess }) {
 
     // Create a Date object from the combined date and time
     const combinedDateTime = new Date(`${dateStr}T${timeStr}`);
-
+    console.log(combinedDateTime);
     // Convert to ISO string (e.g., "2028-01-10T00:00:00.000Z")
     return combinedDateTime.toISOString();
   };
+
+  combineDateTime("2025-10-20", "14:30");
 
   const handleChange = (e) => {
     setFormData({
@@ -52,51 +56,54 @@ export default function SessionsForm({ onClose, onSubmitSuccess }) {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    if (!validation()) {
+      return;
+    }
+
     try {
       const sessionDatetime = combineDateTime(
         formData.session_date,
         formData.session_time,
       );
-
-      const payload = {
-        ...formData,
-        session_datetime: sessionDatetime, // Use combined field
-      };
-      console.log(formData);
-      const token =
-        localStorage.getItem("authToken") ||
-        sessionStorage.getItem("authToken");
-
-      if (!token) {
-        console.error("No token found. Please log in.");
-        return;
-      }
-      const response = await axios.post("/api/teacher/session", payload, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-          "Content-Type": "application/json",
-        },
+      await apiRequest({
+        service: "TEACHER_SESSIONS_CREATE",
+        payload: { ...formData, session_datetime: sessionDatetime },
+      }).then((res) => {
+        console.log(res);
       });
-      console.log(response.data);
-      if (onSubmitSuccess) {
-        onSubmitSuccess(response.data);
-      }
-
-      if (onClose) {
-        onClose();
-      }
-    } catch (error) {
-      console.error("submitting error:", error);
+    } catch (err) {
+      console.error(err);
+      // setErrorMessage(err.message);
+    } finally {
+      // setIsLoading(false);
     }
   };
 
   const getCenters = async () => {
     try {
-      const response = await axios.get("/api/teacher/center", formData);
-      updateCentersData(response.data);
-    } catch (error) {
-      console.error("Couldn't get centers", error);
+      await apiRequest({
+        service: "TEACHER_CENTERS",
+      }).then((res) => {
+        setCenters(res);
+      });
+    } catch (err) {
+      console.error(err);
     }
+  };
+  const validation = () => {
+    if (
+      !formData.title ||
+      !formData.description ||
+      !formData.center_id ||
+      !formData.section ||
+      !formData.session_date ||
+      !formData.session_time
+    ) {
+      toast.error("يرجى ملء جميع الحقول");
+      return false;
+    }
+    return true;
   };
 
   return (
@@ -393,7 +400,10 @@ export default function SessionsForm({ onClose, onSubmitSuccess }) {
 
         {/* time Field */}
         <div className="time mx-auto my-2">
-          <label htmlFor="time" className="timeLabel text-end w-100 mb-1">
+          <label
+            htmlFor="session_time"
+            className="timeLabel text-end w-100 mb-1"
+          >
             وقت الجلسة
           </label>
           <div className="relative">
@@ -422,8 +432,8 @@ export default function SessionsForm({ onClose, onSubmitSuccess }) {
               type={"time"}
               placeholder=" أدخل وقت الجلسة "
               className="col-12 form-control text-end w-full pr-12 pl-3 py-2 text-gray-500 bg-transparent outline-none border focus:border-indigo-600 rounded-lg"
-              id="time"
-              value={formData.time}
+              id="session_time"
+              value={formData.session_time}
               onChange={handleChange}
               required
             />
