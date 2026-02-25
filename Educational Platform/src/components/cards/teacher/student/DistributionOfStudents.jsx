@@ -1,10 +1,10 @@
-import React from "react";
 import styled from "styled-components";
 import { Progress } from "@heroui/react";
 const Card = styled.div`
   --tw-shadow: var(--shadow-medium);
-  box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000),
-    var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
+  box-shadow:
+    var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000),
+    var(--tw-shadow);
   background-color: hsl(var(--card-gradient));
   border-width: 1px;
   border-radius: 0.75rem;

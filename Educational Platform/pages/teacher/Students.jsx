@@ -1,6 +1,6 @@
-import React from "react";
 import { styled } from "styled-components";
 import { Plus, Search } from "lucide-react";
+import { useState } from "react";
 import { SmallCardContainer } from "../student/ControlPanel";
 import { Award, User, Calendar, ArrowUp } from "lucide-react";
 import ControlPannelSmallCard from "../../src/components/cards/teacher/Session/SmallCard";
@@ -9,6 +9,7 @@ import DistributionOfStudents from "../../src/components/cards/teacher/student/D
 import TheBestStudent from "../../src/components/cards/teacher/student/TheBestStudent";
 
 export default function SessionManagement() {
+  const [search, setSearch] = useState("");
   return (
     <Main className="py-3 px-3 mb-4 col-11">
       <Header>
@@ -23,7 +24,11 @@ export default function SessionManagement() {
           <SearchInput>
             <div className="left">
               <Search size={18} color="#6b7280" />
-              <input placeholder="البحث عن الطلاب...." />
+              <input
+                placeholder="البحث عن الطلاب...."
+                value={search}
+                onChange={(e) => setSearch(e.target.value)}
+              />
             </div>
             <Button2>تصفية حسب الحالة</Button2>
             <Button2>تصفية حسب المرحلة</Button2>
@@ -54,7 +59,7 @@ export default function SessionManagement() {
         />
       </SmallCardContainer>
 
-      <ListOfStudents />
+      <ListOfStudents search={search} />
       <DistributionAndBestContainer>
         <DistributionOfStudents />
         <TheBestStudent />

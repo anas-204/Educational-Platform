@@ -1,25 +1,42 @@
-import React from "react";
 import styled from "styled-components";
 import {
   Calendar,
   Clock,
   Users,
-  MapPin,
   Eye,
   Edit,
   Trash2,
+  FileText,
+  BookOpen,
+  Circle,
+  Activity,
+  Award,
+  Settings,
 } from "lucide-react";
-import { Progress } from "@heroui/react";
+import { Progress, Pagination, Spinner } from "@heroui/react";
+import apiRequest from "../../../../utils/apiRequest";
+import { formatDateToYMD, timeFromDate } from "../../../../utils/format";
+import { useState, useEffect } from "react";
+import { CircularProgress } from "@mui/material";
+import {
+  Table,
+  TableHeader,
+  TableColumn,
+  TableBody,
+  TableRow,
+  TableCell,
+} from "@heroui/react";
 
-const Wrapper = styled.div`
-  border: 1px solid hsl(var(--border));
-  border-radius: 1rem;
-  padding: 1rem;
-  background: hsl(var(--background));
+// Styled components (only those used)
+const Card = styled.div`
   --tw-shadow: var(--shadow-medium);
-  box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000),
-    var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
+  box-shadow:
+    var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000),
+    var(--tw-shadow);
   background-color: hsl(var(--card-gradient));
+  border-width: 1px;
+  border-radius: 0.75rem;
+  border-color: hsl(var(--border));
 `;
 
 const Title = styled.h3`
@@ -31,32 +48,15 @@ const Title = styled.h3`
   color: hsl(var(--foreground));
 `;
 
-const SessionBox = styled.div`
-  border: 1px solid #hsl(var(--border));
+const TableWrapper = styled.div`
+  border: 1px solid hsl(var(--border));
   border-radius: 0.75rem;
-  padding: 1rem;
-  margin-bottom: 1rem;
-  background: hsl(var(--card));
+  background-color: hsl(var(--background));
+  overflow: hidden;
+  box-shadow: var(--shadow-medium);
+  padding: 0.5rem;
 `;
 
-const Header = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 0.75rem;
-
-  h3 {
-    font-size: 1.125rem !important;
-    line-height: 1.75rem !important;
-    font-weight: 600 !important;
-    color: hsl(var(--foreground));
-  }
-`;
-
-const BadgeAndSubject = styled.div`
-  display: flex;
-  gap: 4px;
-`;
 const Badge = styled.span`
   border-radius: 9999px;
   padding: 0.25rem 0.75rem;
@@ -65,213 +65,263 @@ const Badge = styled.span`
   color: #fff;
   background-color: ${({ status }) =>
     status === "نشط" ? "#7c3aed" : status === "مكتمل" ? "#0ea5e9" : "#6b7280"};
+  display: inline-block;
 `;
-const Subject = styled.span`
+
+const LevelBadge = styled.span`
   border-radius: 9999px;
   padding: 0.25rem 0.75rem;
   font-size: 0.75rem;
   font-weight: 500;
-  color: black;
-  background-color: white;
-  border: 1px solid #e5e7eb;
-`;
-const Description = styled.p`
-  color: hsl(var(--muted-foreground));
-  font-size: 0.875rem;
-  line-height: 1.25rem;
-  margin-top: -15px !important;
-  margin-bottom: 14px !important;
-`;
-const InfoRow = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  gap: 1rem;
-  margin-bottom: 0.75rem;
-
-  div {
-    display: flex;
-    align-items: center;
-    gap: 0.25rem;
-    font-size: 0.875rem;
-    color: hsl(var(--muted-foreground));
-  }
-`;
-const Level = styled.div`
-  font-weight: 500;
-  color: ${({ status }) =>
-    status === "صعب"
-      ? "hsl(var(--warning)) !important"
-      : status === "متوسط"
-      ? "hsl(var(--destructive)) !important"
-      : "green !important"};
+  color: #fff;
+  background-color: ${({ level }) =>
+    level === "صعب"
+      ? "hsl(var(--warning))"
+      : level === "متوسط"
+        ? "hsl(var(--destructive))"
+        : "#10b981"}; // easy: green
+  display: inline-block;
 `;
 
-const Actions = styled.div`
+const ActionsContainer = styled.div`
   display: flex;
   gap: 0.5rem;
-  flex-wrap: wrap;
+  justify-content: center;
 `;
-const Points = styled.div``;
+
 const ActionBtn = styled.button`
   display: flex;
   align-items: center;
-  gap: 0.25rem;
-  padding: 0.25rem 0.75rem;
+  justify-content: center;
+  padding: 0.35rem 0.75rem;
   font-size: 0.875rem;
   border: 1px solid hsl(var(--border));
   border-radius: 0.5rem;
-  background: hsl(var(--primary));
+  background: hsl(var(--background));
   cursor: pointer;
-  transition: background 0.2s;
+  transition: all 0.2s;
   color: hsl(var(--foreground));
 
   &:hover {
-    background: hsl(var(--accent));
+    background: hsl(var(--primary-dark));
+    color: hsl(var(--background));
   }
 `;
 
-const SubmittingNumber = styled.div``;
-const Count = styled.div`
-  justify-content: space-between;
-  align-items: center;
-  display: flex;
-  margin-bottom: 0.5rem;
-  > span:first-of-type {
-    font-weight: 500 !important;
-    font-size: 0.875rem !important;
-    line-height: 1.25rem !important;
-  }
-  > span:last-of-type {
-    color: hsl(var(--muted-foreground));
-    font-size: 0.875rem !important;
-    line-height: 1.25rem !important;
-  }
-`;
-const Finsh = styled.div`
-  justify-content: space-between;
-  align-items: center;
-  display: flex;
-  margin-bottom: 0.5rem;
-  > span:first-of-type {
-    font-weight: 500 !important;
-    font-size: 0.875rem !important;
-    line-height: 1.25rem !important;
-    color: hsl(var(--success));
-  }
-  > span:last-of-type {
-    color: hsl(var(--muted-foreground));
-    font-size: 0.875rem !important;
-    line-height: 1.25rem !important;
-    color: hsl(var(--warning));
-  }
-`;
 export default function ActiveMission() {
-  const missions = [
-    {
-      id: 1,
-      title: "حل المعادلات التربيعية",
-      subject: "رياضيات",
-      status: "نشط",
-      description: "حل مجموعة من المعادلات التربيعية باستخدام القانون العام",
-      dueDate: "2025-01-25",
-      createdAt: "2025-01-18",
-      totalStudents: 15,
-      submittedStudents: 12,
-      corrected: 8,
-      waiting: 4,
-      level: "متوسط",
-      points: 20,
-    },
-    {
-      id: 2,
-      title: "تجربة قوانين نيوتن",
-      subject: "فيزياء",
-      status: "نشط",
-      description: "إجراء تجربة عملية لإثبات قوانين نيوتن الثلاثة",
-      dueDate: "2025-01-30",
-      createdAt: "2025-01-20",
-      totalStudents: 10,
-      submittedStudents: 3,
-      corrected: 0,
-      waiting: 3,
-      level: "صعب",
-      points: 30,
-    },
+  const [missions, setMissions] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [page, setPage] = useState(1);
+  const [missionsCount, setMissionsCount] = useState(0);
+  const rowsPerPage = 10; // adjust based on API page size
+
+  useEffect(() => {
+    fetchMissions();
+  }, [page]);
+
+  const fetchMissions = async () => {
+    setLoading(true);
+    try {
+      const params = new URLSearchParams();
+      params.append("page", String(page));
+      const queryString = params.toString() ? `?${params.toString()}` : "";
+
+      const res = await apiRequest({
+        service: "TEACHER_QUIZZES",
+        filter: queryString,
+      });
+
+      console.log("Missions API response:", res);
+
+      let missionsArray = [];
+      let totalCount = 0;
+
+      if (res.data && Array.isArray(res.data)) {
+        missionsArray = res.data;
+        totalCount = res.total || 0;
+      } else if (res.results && Array.isArray(res.results)) {
+        missionsArray = res.results;
+        totalCount = res.count || 0;
+      } else if (Array.isArray(res)) {
+        missionsArray = res;
+        totalCount = res.length; // fallback – pagination won't work
+      } else {
+        missionsArray = res || [];
+        totalCount = missionsArray.length;
+      }
+
+      setMissions(missionsArray);
+      setMissionsCount(totalCount);
+    } catch (err) {
+      console.error(err);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const totalPages = Math.ceil(missionsCount / rowsPerPage);
+
+  const columns = [
+    { key: "title", label: "المهمة", icon: FileText },
+    { key: "subject", label: "المادة", icon: BookOpen },
+    { key: "status", label: "الحالة", icon: Circle },
+    { key: "dueDate", label: "تاريخ التسليم", icon: Calendar },
+    { key: "level", label: "المستوى", icon: Activity },
+    { key: "points", label: "النقاط", icon: Award },
+    { key: "students", label: "الطلاب", icon: Users },
+    { key: "actions", label: "الإجراءات", icon: Settings },
   ];
 
-  const Total = 15;
-  const Submitting = 12;
+  // Prepare items for table – format dates if needed
+  const items = missions.map((mission) => ({
+    ...mission,
+    // If mission.dueDate is a date string, keep as is; otherwise format if it's a datetime
+    dueDate: mission.dueDate
+      ? mission.dueDate
+      : formatDateToYMD(mission.createdAt), // fallback
+    students: `${mission.submittedStudents || 0}/${mission.totalStudents || 0}`,
+  }));
+
+  if (loading && missions.length === 0) {
+    return (
+      <Card>
+        <Title>المهام النشطة</Title>
+        <div style={{ textAlign: "center", padding: "40px" }}>
+          <CircularProgress />
+        </div>
+      </Card>
+    );
+  }
+
   return (
-    <Wrapper>
-      <Title>المهام النشطة</Title>
-      {missions.map((mission) => (
-        <SessionBox key={mission.id}>
-          <Header>
-            <h3>{mission.title}</h3>
-            <BadgeAndSubject>
-              <Subject>{mission.subject}</Subject>
-              <Badge status={mission.status}>{mission.status}</Badge>
-            </BadgeAndSubject>
-          </Header>
-
-          <Description>{mission.description}</Description>
-
-          <InfoRow>
-            <div>
-              <Calendar size={16} />
-              موعد التسليم: {mission.dueDate}
-            </div>
-            <div>
-              <Clock size={16} />
-              تم الإنشاء: {mission.createdAt}
-            </div>
-            <div>
-              <Users size={16} />
-              {mission.totalStudents} طالب
-            </div>
-            <div>
-              <Level status={mission.level}>المستوي: {mission.level}</Level>
-            </div>
-            <div>
-              <Points>{mission.points} نقطة</Points>
-            </div>
-          </InfoRow>
-
-          <Actions>
-            <ActionBtn>
-              <Eye size={16} /> عرض
-            </ActionBtn>
-            <ActionBtn>
-              <Edit size={16} /> تعديل
-            </ActionBtn>
-            <ActionBtn>
-              <Trash2 size={16} /> حذف
-            </ActionBtn>
-          </Actions>
-          <hr color="hsl(var(--muted-foreground))" />
-
-          <SubmittingNumber>
-            <Count>
-              <span>تقدم التسليم</span>
-              <span>
-                {mission.submittedStudents}/{mission.totalStudents} طالب سلم
-              </span>
-            </Count>
-            <div className="flex flex-col gap-6 w-full mb-3 mt-2 progres rounded-3">
-              <Progress
-                aria-label="Attendance"
-                value={
-                  (mission.submittedStudents / mission.totalStudents) * 100
-                }
-              />
-            </div>
-            <Finsh>
-              <span>تم تصحيح: {mission.corrected} مهمة</span>
-              <span>في انتظار التصحيح: {mission.waiting} مهمة</span>
-            </Finsh>
-          </SubmittingNumber>
-        </SessionBox>
-      ))}
-    </Wrapper>
+    <div dir="rtl">
+      <TableWrapper>
+        <Table
+          aria-label="قائمة المهام النشطة"
+          bottomContent={
+            totalPages > 1 ? (
+              <div
+                className="flex w-full justify-center"
+                style={{ marginTop: "20px" }}
+              >
+                <Pagination
+                  showShadow
+                  color="primary"
+                  page={page}
+                  total={totalPages}
+                  onChange={(newPage) => setPage(newPage)}
+                />
+              </div>
+            ) : null
+          }
+          style={{ minWidth: "100%", borderCollapse: "collapse" }}
+        >
+          <TableHeader columns={columns}>
+            {(column) => {
+              const Icon = column.icon;
+              return (
+                <TableColumn
+                  key={column.key}
+                  align="center"
+                  style={{
+                    fontSize: "0.75rem",
+                    color: "hsl(var(--muted-foreground))",
+                    fontFamily: "Cairo, sans-serif",
+                    borderBottom: "1px solid hsl(var(--border))",
+                    padding: "12px 8px",
+                  }}
+                >
+                  <div
+                    style={{
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      gap: "6px",
+                    }}
+                  >
+                    <Icon size={16} />
+                    {column.label}
+                  </div>
+                </TableColumn>
+              );
+            }}
+          </TableHeader>
+          <TableBody
+            items={items}
+            loadingContent={<Spinner />}
+            loadingState={loading ? "loading" : "idle"}
+          >
+            {(item) => (
+              <TableRow key={item.id}>
+                {(columnKey) => {
+                  const cellStyle = {
+                    fontSize: "0.75rem",
+                    fontFamily: "Cairo, sans-serif",
+                    borderBottom: "1px solid hsl(var(--border))",
+                    padding: "12px 8px",
+                  };
+                  switch (columnKey) {
+                    case "title":
+                      return (
+                        <TableCell style={cellStyle}>
+                          <div style={{ fontWeight: 500 }}>{item.title}</div>
+                        </TableCell>
+                      );
+                    case "subject":
+                      return (
+                        <TableCell style={cellStyle}>{item.subject}</TableCell>
+                      );
+                    case "status":
+                      return (
+                        <TableCell style={cellStyle}>
+                          <Badge status={item.status}>{item.status}</Badge>
+                        </TableCell>
+                      );
+                    case "dueDate":
+                      return (
+                        <TableCell style={cellStyle}>{item.dueDate}</TableCell>
+                      );
+                    case "level":
+                      return (
+                        <TableCell style={cellStyle}>
+                          <LevelBadge level={item.level}>
+                            {item.level}
+                          </LevelBadge>
+                        </TableCell>
+                      );
+                    case "points":
+                      return (
+                        <TableCell style={cellStyle}>{item.points}</TableCell>
+                      );
+                    case "students":
+                      return (
+                        <TableCell style={cellStyle}>{item.students}</TableCell>
+                      );
+                    case "actions":
+                      return (
+                        <TableCell style={cellStyle}>
+                          <ActionsContainer>
+                            <ActionBtn>
+                              <Eye size={16} />
+                            </ActionBtn>
+                            <ActionBtn>
+                              <Edit size={16} />
+                            </ActionBtn>
+                            <ActionBtn>
+                              <Trash2 size={16} />
+                            </ActionBtn>
+                          </ActionsContainer>
+                        </TableCell>
+                      );
+                    default:
+                      return null;
+                  }
+                }}
+              </TableRow>
+            )}
+          </TableBody>
+        </Table>
+      </TableWrapper>
+    </div>
   );
 }

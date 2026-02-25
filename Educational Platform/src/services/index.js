@@ -17,9 +17,10 @@ export const TEACHER_SESSIONS = ({ API }) =>
     method: "GET",
   });
 
-export const TEACHER_STUDENTS = ({ API }) =>
-  API("teacher/student", {
+export const TEACHER_STUDENTS = ({ API, filter }) =>
+  API(`teacher/student${filter}`, {
     method: "GET",
+
   });
 
 export const TEACHER_CENTERS = ({ API }) =>
@@ -30,6 +31,10 @@ export const TEACHER_SESSIONS_CREATE = ({ API, payload }) =>
   API("teacher/session", {
     method: "POST",
     body: JSON.stringify(payload),
+  });
+export const TEACHER_QUIZZES = ({ API }) =>
+  API("teacher/quiz", {
+    method: "GET",
   });
 
 /*Default*/
